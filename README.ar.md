@@ -63,7 +63,7 @@ npx @alwkala/create-cinematic-kit my-luxury-landing
 ### الخيار الثاني: تثبيت مهارة الذكاء الاصطناعي في مشروع قائم
 قم بحقن ذاكرة وقواعد الحزمة في بيئة عملك الحالية:
 ```bash
-npx add-cinematic-skill
+npx @alwkala/create-cinematic-kit
 ```
 
 ---
