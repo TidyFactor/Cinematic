@@ -1,6 +1,14 @@
 <div align="center">
 
 # 🎬 Cinematic Landing Kit `v3.0.0`
+## We are building the open ecosystem for AI-ready business websites.
+
+**The official marketing website starter for the TidyFactor Ecosystem.**
+TidyFactor (Open Web Development Ecosystem)
+├── Design System
+├──── Cinematic Landing Kit   ← You are here
+├── CMS
+└── other products 
 
 **Apple × Cartier Aesthetic — Scroll-Driven Luxury Product Landing Pages for Any AI Agent**
 
