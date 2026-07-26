@@ -165,7 +165,7 @@ Open `http://localhost:8123` in a **visible** (not backgrounded) browser tab. Hi
 
 ### Security Vulnerabilities
 
-**Do NOT open a public issue.** Email **hello@eplusweb.dev** directly with:
+**Do NOT open a public issue.** Email **development@alwkala.com** directly with:
 - Description of the vulnerability
 - Steps to reproduce
 - Potential impact
