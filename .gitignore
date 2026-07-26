@@ -28,6 +28,11 @@ desktop.ini
 *.swp
 *.swo
 
+# Node
+node_modules/
+package-lock.json
+*.tgz
+
 # Environment
 .env
 .env.local

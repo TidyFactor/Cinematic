@@ -2,11 +2,33 @@
 
 # حزمة الصفحات السينمائية — Cinematic Landing Kit
 
+[![npm version](https://img.shields.io/npm/v/@alwkala/create-cinematic-kit.svg?color=gold&style=flat-square)](https://www.npmjs.com/package/@alwkala/create-cinematic-kit)
+[![npm downloads](https://img.shields.io/npm/dm/@alwkala/create-cinematic-kit.svg?style=flat-square)](https://www.npmjs.com/package/@alwkala/create-cinematic-kit)
+[![license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](LICENSE)
+
 حزمة سياق وذاكرة تُوجّه **أي وكيل ذكاء اصطناعي للبرمجة** لإنتاج صفحات هبوط سينمائية تفاعلية مبنية على التمرير — من النوع الذي يبدو كإعلان فاخر، وليس مجرد موقع ويب. ملف HTML واحد، مكتبات CDN، بدون خطوة بناء.
 
 ```
 الوكيل يقرأ AGENTS.md  ←  يتبع memory/  ←  ينتج index.html  ←  انتهى.
 ```
+
+## التشغيل السريع عبر NPX 🚀
+
+متاحة رسمياً على NPM: [**@alwkala/create-cinematic-kit**](https://www.npmjs.com/package/@alwkala/create-cinematic-kit)
+
+### 1. إنشاء مشروع جديد
+لإنشاء مشروع جديد مجهز بالكامل من القالب مباشرة:
+```bash
+npx @alwkala/create-cinematic-kit my-luxury-landing
+```
+
+### 2. تثبيت مهارة الذكاء الاصطناعي (Agent Skill) في مشروع قائم
+لتزويد مساعد الذكاء الاصطناعي في مشروعك الحالي بمهارات وتوجيهات بناء الصفحات السينمائية:
+```bash
+npx add-cinematic-skill
+```
+
+---
 
 يعمل مع أي وكيل ذكاء اصطناعي يقرأ ملفات التعليمات على مستوى المشروع (`AGENTS.md`، `.cursorrules`، system prompts، إلخ).
 
@@ -71,6 +93,17 @@ python -m http.server 8123
 
 هذا كل شيء. الوكيل يقرأ `AGENTS.md`، يتبع ترتيب البناء، وينتج ملف `index.html` يعمل من المحاولة الأولى.
 
+### لمستخدمي Claude.ai / Claude Code
+
+ملف `AGENTS.md` هو المصدر الأساسي العابر للوكلاء ويعمل كما هو. إذا كنت تستخدم Claude بشكل خاص، فإن مجلد `.claude-skill/` يغلف هذه الحزمة — دون تغيير — كمهارة Claude قابلة للتثبيت وتدعم 17 أمراً تفاعلياً (`init`, `brand`, `media`, `film`, `hero`, `theme`, `transitions`, `i18n`, `convert`, `audit`, `deploy`, `typeface`, `perf`, `a11y`, `clone-brand`, `variant`). يمكنك بناء الحزمة القابلة للتوزيع عبر:
+
+```bash
+node tools/build-skill.js
+# ← ينتج dist/tidyfactor-cinematic.skill
+```
+
+راجع `.claude-skill/SKILL.md` للتفاصيل.
+
 ---
 
 ## محتويات الحزمة
@@ -78,7 +111,7 @@ python -m http.server 8123
 ```
 ├── AGENTS.md                         → نقطة الدخول التي يقرأها أي وكيل تلقائياً
 ├── brand.json                        → المصدر الوحيد لهوية العلامة التجارية
-├── memory/                           → ١١ ملف مرجعي (الحمض النووي للتصميم)
+├── memory/                           → ١٦ ملف مرجعي (الحمض النووي للتصميم)
 │   ├── 01-build-playbook.md             هيكل الصفحة، محرك Lenis + GSAP
 │   ├── 02-scroll-film-canvas.md         ★ تقنية إطارات Canvas
 │   ├── 03-seamless-transitions.md       مقاطع فيديو متطابقة الحدود
@@ -92,7 +125,14 @@ python -m http.server 8123
 │   ├── 08-preview-and-env-gotchas.md    مشاكل التبويب المخفي، التحقق عبر eval
 │   ├── 09-quality-bar.md                معايير الرفض التلقائي
 │   ├── 10-use-cases.md                  ★ توجيه حالات الاستخدام: ١٥ حالة
-│   └── 11-brand-json.md                 ★ مخطط brand.json، ربط المتغيرات
+│   ├── 11-brand-json.md                 ★ مخطط brand.json، ربط المتغيرات
+│   ├── 12-arabic-typography.md          الطباعة العربية الفاخرة وأزواج الخطوط
+│   ├── 13-performance-budget.md         ميزانية الأداء وضوابط 60 إطار/ثانية
+│   ├── 14-accessibility.md              إتاحة الوصول (A11y)، دعم RTL والتركيز
+│   ├── 15-brand-extraction.md           استخراج هوية brand.json من مواقع قائمة
+│   └── 16-variants.md                   إنشاء النسخ والمتغيرات والتجربة (A/B)
+├── .claude-skill/                    → غلاف مهارات Claude (يشمل SKILL.md و17 أمراً)
+├── tools/                            → أداة التغليف build-skill.js
 ├── templates/
 │   ├── layouts/                       → اختر قالباً واحداً لكل مشروع
 │   │   ├── fullbleed.html                فيلم تمرير طويل + بطل هالة

@@ -1,11 +1,31 @@
 # Cinematic Landing Kit
 
+[![npm version](https://img.shields.io/npm/v/@alwkala/create-cinematic-kit.svg?color=gold&style=flat-square)](https://www.npmjs.com/package/@alwkala/create-cinematic-kit)
+[![npm downloads](https://img.shields.io/npm/dm/@alwkala/create-cinematic-kit.svg?style=flat-square)](https://www.npmjs.com/package/@alwkala/create-cinematic-kit)
+[![license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](LICENSE)
+
 A context-and-memory package that instructs **any AI coding agent** to produce
 scroll-driven, cinematic product landing pages — the kind that feel like a
-luxury TV ad, not a website.  One HTML file, CDN libraries, zero build step.
+luxury TV ad, not a website. One HTML file, CDN libraries, zero build step.
 
 ```
 AI agent reads AGENTS.md  →  follows memory/  →  produces index.html  →  done.
+```
+
+## Quick Start via NPX 🚀
+
+Published on NPM: [**@alwkala/create-cinematic-kit**](https://www.npmjs.com/package/@alwkala/create-cinematic-kit)
+
+### 1. Create a New Cinematic Landing Project
+Create a new project scaffold directly using `npx`:
+```bash
+npx @alwkala/create-cinematic-kit my-luxury-landing
+```
+
+### 2. Install Agent Skill in an Existing Project / Workspace
+Inject the Cinematic Landing Kit agent skill into your current project:
+```bash
+npx add-cinematic-skill
 ```
 
 <img align="right" width="180" src="https://github.com/alwkala/Cinematic-Landing-Kit/blob/main/CinematicLandingKit.jpg" alt="Cinematic-Landing-Kit"/>
@@ -108,6 +128,23 @@ python -m http.server 8123
 That's it. The agent reads `AGENTS.md`, follows the build order, and produces a
 working `index.html` on the first attempt.
 
+### Claude.ai / Claude Code users
+
+`AGENTS.md` above is the cross-agent source of truth and works as-is. If you
+use Claude specifically, `.claude-skill/` packages this same kit — unchanged
+— as an installable Claude Skill with 11 discoverable commands
+(`init`, `brand`, `media`, `film`, `hero`, `theme`, `transitions`, `i18n`,
+`convert`, `audit`, `deploy`) instead of one linear build order. Build the
+distributable package with:
+
+```bash
+node tools/build-skill.js
+# → dist/tidyfactor-cinematic.skill
+```
+
+See `.claude-skill/SKILL.md` for what it adds and why it's a separate,
+generated artifact rather than a duplicate of `memory/`/`templates/`/`scripts/`.
+
 ---
 
 ## What's inside
@@ -115,7 +152,7 @@ working `index.html` on the first attempt.
 ```
 ├── AGENTS.md                         ← entry point any agent reads automatically
 ├── brand.json                        ← single source of truth for brand identity (colors, fonts, voice, assets)
-├── memory/                           ← 11 reference files (the "DNA" of the look)
+├── memory/                           ← 16 reference files (the "DNA" of the look)
 │   ├── 01-build-playbook.md             page structure, Lenis + GSAP motion stack
 │   ├── 02-scroll-film-canvas.md         ★ canvas frame-sequence technique
 │   ├── 03-seamless-transitions.md       boundary-matched video clips
@@ -129,7 +166,14 @@ working `index.html` on the first attempt.
 │   ├── 08-preview-and-env-gotchas.md    hidden-tab quirks, eval-based verification
 │   ├── 09-quality-bar.md                what gets auto-rejected
 │   ├── 10-use-cases.md                  ★ use-case routing: 15 use cases → layout + beats + media
-│   └── 11-brand-json.md                 ★ brand.json schema, CSS var mapping, voice/identity rules
+│   ├── 11-brand-json.md                 ★ brand.json schema, CSS var mapping, voice/identity rules
+│   ├── 12-arabic-typography.md          luxury Arabic font pairings by layout & register
+│   ├── 13-performance-budget.md         performance budget, frame sequence caps, 60fps rules
+│   ├── 14-accessibility.md              RTL/LTR accessibility (A11y) standards & focus rules
+│   ├── 15-brand-extraction.md           brand.json extraction workflow from existing sites
+│   └── 16-variants.md                   A/B design variants & regional/localized versions
+├── .claude-skill/                    ← Claude Skill wrapper (SKILL.md + 17 command references)
+├── tools/                            ← build-skill.js packaging utility
 ├── templates/
 │   ├── layouts/                       ← choose one layout variant per project
 │   │   ├── fullbleed.html                long scroll film + aura hero (1,2,3,7,9,11,12,14,15)

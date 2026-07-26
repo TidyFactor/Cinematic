@@ -90,3 +90,8 @@ The frame extraction recipe (no ffmpeg needed) is in `memory/06-media-pipeline.m
 - `memory/09-quality-bar.md` — the auto-reject checklist (what gets thrown out)
 - `memory/10-use-cases.md` — use-case routing: which layout, which sections, which media prompts for all 15 use cases
 - `memory/11-brand-json.md` — brand token schema, CSS variable → brand.json mapping, voice/identity/localization rules, verification checklist
+- `memory/12-arabic-typography.md` — Arabic luxury font pairings by layout & emotional register
+- `memory/13-performance-budget.md` — performance budget, frame sequence caps, 60fps rules
+- `memory/14-accessibility.md` — accessibility (A11y), RTL/LTR standards, high contrast, reduced motion
+- `memory/15-brand-extraction.md` — brand.json extraction workflow from existing sites/identity
+- `memory/16-variants.md` — A/B design variants and regional/localized versions

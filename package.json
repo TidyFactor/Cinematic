@@ -1,0 +1,55 @@
+{
+  "name": "@alwkala/create-cinematic-kit",
+  "version": "2.0.0",
+  "description": "CLI generator and Agent Skill installer for Cinematic Landing Kit (Apple x Cartier aesthetic scroll-driven landing pages)",
+  "main": "bin/create-kit.js",
+  "bin": {
+    "create-cinematic-kit": "bin/create-kit.js",
+    "cinematic-kit": "bin/create-kit.js",
+    "add-cinematic-skill": "bin/add-skill.js"
+  },
+  "scripts": {
+    "test": "node ./bin/create-kit.js --help"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alwkala/Cinematic-Landing-Kit.git"
+  },
+  "keywords": [
+    "create-cinematic-kit",
+    "cinematic-landing-kit",
+    "agent-skill",
+    "landing-page",
+    "gsap",
+    "lenis",
+    "scroll-film",
+    "cli",
+    "npx"
+  ],
+  "author": "alwkala",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alwkala/Cinematic-Landing-Kit/issues"
+  },
+  "homepage": "https://github.com/alwkala/Cinematic-Landing-Kit#readme",
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "ora": "^5.4.1",
+    "prompts": "^2.4.2"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "files": [
+    "bin",
+    "templates",
+    "memory",
+    "scripts",
+    "assets",
+    "brand.json",
+    "AGENTS.md",
+    "README.md",
+    "README.ar.md",
+    "LICENSE"
+  ]
+}
