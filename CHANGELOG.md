@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [3.0.0] - 2026-07-26
+
+### Added
+- **Google Antigravity & Gemini Native Integration**:
+  - Dedicated Google Antigravity Agent Skill wrapper under `.agents/skills/cinematic-landing-kit/SKILL.md`.
+  - Direct integration with Antigravity native tools: `generate_image` (Nano Banana / Imagen 3) for keyframes and transparent hero PNG cutouts, and `browser_subagent` for automated visual preview & 60FPS scroll verification.
+  - Dedicated Google Gemini media pipeline reference: `memory/06-media-pipeline-gemini.md` leveraging multimodal visual feedback loops.
+- **Dual-Agent Packaging Tooling**:
+  - Added `tools/build-antigravity.js` and `npm run build:antigravity` / `npm run build:all` to produce distributable packages for both Claude Code (`dist/tidyfactor-cinematic.skill`) and Google Antigravity (`dist/cinematic-landing-kit.agents.zip`).
+- **Updated Documentation**:
+  - Updated English & Arabic documentation (`README.md`, `README.ar.md`, `AGENTS.md`) highlighting Google Antigravity & Gemini 1.5/2.0/Flash native compatibility.
+
 ## [2.0.0] - 2026-07-26
 
 ### Added

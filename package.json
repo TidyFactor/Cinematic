@@ -9,7 +9,10 @@
     "add-cinematic-skill": "bin/add-skill.js"
   },
   "scripts": {
-    "test": "node ./bin/create-kit.js --help"
+    "test": "node ./bin/create-kit.js --help",
+    "build:claude": "node tools/build-skill.js",
+    "build:antigravity": "node tools/build-antigravity.js",
+    "build:all": "node tools/build-skill.js && node tools/build-antigravity.js"
   },
   "repository": {
     "type": "git",

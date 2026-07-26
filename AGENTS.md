@@ -86,6 +86,7 @@ The frame extraction recipe (no ffmpeg needed) is in `memory/06-media-pipeline.m
 - `memory/06-media-pipeline-qwen.md` — Qwen Image + Wan via DashScope API
 - `memory/06-media-pipeline-higgsfield.md` — Higgsfield CLI (nano_banana_2 + seedance_2_0)
 - `memory/06-media-pipeline-nanobanana.md` — Nano Banana via generate_image tool
+- `memory/06-media-pipeline-gemini.md` — Google Gemini & Antigravity native generate_image + browser_subagent loop
 - `memory/08-preview-and-env-gotchas.md` — all the env quirks above, with full explanations
 - `memory/09-quality-bar.md` — the auto-reject checklist (what gets thrown out)
 - `memory/10-use-cases.md` — use-case routing: which layout, which sections, which media prompts for all 15 use cases

@@ -1,16 +1,17 @@
 <div align="center">
 
-# 🎬 Cinematic Landing Kit `v2.0.0`
+# 🎬 Cinematic Landing Kit `v3.0.0`
 
 **Apple × Cartier Aesthetic — Scroll-Driven Luxury Product Landing Pages for Any AI Agent**
 
 [![npm version](https://img.shields.io/npm/v/@alwkala/create-cinematic-kit.svg?color=gold&style=for-the-badge&logo=npm)](https://www.npmjs.com/package/@alwkala/create-cinematic-kit)
 [![npm downloads](https://img.shields.io/npm/dm/@alwkala/create-cinematic-kit.svg?style=for-the-badge&logo=npm)](https://www.npmjs.com/package/@alwkala/create-cinematic-kit)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg?style=for-the-badge)](LICENSE)
+[![Universal AI Agents](https://img.shields.io/badge/AI%20Agents-Universal%20Compatibility-4285F4.svg?style=for-the-badge)](README.md)
 [![RTL Ready](https://img.shields.io/badge/RTL-Native%20Arabic-emerald.svg?style=for-the-badge)](README.ar.md)
 [![Zero Build](https://img.shields.io/badge/Build-Zero%20Step-purple.svg?style=for-the-badge)](#stack)
 
-[✨ Live Demo](https://alwkala.com/design-system-kit/) • [🚀 Quick Start](#-quick-start) • [🤖 Claude Skill](#-claudeai--claude-code-users) • [📖 Read in Arabic (بالعربية)](README.ar.md)
+[✨ Live Demo](https://alwkala.com/design-system-kit/) • [🚀 Quick Start](#-quick-start) • [🤖 Agent Skills](#-agent-skills) • [📖 Read in Arabic (بالعربية)](README.ar.md)
 
 </div>
 

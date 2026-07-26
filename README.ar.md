@@ -1,16 +1,17 @@
 <div dir="rtl" align="right">
 
-# 🎬 حزمة الصفحات السينمائية — Cinematic Landing Kit `v2.0.0`
+# 🎬 حزمة الصفحات السينمائية — Cinematic Landing Kit `v3.0.0`
 
 **تجربة سينمائية بأسلوب Apple × Cartier — صفحات هبوط تفاعلية فاخرة تُعرض بالتمرير لأي وكيل ذكاء اصطناعي**
 
 [![npm version](https://img.shields.io/npm/v/@alwkala/create-cinematic-kit.svg?color=gold&style=for-the-badge&logo=npm)](https://www.npmjs.com/package/@alwkala/create-cinematic-kit)
 [![npm downloads](https://img.shields.io/npm/dm/@alwkala/create-cinematic-kit.svg?style=for-the-badge&logo=npm)](https://www.npmjs.com/package/@alwkala/create-cinematic-kit)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg?style=for-the-badge)](LICENSE)
+[![Universal AI Agents](https://img.shields.io/badge/AI%20Agents-Universal%20Compatibility-4285F4.svg?style=for-the-badge)](README.ar.md)
 [![English Docs](https://img.shields.io/badge/Docs-English-blue.svg?style=for-the-badge)](README.md)
 [![Zero Build](https://img.shields.io/badge/Build-Zero%20Step-purple.svg?style=for-the-badge)](#-المكدس-التقني)
 
-[✨ المعاينة الحية (Live Demo)](https://alwkala.com/design-system-kit/) • [🚀 البداية السريعة](#-البداية-السريعة-عبر-npx) • [🤖 مهارة Claude](#-لمستخدمي-claudeai--claude-code) • [📖 التوثيق باللغة الإنجليزية](README.md)
+[✨ المعاينة الحية (Live Demo)](https://alwkala.com/design-system-kit/) • [🚀 البداية السريعة](#-البداية-السريعة-عبر-npx) • [🤖 مهارات وكلاء الذكاء الاصطناعي](#-مهارات-وكلاء-الذكاء-الاصطناعي) • [📖 التوثيق باللغة الإنجليزية](README.md)
 
 ---
 
