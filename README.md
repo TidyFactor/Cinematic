@@ -91,7 +91,7 @@ npx @alwkala/create-cinematic-kit my-luxury-landing
 ### Option B: Inject Agent Skill into an Existing Project
 Inject the agent memory, rules, and skills into your current workspace:
 ```bash
-npx add-cinematic-skill
+npx @alwkala/create-cinematic-kit
 ```
 
 ---
