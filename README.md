@@ -32,7 +32,7 @@ npx add-cinematic-skill
 
 # Demo 
 check the output of the design-system-kit live on : 
-https://alwkala.com/demos/design-system-kit/
+https://alwkala.com/design-system-kit/
 
 <img align="right" width="180" src="https://github.com/alwkala/Cinematic-Landing-Kit/blob/main/screenshot-1.jpg" alt="Screenshot"/>
 
