@@ -1,6 +1,6 @@
 ---
 name: cinematic-landing-kit
-description: Universal AI Agent Skill — Builds single-file, scroll-driven luxury landing pages (Apple x Cartier aesthetic) as one index.html with CDN-only libraries (GSAP, Lenis, Tailwind), zero build step, no framework. Fully compatible out-of-the-box with Google Antigravity, Claude Code, Cursor, Windsurf, Roo Code, Cline, Codex, and all AGENTS.md compliant AI coding agents. Scrubbed canvas frame sequence product film. Reads brand.json as single source of truth for identity, colors, typography, voice, and localization. Supports 7 luxury layouts (film, story, space, app, creator, product, store) and curated luxury Arabic typography. Trigger on commands "init", "brand", "clone-brand", "media", "film", "hero", "theme", "typeface", "transitions", "i18n", "perf", "a11y", "convert", "audit", "variant", "deploy", or requests like "build a cinematic landing page", "scroll-driven product page", "luxury Apple-style landing page", "صفحة هبوط سينمائية".
+description: Universal AI Agent Skill — Builds single-file, scroll-driven luxury landing pages (Apple x Cartier aesthetic) as one index.html with CDN-only libraries (GSAP, Lenis, Tailwind), zero build step, no framework. Fully compatible out-of-the-box with Google Antigravity, Claude Code, Cursor, Windsurf, Roo Code, Cline, Codex, and all AGENTS.md compliant AI coding agents. Scrubbed canvas frame sequence product film. Reads brand.json as single source of truth for identity, colors, typography, voice, and localization. Supports 7 luxury layouts (film, story, space, app, creator, product, store) and curated luxury Arabic typography. Trigger on commands "init", "brand", "clone-brand", "media", "film", "hero", "theme", "typeface", "transitions", "i18n", "perf", "a11y", "convert", "audit", "variant", "deploy", "polish", or requests like "build a cinematic landing page", "scroll-driven product page", "luxury Apple-style landing page", "صفحة هبوط سينمائية".
 ---
 
 # Universal AI Agent Skill — Cinematic Landing Kit
@@ -68,6 +68,7 @@ All detailed command specs reside in `references/commands/`:
 | `audit` | Quality-bar + brand.json verification checklist as a standalone report | `references/commands/audit.md` | — |
 | `variant` | Produce an A/B page from an already-built project | `references/commands/variant.md` | — |
 | `deploy` | Preview, asset optimization, static-hosting export | `references/commands/deploy.md` | 3 |
+| `polish` | Mobile nav drawer, WhatsApp CTA, scroll-to-top & favicon | `references/commands/polish.md` | 3 |
 
 ---
 
@@ -91,6 +92,7 @@ To keep AI agent token usage minimal (~80% reduction), read **ONLY** the specifi
 | `audit` | `memory/09-quality-bar.md` |
 | `variant` | `memory/16-variants.md` |
 | `deploy` | `memory/08-preview-and-env-gotchas.md` |
+| `polish` | `memory/08-preview-and-env-gotchas.md` + `memory/09-quality-bar.md` |
 
 ---
 

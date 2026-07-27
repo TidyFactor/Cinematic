@@ -14,7 +14,7 @@ const CLAUDE_SKILL_DIR = path.join(ROOT, '.claude-skill');
 const REQUIRED_COMMANDS = [
   'init', 'brand', 'clone-brand', 'media', 'film', 'hero',
   'theme', 'typeface', 'transitions', 'i18n', 'perf', 'a11y',
-  'convert', 'audit', 'variant', 'deploy'
+  'convert', 'audit', 'variant', 'deploy', 'polish'
 ];
 
 const autoSync = process.argv.includes('--sync') || process.argv.includes('--fix');
@@ -73,8 +73,14 @@ function checkCommandsAndParity() {
       continue;
     }
     if (!fs.existsSync(claudeFile)) {
-      errors.push(`Missing Claude command spec for '${cmd}': ${path.relative(ROOT, claudeFile)}`);
-      continue;
+      if (autoSync) {
+        fs.mkdirSync(path.dirname(claudeFile), { recursive: true });
+        fs.copyFileSync(agentsFile, claudeFile);
+        log(`⚡ Auto-created missing '${cmd}.md' in .claude-skill`);
+      } else {
+        errors.push(`Missing Claude command spec for '${cmd}': ${path.relative(ROOT, claudeFile)}`);
+        continue;
+      }
     }
 
     const agentsContent = fs.readFileSync(agentsFile, 'utf8');

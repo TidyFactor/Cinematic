@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🎬 Cinematic Landing Kit `v3.3.2`
+# 🎬 Cinematic Landing Kit `v3.4.0`
 ## We are building the open ecosystem for AI-ready business websites.
 
 **The official marketing website starter for the TidyFactor Ecosystem.**
@@ -19,7 +19,7 @@ TidyFactor (Open Web Development Ecosystem)
 [![RTL Ready](https://img.shields.io/badge/RTL-Native%20Arabic-emerald.svg?style=for-the-badge)](README.ar.md)
 [![Zero Build](https://img.shields.io/badge/Build-Zero%20Step-purple.svg?style=for-the-badge)](#-stack--zero-build-architecture)
 
-[✨ Live Demo](https://alwkala.com/design-system-kit/) • [🚀 Quick Start](#-quick-start--usage-guide) • [⚡ Slash Commands](#-universal-16-slash-commands) • [📖 Read in Arabic (بالعربية)](README.ar.md)
+[✨ Live Demo](https://alwkala.com/design-system-kit/) • [🚀 Quick Start](#-quick-start--usage-guide) • [⚡ Slash Commands](#-universal-17-slash-commands) • [📖 Read in Arabic (بالعربية)](README.ar.md)
 
 </div>
 
@@ -116,9 +116,9 @@ This installs `.agents/skills/cinematic-landing-kit/` and `AGENTS.md`, enabling 
 
 ---
 
-## ⚡ Universal 16 Slash Commands
+## ⚡ Universal 17 Slash Commands
 
-When working with any Agentic IDE (Google Antigravity, Claude Code, Cursor, Windsurf, Roo Code, Cline, etc.), the following **16 modular commands** are available:
+When working with any Agentic IDE (Google Antigravity, Claude Code, Cursor, Windsurf, Roo Code, Cline, etc.), the following **17 modular commands** are available:
 
 | Command | Purpose & Function | Reference Spec |
 | :--- | :--- | :--- |
@@ -138,6 +138,7 @@ When working with any Agentic IDE (Google Antigravity, Claude Code, Cursor, Wind
 | `audit` | **Quality Report** — Comprehensive brand.json & luxury quality bar audit report | `references/commands/audit.md` |
 | `variant` | **A/B Testing** — Produce alternative design variants from a completed page | `references/commands/variant.md` |
 | `deploy` | **Export & Preview** — Asset web optimization, local preview, and static deploy | `references/commands/deploy.md` |
+| `polish` | **UI Polish** — Mobile drawer, WhatsApp button, scroll-to-top & favicon | `references/commands/polish.md` |
 
 ---
 

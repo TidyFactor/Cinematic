@@ -26,6 +26,7 @@ This project exposes an Agentic Skill under `.agents/skills/cinematic-landing-ki
 | `audit` | Comprehensive quality-bar & brand verification report | `.agents/skills/cinematic-landing-kit/references/commands/audit.md` |
 | `variant` | Produce an A/B layout variant from a built project | `.agents/skills/cinematic-landing-kit/references/commands/variant.md` |
 | `deploy` | Asset optimization, local preview, static export | `.agents/skills/cinematic-landing-kit/references/commands/deploy.md` |
+| `polish` | Mobile nav drawer, WhatsApp CTA, scroll-to-top & favicon | `.agents/skills/cinematic-landing-kit/references/commands/polish.md` |
 
 ---
 

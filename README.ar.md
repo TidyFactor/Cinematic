@@ -1,6 +1,6 @@
 <div dir="rtl" align="right">
 
-# 🎬 حزمة الصفحات السينمائية — Cinematic Landing Kit `v3.3.2`
+# 🎬 حزمة الصفحات السينمائية — Cinematic Landing Kit `v3.4.0`
 
 **تجربة سينمائية بأسلوب Apple × Cartier — صفحات هبوط تفاعلية فاخرة تُعرض بالتمرير لأي وكيل ذكاء اصطناعي**
 
@@ -11,7 +11,7 @@
 [![English Docs](https://img.shields.io/badge/Docs-English-blue.svg?style=for-the-badge)](README.md)
 [![Zero Build](https://img.shields.io/badge/Build-Zero%20Step-purple.svg?style=for-the-badge)](#-المكدس-التقني)
 
-[✨ المعاينة الحية (Live Demo)](https://alwkala.com/design-system-kit/) • [🚀 طريقة الاستخدام](#-طريقة-الاستخدام-والبداية-السريعة) • [⚡ قائمة الأوامر المتاحة](#-قائمة-الأوامر-الـ-١٦-كاملة) • [📖 التوثيق باللغة الإنجليزية](README.md)
+[✨ المعاينة الحية (Live Demo)](https://alwkala.com/design-system-kit/) • [🚀 طريقة الاستخدام](#-طريقة-الاستخدام-والبداية-السريعة) • [⚡ قائمة الأوامر المتاحة](#-قائمة-الأوامر-الـ-١٧-كاملة) • [📖 التوثيق باللغة الإنجليزية](README.md)
 
 ---
 
@@ -97,7 +97,7 @@ npx @alwkala/create-cinematic-kit add-skill --force
 
 ---
 
-## ⚡ قائمة الأوامر الـ ١٦ كاملة
+## ⚡ قائمة الأوامر الـ ١٧ كاملة
 
 عند العمل مع أي بيئة ذكاء اصطناعي (Google Antigravity, Claude Code, Cursor, Windsurf, Roo Code, Cline)، تتوفر الأوامر التالية لاستدعائها فوراً:
 
@@ -117,8 +117,9 @@ npx @alwkala/create-cinematic-kit add-skill --force
 | `a11y` | **إتاحة وسهولة الاستخدام** — فحص التباين الشديد (Contrast) ونصوص ARIA والتصفح | `references/commands/a11y.md` |
 | `convert` | **تحويل موقع قائم** — إعادة بناء موقع استاتيكي تقليدي إلى المحرك السينمائي | `references/commands/convert.md` |
 | `audit` | **تقرير فحص الجودة** — إنشاء تقرير تدقيق شامل لمطابقة أعلى معايير الفخامة الهندسية | `references/commands/audit.md` |
-| `variant` | **توليد النسخ والتجارب (A/B)** — إنتاج نسخ وتصميمات بديلة من صفحة مبنية بالكامل | `references/commands/variant.md` |
-| `deploy` | **التصدير والمعاينة** — ضغط الأصول وتوفير السيرفر المحلي والتصدير للنشر النهائي | `references/commands/deploy.md` |
+| `variant` | **اختبارات A/B** — إنشاء نسخ وتصاميم بديلة من صفحة هبوط مكتملة | `references/commands/variant.md` |
+| `deploy` | **التصدير والمعاينة** — تحسين حجم وسرعة الصور والمعاينة وتصدير الملفات الاستاتيكية | `references/commands/deploy.md` |
+| `polish` | **اللمسات النهائية وواجهة الجوال** — قائمة الجوال الزجاجية، زر الواتساب، وزر العودة للأعلى | `references/commands/polish.md` |
 
 ---
 
