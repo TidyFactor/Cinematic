@@ -6,9 +6,10 @@ const chalk = require('chalk');
 const ora = require('ora');
 
 const PACKAGE_ROOT = path.resolve(__dirname, '..');
+const pkg = require(path.join(PACKAGE_ROOT, 'package.json'));
 
 async function main() {
-  console.log(`\n  ${chalk.bold.yellow('🤖 Cinematic Landing Kit - Agent Skill Installer')} ${chalk.dim('v1.0.0')}\n`);
+  console.log(`\n  ${chalk.bold.yellow('🤖 Cinematic Landing Kit - Agent Skill Installer')} ${chalk.dim(`v${pkg.version}`)}\n`);
 
   const workspaceRoot = process.cwd();
   const skillDir = path.join(workspaceRoot, '.agents', 'skills', 'cinematic-landing-kit');
@@ -19,38 +20,51 @@ async function main() {
     // 1. Ensure target skill directory exists
     fs.mkdirSync(skillDir, { recursive: true });
 
-    // 2. Copy memory reference files
-    const srcMemory = path.join(PACKAGE_ROOT, 'memory');
-    const destMemory = path.join(skillDir, 'memory');
-    if (fs.existsSync(srcMemory)) {
-      fs.cpSync(srcMemory, destMemory, { recursive: true });
+    // 2. Copy SKILL.md from package template or repo source
+    const srcSkillMd = path.join(PACKAGE_ROOT, '.agents', 'skills', 'cinematic-landing-kit', 'SKILL.md');
+    const destSkillMd = path.join(skillDir, 'SKILL.md');
+    if (fs.existsSync(srcSkillMd)) {
+      fs.copyFileSync(srcSkillMd, destSkillMd);
+    } else {
+      const agentsMdPath = path.join(PACKAGE_ROOT, 'AGENTS.md');
+      let agentsContent = fs.existsSync(agentsMdPath) ? fs.readFileSync(agentsMdPath, 'utf8') : '';
+      const skillFrontmatter = `---\nname: cinematic-landing-kit\ndescription: Build single-file scroll-driven luxury landing pages (Apple x Cartier aesthetic) using HTML5, GSAP, Lenis, and canvas scroll films.\n---\n\n`;
+      fs.writeFileSync(destSkillMd, skillFrontmatter + agentsContent, 'utf8');
     }
 
-    // 3. Prepare SKILL.md with frontmatter for skill discovery
-    const agentsMdPath = path.join(PACKAGE_ROOT, 'AGENTS.md');
-    let agentsContent = '';
-    if (fs.existsSync(agentsMdPath)) {
-      agentsContent = fs.readFileSync(agentsMdPath, 'utf8');
+    // 3. Copy supporting skill resources: memory, references, scripts, templates, brand.json
+    const srcSkillReferences = path.join(PACKAGE_ROOT, '.agents', 'skills', 'cinematic-landing-kit', 'references');
+    if (fs.existsSync(srcSkillReferences)) {
+      fs.cpSync(srcSkillReferences, path.join(skillDir, 'references'), { recursive: true });
+    } else {
+      const claudeReferences = path.join(PACKAGE_ROOT, '.claude-skill', 'references');
+      if (fs.existsSync(claudeReferences)) {
+        fs.cpSync(claudeReferences, path.join(skillDir, 'references'), { recursive: true });
+      }
     }
 
-    const skillFrontmatter = `---
-name: cinematic-landing-kit
-description: Build single-file scroll-driven luxury landing pages (Apple x Cartier aesthetic) using HTML5, GSAP, Lenis, and canvas scroll films.
----
+    const copyDirs = ['memory', 'scripts', 'templates'];
+    for (const dir of copyDirs) {
+      const srcDir = path.join(PACKAGE_ROOT, dir);
+      if (fs.existsSync(srcDir)) {
+        fs.cpSync(srcDir, path.join(skillDir, dir), { recursive: true });
+      }
+    }
 
-`;
+    const srcBrand = path.join(PACKAGE_ROOT, 'brand.json');
+    if (fs.existsSync(srcBrand)) {
+      fs.copyFileSync(srcBrand, path.join(skillDir, 'brand.json'));
+    }
 
-    const fullSkillContent = skillFrontmatter + agentsContent;
-    fs.writeFileSync(path.join(skillDir, 'SKILL.md'), fullSkillContent, 'utf8');
-
-    // 4. Update workspace root AGENTS.md if present
+    // 4. Update or create workspace root AGENTS.md
     const rootAgentsMd = path.join(workspaceRoot, 'AGENTS.md');
-    const importNotice = `\n<!-- Cinematic Landing Kit Skill Installed -->\n`;
+    const srcAgentsMd = path.join(PACKAGE_ROOT, 'AGENTS.md');
+    let agentsContent = fs.existsSync(srcAgentsMd) ? fs.readFileSync(srcAgentsMd, 'utf8') : '';
 
     if (fs.existsSync(rootAgentsMd)) {
       const existing = fs.readFileSync(rootAgentsMd, 'utf8');
-      if (!existing.includes('Cinematic Landing Kit')) {
-        fs.appendFileSync(rootAgentsMd, `\n${importNotice}${agentsContent}\n`, 'utf8');
+      if (!existing.includes('Cinematic Luxury Landing-Page Engine')) {
+        fs.appendFileSync(rootAgentsMd, `\n\n<!-- Cinematic Landing Kit Skill Installed -->\n${agentsContent}\n`, 'utf8');
       }
     } else {
       fs.mkdirSync(path.dirname(rootAgentsMd), { recursive: true });
@@ -62,10 +76,11 @@ description: Build single-file scroll-driven luxury landing pages (Apple x Carti
     console.log(`
   ${chalk.bold('Installed artifacts:')}
     • ${chalk.cyan('.agents/skills/cinematic-landing-kit/SKILL.md')}
+    • ${chalk.cyan('.agents/skills/cinematic-landing-kit/references/')}
     • ${chalk.cyan('.agents/skills/cinematic-landing-kit/memory/')}
     • ${chalk.cyan('AGENTS.md')} (Updated workspace rules)
 
-  ${chalk.bold.yellow('✨ Your AI Agent is now ready to build luxury landing pages!')}
+  ${chalk.bold.yellow('✨ Your AI Agent is now ready to build luxury landing pages with full slash commands!')}
 `);
 
   } catch (err) {

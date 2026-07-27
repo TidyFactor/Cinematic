@@ -7,9 +7,10 @@ const ora = require('ora');
 const prompts = require('prompts');
 
 const PACKAGE_ROOT = path.resolve(__dirname, '..');
+const pkg = require(path.join(PACKAGE_ROOT, 'package.json'));
 
 async function main() {
-  console.log(`\n  ${chalk.bold.yellow('🎬 Cinematic Landing Kit')} ${chalk.dim('v1.0.0')}\n`);
+  console.log(`\n  ${chalk.bold.yellow('🎬 Cinematic Landing Kit')} ${chalk.dim(`v${pkg.version}`)}\n`);
 
   let targetDirArg = process.argv[2];
   let flags = {};
@@ -78,8 +79,8 @@ async function main() {
   const spinner = ora(`Scaffolding project in ${chalk.cyan(projectDir)}...`).start();
 
   try {
-    // 1. Copy core directories
-    const dirsToCopy = ['memory', 'scripts', 'assets', 'templates'];
+    // 1. Copy core directories (including .agents and .claude-skill)
+    const dirsToCopy = ['memory', 'scripts', 'assets', 'templates', '.agents', '.claude-skill'];
     for (const dir of dirsToCopy) {
       const srcDir = path.join(PACKAGE_ROOT, dir);
       const destDir = path.join(targetPath, dir);
@@ -105,7 +106,6 @@ async function main() {
     if (fs.existsSync(layoutPath)) {
       fs.copyFileSync(layoutPath, indexPath);
     } else {
-      // Fallback if specific layout file not found
       const defaultLayout = path.join(PACKAGE_ROOT, 'templates', 'layouts', 'fullbleed.html');
       if (fs.existsSync(defaultLayout)) {
         fs.copyFileSync(defaultLayout, indexPath);
@@ -115,7 +115,7 @@ async function main() {
     // 4. Create target project package.json
     const projectPkg = {
       name: path.basename(projectDir).toLowerCase().replace(/[^a-z0-9-_]/g, '-'),
-      version: '1.0.0',
+      version: pkg.version,
       private: true,
       description: 'Cinematic scroll-driven luxury landing page',
       scripts: {
@@ -142,7 +142,7 @@ async function main() {
 
     3. Customization & Brand Configuration:
        Edit ${chalk.yellow('brand.json')} to update colors, typography, voice, and media provider tokens.
-       Read ${chalk.yellow('AGENTS.md')} for full AI Agent workflow instructions.
+       Read ${chalk.yellow('AGENTS.md')} for full AI Agent workflow instructions and slash commands.
 
   ${chalk.bold.yellow('✨ Happy Building!')}
 `);

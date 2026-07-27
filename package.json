@@ -1,6 +1,6 @@
 {
   "name": "@alwkala/create-cinematic-kit",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "CLI generator and Agent Skill installer for Cinematic Landing Kit (Apple x Cartier aesthetic scroll-driven landing pages)",
   "main": "bin/create-kit.js",
   "bin": {
@@ -10,9 +10,10 @@
   },
   "scripts": {
     "test": "node ./bin/create-kit.js --help",
+    "validate:skill": "node tools/validate-skill.js",
     "build:claude": "node tools/build-skill.js",
     "build:antigravity": "node tools/build-antigravity.js",
-    "build:all": "node tools/build-skill.js && node tools/build-antigravity.js"
+    "build:all": "node tools/validate-skill.js && node tools/build-skill.js && node tools/build-antigravity.js"
   },
   "repository": {
     "type": "git",
@@ -53,6 +54,8 @@
     "AGENTS.md",
     "README.md",
     "README.ar.md",
-    "LICENSE"
+    "LICENSE",
+    ".agents",
+    ".claude-skill"
   ]
 }

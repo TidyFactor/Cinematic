@@ -31,9 +31,6 @@
  *
  * ...then zips it to dist/tidyfactor-cinematic.skill.
  *
- * Run any time memory/templates/scripts/brand.json changes and you need a
- * fresh .skill artifact — never hand-edit files inside dist/.
- *
  * Usage:
  *   node tools/build-skill.js
  *   node tools/build-skill.js --out dist/custom-name.skill
@@ -90,6 +87,9 @@ function assertExists(p, hint) {
 }
 
 function main() {
+  log("running skill validation before build...");
+  execFileSync("node", [path.join(__dirname, "validate-skill.js")], { stdio: "inherit" });
+
   log(`repo root: ${ROOT}`);
   assertExists(
     SRC_WRAPPER,
@@ -119,8 +119,6 @@ function main() {
     log(`  + ${name}`);
   }
 
-  // README.md inside the package is skill-specific, not the repo's own
-  // cross-agent README — write a short one rather than copying repo README.
   fs.writeFileSync(
     path.join(STAGE_DIR, "README.md"),
     [
@@ -142,15 +140,11 @@ function main() {
   if (fs.existsSync(OUT_FILE)) fs.rmSync(OUT_FILE);
 
   try {
-    // Zip from inside dist/ so the archive root is `tidyfactor-cinematic/`,
-    // matching what a .skill upload / .claude/skills/ folder expects.
     execFileSync("zip", ["-r", "-q", OUT_FILE, SKILL_NAME], {
       cwd: DIST_DIR,
       stdio: "inherit",
     });
   } catch (err) {
-    // Fallback: PowerShell Compress-Archive (Windows)
-    // Compress-Archive only supports .zip extension, so create as .zip then rename.
     try {
       const { spawnSync } = require("child_process");
       const tmpZip = OUT_FILE.replace(/\.skill$/, ".zip");

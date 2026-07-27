@@ -2,6 +2,33 @@
 
 Build a **single-file, scroll-driven luxury landing page** (Apple × Cartier aesthetic) for any product using a choice of media provider — default to Nano Banana (`generate_image` tool) or choose Qwen Image (stills) + Wan (video clips) / Higgsfield CLI if configured. This is a single-file web app (`index.html`) with CDN libraries (GSAP, Lenis, Tailwind) — no build step, no framework, no bundler.
 
+---
+
+## ⚡ Skill & Modular Slash Commands
+
+This project exposes an Agentic Skill under `.agents/skills/cinematic-landing-kit/SKILL.md` (and `.claude-skill/SKILL.md`). When working with an Agentic IDE, the following 16 modular sub-commands are supported:
+
+| Command | Purpose | Reference Spec |
+|---|---|---|
+| `init` | **Primary deliverable** — full working cinematic page in one pass | `.agents/skills/cinematic-landing-kit/references/commands/init.md` |
+| `brand` | Read/scaffold `brand.json` token mappings | `.agents/skills/cinematic-landing-kit/references/commands/brand.md` |
+| `clone-brand` | Extract `brand.json` tokens from an existing site/PDF | `.agents/skills/cinematic-landing-kit/references/commands/clone-brand.md` |
+| `media` | Provider selection + asset generation pipeline | `.agents/skills/cinematic-landing-kit/references/commands/media.md` |
+| `film` | Canvas frame-sequence build + `FRAME_COUNT` sync | `.agents/skills/cinematic-landing-kit/references/commands/film.md` |
+| `hero` | Hero entrance — cutout/establishing-shot/device-mockup | `.agents/skills/cinematic-landing-kit/references/commands/hero.md` |
+| `theme` | Light/dark palette derivation + ambient layer tween | `.agents/skills/cinematic-landing-kit/references/commands/theme.md` |
+| `typeface` | Distinctive Arabic & Latin luxury typography pairing | `.agents/skills/cinematic-landing-kit/references/commands/typeface.md` |
+| `transitions` | Boundary-matched clip transitions | `.agents/skills/cinematic-landing-kit/references/commands/transitions.md` |
+| `i18n` | Arabic/English RTL, modesty & identity rules | `.agents/skills/cinematic-landing-kit/references/commands/i18n.md` |
+| `perf` | Performance budget check (assets, fonts, FPS) | `.agents/skills/cinematic-landing-kit/references/commands/perf.md` |
+| `a11y` | Accessibility check (canvas alt-text, contrast, focus) | `.agents/skills/cinematic-landing-kit/references/commands/a11y.md` |
+| `convert` | Retrofit an existing static page onto the cinematic engine | `.agents/skills/cinematic-landing-kit/references/commands/convert.md` |
+| `audit` | Comprehensive quality-bar & brand verification report | `.agents/skills/cinematic-landing-kit/references/commands/audit.md` |
+| `variant` | Produce an A/B layout variant from a built project | `.agents/skills/cinematic-landing-kit/references/commands/variant.md` |
+| `deploy` | Asset optimization, local preview, static export | `.agents/skills/cinematic-landing-kit/references/commands/deploy.md` |
+
+---
+
 ## Critical architecture (the #1 thing)
 
 The product "film" is a **JPG frame-sequence drawn on `<canvas>`**, scrubbed by scroll progress.

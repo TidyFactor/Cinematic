@@ -39,6 +39,9 @@ function copyRecursive(src, dest) {
 }
 
 function main() {
+  log("running skill validation before build...");
+  execFileSync("node", [path.join(__dirname, "validate-skill.js")], { stdio: "inherit" });
+
   log(`repo root: ${ROOT}`);
   if (!fs.existsSync(SRC_WRAPPER)) {
     throw new Error(`Missing required path: ${SRC_WRAPPER}`);
@@ -48,7 +51,7 @@ function main() {
   rmrf(STAGE_DIR);
   fs.mkdirSync(STAGE_DIR, { recursive: true });
 
-  log("staging Antigravity wrapper (SKILL.md)...");
+  log("staging Antigravity wrapper (SKILL.md + references/)...");
   copyRecursive(SRC_WRAPPER, STAGE_DIR);
 
   log("staging single-source-of-truth files...");

@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [3.1.0] - 2026-07-27
+
+### Added
+- **Dynamic Versioning in CLI Tools**:
+  - `bin/create-kit.js` (`npx @alwkala/create-cinematic-kit`) and `bin/add-skill.js` (`npx add-cinematic-skill`) now dynamically load version from `package.json` instead of hardcoded version strings.
+- **Universal 16-Command Modular Skill Architecture**:
+  - Upgraded `.agents/skills/cinematic-landing-kit/SKILL.md` with complete 16-command trigger system (`init`, `brand`, `clone-brand`, `media`, `film`, `hero`, `theme`, `typeface`, `transitions`, `i18n`, `perf`, `a11y`, `convert`, `audit`, `variant`, `deploy`).
+  - Added `.agents/skills/cinematic-landing-kit/references/commands/` containing all 18 reference specification files.
+  - Native tool mappings for Google Antigravity & Agentic IDEs (`generate_image`, `browser_subagent`, `run_command`).
+- **Automated Skill Validation & Pre-Build Checks**:
+  - Created `tools/validate-skill.js` to verify YAML frontmatter, command completeness, broken file references, and directory structure.
+  - Pre-build validation integrated into `tools/build-skill.js` and `tools/build-antigravity.js`.
+- **Automated Skill Scaffolding**:
+  - `npx @alwkala/create-cinematic-kit` now automatically embeds `.agents/skills/cinematic-landing-kit/` and `.claude-skill/` into scaffolded projects.
+- **GitHub Release & CI/CD Workflows**:
+  - Added `.github/workflows/skill-ci.yml` for automated PR/branch validation.
+  - Added `.github/workflows/release.yml` for automated package builds and publishing on GitHub release/tag creation.
+
 ## [3.0.0] - 2026-07-26
 
 ### Added

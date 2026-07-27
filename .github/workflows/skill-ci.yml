@@ -1,0 +1,32 @@
+name: Skill Validation & CI Build
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  validate-and-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate Skill Frontmatter & File Integrity
+        run: npm run validate:skill
+
+      - name: Test CLI Scaffolder
+        run: npm test
+
+      - name: Build Distribution Packages
+        run: npm run build:all
