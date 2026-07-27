@@ -40,7 +40,7 @@ function copyRecursive(src, dest) {
 
 function main() {
   log("running skill validation before build...");
-  execFileSync("node", [path.join(__dirname, "validate-skill.js")], { stdio: "inherit" });
+  execFileSync("node", [path.join(__dirname, "validate-skill.js"), "--sync"], { stdio: "inherit" });
 
   log(`repo root: ${ROOT}`);
   if (!fs.existsSync(SRC_WRAPPER)) {

@@ -56,7 +56,14 @@ async function main() {
       fs.copyFileSync(srcBrand, path.join(skillDir, 'brand.json'));
     }
 
-    // 4. Update or create workspace root AGENTS.md
+    // 4. Copy .claude-skill wrapper for Claude Code / Claude.ai compatibility
+    const srcClaudeSkill = path.join(PACKAGE_ROOT, '.claude-skill');
+    const destClaudeSkill = path.join(workspaceRoot, '.claude-skill');
+    if (fs.existsSync(srcClaudeSkill) && !fs.existsSync(destClaudeSkill)) {
+      fs.cpSync(srcClaudeSkill, destClaudeSkill, { recursive: true });
+    }
+
+    // 5. Update or create workspace root AGENTS.md & rules
     const rootAgentsMd = path.join(workspaceRoot, 'AGENTS.md');
     const srcAgentsMd = path.join(PACKAGE_ROOT, 'AGENTS.md');
     let agentsContent = fs.existsSync(srcAgentsMd) ? fs.readFileSync(srcAgentsMd, 'utf8') : '';
@@ -71,6 +78,18 @@ async function main() {
       fs.writeFileSync(rootAgentsMd, `${agentsContent}\n`, 'utf8');
     }
 
+    // Update optional rules files if present or requested (.cursorrules, .windsurfrules, .clinerules)
+    const ruleNotice = `\n# Cinematic Landing Kit — AI Agent Rules\n# Read AGENTS.md and .agents/skills/cinematic-landing-kit/SKILL.md for instructions.\n`;
+    ['.cursorrules', '.windsurfrules', '.clinerules'].forEach(ruleFile => {
+      const rulePath = path.join(workspaceRoot, ruleFile);
+      if (fs.existsSync(rulePath)) {
+        const existing = fs.readFileSync(rulePath, 'utf8');
+        if (!existing.includes('Cinematic Landing Kit')) {
+          fs.appendFileSync(rulePath, ruleNotice, 'utf8');
+        }
+      }
+    });
+
     spinner.succeed(chalk.green(`Agent Skill installed successfully!`));
 
     console.log(`
@@ -78,6 +97,7 @@ async function main() {
     • ${chalk.cyan('.agents/skills/cinematic-landing-kit/SKILL.md')}
     • ${chalk.cyan('.agents/skills/cinematic-landing-kit/references/')}
     • ${chalk.cyan('.agents/skills/cinematic-landing-kit/memory/')}
+    • ${chalk.cyan('.claude-skill/')}
     • ${chalk.cyan('AGENTS.md')} (Updated workspace rules)
 
   ${chalk.bold.yellow('✨ Your AI Agent is now ready to build luxury landing pages with full slash commands!')}

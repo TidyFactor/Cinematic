@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🎬 Cinematic Landing Kit `v3.0.0`
+# 🎬 Cinematic Landing Kit `v3.2.1`
 ## We are building the open ecosystem for AI-ready business websites.
 
 **The official marketing website starter for the TidyFactor Ecosystem.**
@@ -17,9 +17,9 @@ TidyFactor (Open Web Development Ecosystem)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg?style=for-the-badge)](LICENSE)
 [![Universal AI Agents](https://img.shields.io/badge/AI%20Agents-Universal%20Compatibility-4285F4.svg?style=for-the-badge)](README.md)
 [![RTL Ready](https://img.shields.io/badge/RTL-Native%20Arabic-emerald.svg?style=for-the-badge)](README.ar.md)
-[![Zero Build](https://img.shields.io/badge/Build-Zero%20Step-purple.svg?style=for-the-badge)](#stack)
+[![Zero Build](https://img.shields.io/badge/Build-Zero%20Step-purple.svg?style=for-the-badge)](#-stack--zero-build-architecture)
 
-[✨ Live Demo](https://alwkala.com/design-system-kit/) • [🚀 Quick Start](#-quick-start) • [🤖 Agent Skills](#-agent-skills) • [📖 Read in Arabic (بالعربية)](README.ar.md)
+[✨ Live Demo](https://alwkala.com/design-system-kit/) • [🚀 Quick Start](#-quick-start--usage-guide) • [⚡ Slash Commands](#-universal-16-slash-commands) • [📖 Read in Arabic (بالعربية)](README.ar.md)
 
 </div>
 
@@ -27,27 +27,20 @@ TidyFactor (Open Web Development Ecosystem)
 
 ## 🌟 Overview
 
-**Cinematic Landing Kit** is an engine and memory package that instructs **any AI coding agent** (Claude Code, Cursor, Antigravity, Windsurf, etc.) to produce high-impact, scroll-driven product films and luxury landing pages. 
+**Cinematic Landing Kit** is an engine and memory package that instructs **any AI coding agent** (Google Antigravity, Claude Code, Cursor, Windsurf, Roo Code, Cline, Codex, etc.) to produce high-impact, scroll-driven product films and luxury landing pages. 
 
 Instead of generating basic, static websites, your AI agent follows strict production-tested patterns to build single-file HTML landing pages powered by HTML5 `<canvas>` frame sequences, GSAP animations, and Lenis smooth scrolling — **with zero build step, no bundler, and pure CDN speed.**
 
 ```
-AI Agent reads AGENTS.md  →  Loads memory/ DNA  →  Generates index.html  →  Ready to launch 🚀
+AI Agent reads AGENTS.md  →  Loads memory/ & SKILL.md  →  Generates index.html  →  Ready to launch 🚀
 ```
 
 <div dir="rtl" align="right">
 
 ### 🇸🇦 نبذة عن النظام 
-سواء ان كنت تبني صفحة هبوط لمنتج او خدمة فاخره او موقع كامل وستبداء بانشاء النسخة الاولية Prototype بشكل احترافي ومبهر فهذه الاداه صنعت لك خصيصاً من فريق الوكالة للبرمجياتAlwkala بخبره تفوق 20 سنه في تصميم وتطوير تجارب المستخدم. 
-**تخيل أن تتحول صفحة هبوط منتجك من مجرد موقع ويب عادي إلى تجربة إعلانية سينمائية مبهرة تشبه إعلانات Apple و Cartier!**
+سواءً كنت تبني صفحة هبوط لمنتج أو خدمة فاخرة، أو تسعى لبناء نموذج أولي (Prototype) مبهر، فقد صُممت هذه الأداة من فريق الوكالة للبرمجيات (**Alwkala**) بخبرة تمتد لأكثر من 20 عاماً في تصميم وتطوير تجارب المستخدم.
 
-هذه الحزمة تُزوّد أي مساعد برمجيات بالذكاء الاصطناعي (مثل Claude Code, Cursor, Antigravity) بالخبرات والأنماط الإنتاجية الفاخرة لبناء صفحات هبوط تفاعلية تُعرض فيها المنتجات كأفلام تفاعلية تتحرك مع تمرير الشاشة، بدون أي تعقيدات تقنية أو أدوات بناء برمجية (صفر بناء — ملف HTML واحد يعمل فوراً).
-
-**✨ أبرز إمكانيات وحالات الاستخدام:**
-- 🎬 **أفلام المنتجات بالتمرير:** عرض المنتج بزاوية 360 درجة وسرد قصص التحول بصرياً مع التمرير السلس.
-- 🏛️ **5 قوالب سينمائية جاهزة:** تغطي المنتجات الفاخرة، العقارات والضيافة، المنصات والتطبيقات الرقمية، قصص العلامات التجارية، والمحتوى الشخصي.
-- 🎨 **هوية مرنة وحقيقية (`brand.json`):** التحكم الكامل بالألوان، الخطوط، النبرة التسويقية، والشعار من مكان واحد.
-- 🌍 **دعم أصيل للغة العربية (RTL):** طباعة عربية فاخرة وخيارات خطوط مخصصة تناسب هوية علاماتك البارزة.
+تُزوّد هذه الحزمة أي مساعد برمجيات بالذكاء الاصطناعي (مثل Claude Code, Cursor, Antigravity) بالخبرات والأنماط الإنتاجية لبناء صفحات هبوط تفاعلية تُعرض فيها المنتجات كأفلام تفاعلية تتحرك مع تمرير الشاشة، بدون أي تعقيدات تقنية أو أدوات بناء برمجية (ملف `index.html` واحد يعمل فوراً).
 
 > 📖 **للاطلاع على التوثيق والدليل الكامل باللغة العربية:** **[انقر هنا لفتح الدليل بالعربية (README.ar.md)](README.ar.md)**
 
@@ -78,123 +71,77 @@ AI Agent reads AGENTS.md  →  Loads memory/ DNA  →  Generates index.html  →
 
 ---
 
-## 🚀 Quick Start via NPX
+## 🚀 Quick Start & Usage Guide
 
 Published on NPM as [**`@alwkala/create-cinematic-kit`**](https://www.npmjs.com/package/@alwkala/create-cinematic-kit).
 
-### Option A: Create a New Cinematic Landing Project
-Scaffold a complete luxury landing page project in seconds:
+### Option 1: Create a Brand New Project (Scaffold)
+Scaffold a complete, ready-to-build luxury landing page project with all layout templates:
+
 ```bash
-npx @alwkala/create-cinematic-kit my-luxury-landing
+# Interactive execution (Real terminal TTY)
+npx @alwkala/create-cinematic-kit
+
+# Direct scaffolding with target directory & layout choice
+npx @alwkala/create-cinematic-kit my-luxury-landing --layout interface
+
+# Non-interactive / AI Agent / CI mode (automated defaults, zero prompts)
+npx @alwkala/create-cinematic-kit my-luxury-landing --yes
+
+# Or install globally and run anytime
+npm install -g @alwkala/create-cinematic-kit
+create-cinematic-kit my-luxury-landing
 ```
 
-### Option B: Inject Agent Skill into an Existing Project
-Inject the agent memory, rules, and skills into your current workspace:
+### Option 2: Inject Agent Skill into an Existing Project
+Inject the Agent Skill, rules, memory, and references into an existing workspace:
+
 ```bash
-npx @alwkala/create-cinematic-kit
+npx add-cinematic-skill
 ```
+
+This installs `.agents/skills/cinematic-landing-kit/` and `AGENTS.md`, enabling your AI coding agent to construct and maintain the page using `brand.json` as the single source of truth for design tokens.
+
+---
+
+## ⚡ Universal 16 Slash Commands
+
+When working with any Agentic IDE (Google Antigravity, Claude Code, Cursor, Windsurf, Roo Code, Cline, etc.), the following **16 modular commands** are available:
+
+| Command | Purpose & Function | Reference Spec |
+| :--- | :--- | :--- |
+| `init` | **Full Page Generation** — Build complete luxury landing page in one pass | `references/commands/init.md` |
+| `brand` | **Brand Setup** — Read/scaffold `brand.json` token mapping (colors, fonts, voice) | `references/commands/brand.md` |
+| `clone-brand` | **Extract Brand** — Extract `brand.json` tokens from an existing site, PDF, or logo | `references/commands/clone-brand.md` |
+| `media` | **Media Pipeline** — AI keyframe stills, background removal, and video clip generation | `references/commands/media.md` |
+| `film` | **Scroll Canvas** — Frame sequence build & `FRAME_COUNT` sync | `references/commands/film.md` |
+| `hero` | **Hero Entrance** — 3D tilt, float, aura, and PNG cutout setup | `references/commands/hero.md` |
+| `theme` | **Color Palette** — Light/Dark mode derivation & ambient layer GSAP tween | `references/commands/theme.md` |
+| `typeface` | **Typography** — Curated Arabic (El Messiri + Tajawal) & Latin font pairings | `references/commands/typeface.md` |
+| `transitions` | **Transitions** — Boundary-matched AI video clip transitions | `references/commands/transitions.md` |
+| `i18n` | **Localization** — Arabic/English RTL/LTR, modesty, & identity rules | `references/commands/i18n.md` |
+| `perf` | **Performance Audit** — 60FPS scroll performance & asset weight budget check | `references/commands/perf.md` |
+| `a11y` | **Accessibility Pass** — High contrast, ARIA canvas labels, & keyboard scroll check | `references/commands/a11y.md` |
+| `convert` | **Retrofit Static Page** — Convert an existing legacy page onto the cinematic engine | `references/commands/convert.md` |
+| `audit` | **Quality Report** — Comprehensive brand.json & luxury quality bar audit report | `references/commands/audit.md` |
+| `variant` | **A/B Testing** — Produce alternative design variants from a completed page | `references/commands/variant.md` |
+| `deploy` | **Export & Preview** — Asset web optimization, local preview, and static deploy | `references/commands/deploy.md` |
 
 ---
 
 ## 🤖 Compatible AI Coding Agents
 
-Works seamlessly out of the box with any AI agent that reads workspace instruction files (`AGENTS.md`, `.cursorrules`, system prompts, etc.):
+Works seamlessly out of the box with any AI agent that reads workspace instruction files (`AGENTS.md`, `.agents/skills/`, `.claude-skill/`, `.cursorrules`, etc.):
 
 | AI Agent | Integration Method | Supported |
 | :--- | :--- | :---: |
-| **Claude Code** | Automatic (`AGENTS.md` / `.claude-skill/`) | ✅ |
 | **Google Antigravity** | Automatic (`AGENTS.md` / `.agents/`) | ✅ |
+| **Claude Code** | Automatic (`AGENTS.md` / `.claude-skill/`) | ✅ |
 | **Cursor** | Automatic (`AGENTS.md` / `.cursorrules`) | ✅ |
 | **Windsurf** | Automatic (`AGENTS.md` / `.windsurfrules`) | ✅ |
 | **Roo Code / Cline** | Automatic (`AGENTS.md` / `.clinerules`) | ✅ |
 | **Codex / OpenCode** | Automatic (`AGENTS.md`) | ✅ |
 | **Kilo / Gemini CLI** | Automatic (`AGENTS.md`) | ✅ |
-
----
-
-## ⚡ Why AI Agents Fail Without This Kit
-
-| Pitfall Without This Kit | Solution With Cinematic Landing Kit |
-| :--- | :--- |
-| ❌ Scrubs `video.currentTime` (causes severe stutter) | ✅ **Canvas frame-sequence film** (60 FPS smooth scrubbing) |
-| ❌ `mix-blend-mode` glitches under GSAP transform | ✅ **Transparent PNG hero cutouts** via `rembg` |
-| ❌ Ghosting/cross-dissolve transition jumps | ✅ **Boundary-matched AI keyframe clips** |
-| ❌ Default system fonts or illegible calligraphy | ✅ **El Messiri + Tajawal + Cormorant** curated typography |
-| ❌ Inconsistent/placeholder images | ✅ **Multi-provider pipeline** (Nano Banana, Qwen/Wan, Higgsfield) |
-| ❌ Background tab `requestAnimationFrame` freezes | ✅ **`eval`-based programmatic verification** |
-
-### Traditional vs. Cinematic Experience
-
-| Feature | Traditional Landing Page | Cinematic Landing Kit `v2.0.0` |
-| :--- | :--- | :--- |
-| **Hero Treatment** | Static banner + simple fade-in | Dynamic aura, depth tilt & scroll narrative |
-| **Product Motion** | Passive CSS transitions | Canvas film scrubbed smoothly by scroll |
-| **User Experience** | Ordinary static web page | Luxury TV advertisement feel (Apple × Cartier) |
-| **Brand Adaptation** | Manual CSS rewriting | Single source of truth via **`brand.json`** |
-| **Localization** | Text translation overlay | Native LTR/RTL, typography & cultural adaptation |
-| **Build Setup** | Webpack / Vite / React / Node build | **Single `index.html` file via CDN — Zero Build** |
-
----
-
-## 📦 What's Inside
-
-```
-├── AGENTS.md                         ← Cross-agent entry point read automatically
-├── brand.json                        ← Single source of truth for brand identity & tokens
-├── memory/                           ← 16 Reference Files (The DNA of the look & feel)
-│   ├── 01-build-playbook.md             Architecture & GSAP + Lenis scroll stack
-│   ├── 02-scroll-film-canvas.md         ★ Canvas frame-sequence scrubbing technique
-│   ├── 03-seamless-transitions.md       Boundary-matched video clip generation
-│   ├── 04-cinematic-hero.md             Hero entrance, aura, depth tilt & sheen
-│   ├── 05-theming.md                    Light/dark modes & blend-mode rules
-│   ├── 06-media-pipeline.md             ★ Provider selection & shared Python pipeline
-│   ├── 06-media-pipeline-nanobanana.md  Nano Banana (generate_image tool)
-│   ├── 06-media-pipeline-qwen.md        Qwen Image + Wan (DashScope API)
-│   ├── 06-media-pipeline-higgsfield.md  Higgsfield CLI
-│   ├── 07-modesty-and-identity.md       Non-negotiable product & identity constraints
-│   ├── 08-preview-and-env-gotchas.md    Hidden-tab quirks & eval-based verification
-│   ├── 09-quality-bar.md                Auto-reject checklist & quality assurance
-│   ├── 10-use-cases.md                  ★ 15 Use-cases → layout routing table
-│   ├── 11-brand-json.md                 ★ brand.json schema, CSS var mapping & voice rules
-│   ├── 12-arabic-typography.md          Luxury Arabic typography pairings & mood matrix
-│   ├── 13-performance-budget.md         Performance budget, frame caps & 60fps rules
-│   ├── 14-accessibility.md              RTL/LTR accessibility (A11y), contrast & focus
-│   ├── 15-brand-extraction.md           Automated brand.json extraction from existing sites
-│   └── 16-variants.md                   A/B design variants & regional/localized versions
-├── .claude-skill/                    ← Claude Skill wrapper (SKILL.md + 17 command references)
-├── tools/                            ← build-skill.js distributable packaging utility
-├── templates/
-│   ├── layouts/                       ← 5 Layout Variants
-│   │   ├── fullbleed.html                Long scroll film + aura hero (Transformation stories)
-│   │   ├── editorial.html                Split-screen hero + specs film (Specs-heavy products)
-│   │   ├── spatial.html                  Establishing-shot hero + walkthrough film (Real Estate)
-│   │   ├── interface.html                Device mockup hero + UI flow film (SaaS & Apps)
-│   │   └── minimal.html                  Centered cutout hero, no canvas film (Digital products)
-│   ├── MEDIA-PROMPTS-higgsfield.template.md   Higgsfield prompt list
-│   ├── MEDIA-PROMPTS-nanobanana.template.md   Nano Banana prompt list
-│   ├── MEDIA-PROMPTS-qwen.template.md         Qwen/Wan prompt list
-│   └── launch.json                    Preview server configuration
-└── scripts/                          ← Python helper scripts (No ffmpeg/jq required)
-    ├── remove_backgrounds.py            rembg → transparent PNG cutouts
-    ├── prepare_images.py                PNG → JPEG conversion
-    ├── optimize_assets.py               Resize hero cutout & logo for web
-    ├── generate_transitions.py          Transition keyframe generator
-    ├── check_alpha.py                   Verify PNG transparency
-    ├── create_mock_videos.py            Placeholder video generation
-    └── inspect_images.py                Inspect image metadata
-```
-
----
-
-## 💡 Claude.ai / Claude Code Users
-
-`AGENTS.md` is the universal cross-agent entry point. For **Claude Code** and **Claude.ai**, `.claude-skill/` packages the kit as an installable Claude Skill featuring **17 interactive slash commands** (`init`, `brand`, `media`, `film`, `hero`, `theme`, `transitions`, `i18n`, `convert`, `audit`, `deploy`, `typeface`, `perf`, `a11y`, `clone-brand`, `variant`).
-
-Build the distributable `.skill` package anytime with:
-```bash
-node tools/build-skill.js
-# → Produces dist/tidyfactor-cinematic.skill
-```
 
 ---
 
@@ -218,36 +165,14 @@ The generated output is a **pure single `index.html` file** requiring no build t
 
 | Component | Technology | Delivery |
 | :--- | :--- | :--- |
-| **Scroll Engine** | Lenis 1.0 | CDN |
-| **Animation Stack** | GSAP 3.12 + ScrollTrigger | CDN |
-| **CSS Utilities** | Tailwind CSS | CDN |
-| **Typography** | Google Fonts (El Messiri, Tajawal, Cormorant) | CDN |
-| **Product Film** | `<canvas>` + Numbered JPG frame sequence | Local `assets/seq/` |
-| **Hero Cutout** | Transparent PNG (`rembg`) | Local `assets/` |
+| **Scroll Animation** | GSAP 3.12 + ScrollTrigger | CDN (`cdnjs.cloudflare.com`) |
+| **Smooth Scroll** | Lenis 1.0 | CDN (`cdn.jsdelivr.net`) |
+| **Styling** | Tailwind CSS | CDN (`cdn.tailwindcss.com`) |
+| **Film Engine** | HTML5 `<canvas>` + JPEG Frame Sequences | Local `assets/seq/f000.jpg` |
+| **Typography** | Google Fonts (El Messiri, Tajawal, Cormorant Garamond) | CDN (`fonts.googleapis.com`) |
 
 ---
 
-## 🔧 Optional Asset Pipeline Helpers
+## 📄 License & Ecosystem
 
-The landing page itself has **zero dependencies**. The Python scripts are optional helpers for asset generation and optimization:
-
-```bash
-# Install optional python dependencies for asset optimization
-pip install rembg Pillow opencv-python dashscope
-```
-
----
-
-## 🤝 Contributing & Community Standards
-
-Contributions are welcome! If you discover a new edge case or gotcha, add it to `memory/` — every lesson learned prevents future AI agents from repeating the issue.
-
-Please review our:
-* 📜 [Code of Conduct](CODE_OF_CONDUCT.md)
-* 🛠️ [Contributing Guide](CONTRIBUTING.md)
-
----
-
-## 📄 License
-
-This project is licensed under the [MIT License](LICENSE). Created by [alwkala](https://github.com/alwkala). Free to use in personal and commercial projects.
+Licensed under the [MIT License](LICENSE). Built with ❤️ by [Alwkala](https://alwkala.com).

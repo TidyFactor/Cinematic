@@ -9,60 +9,136 @@ const prompts = require('prompts');
 const PACKAGE_ROOT = path.resolve(__dirname, '..');
 const pkg = require(path.join(PACKAGE_ROOT, 'package.json'));
 
+const VALID_LAYOUTS = new Set([
+  'fullbleed',
+  'editorial',
+  'spatial',
+  'interface',
+  'minimal'
+]);
+
+function isInteractiveTerminal() {
+  return (
+    Boolean(process.stdin.isTTY) &&
+    Boolean(process.stdout.isTTY) &&
+    !process.env.CI &&
+    process.env.NO_PROMPT !== '1'
+  );
+}
+
+function parseCliArgs() {
+  const args = process.argv.slice(2);
+  let targetDirArg = null;
+  let flags = {
+    layout: undefined,
+    yes: false,
+    defaults: false,
+  };
+
+  for (const arg of args) {
+    if (arg.startsWith('--layout=')) {
+      flags.layout = arg.split('=')[1];
+    } else if (arg === '--yes' || arg === '-y') {
+      flags.yes = true;
+    } else if (arg === '--defaults') {
+      flags.defaults = true;
+    } else if (!arg.startsWith('--') && !targetDirArg) {
+      targetDirArg = arg;
+    }
+  }
+
+  return { targetDirArg, flags };
+}
+
+async function safePrompts(questions, flags, isInteractive) {
+  if (!isInteractive || flags.yes || flags.defaults) {
+    return {};
+  }
+
+  const activeQuestions = questions.filter(q => q && q.type !== null);
+  if (activeQuestions.length === 0) {
+    return {};
+  }
+
+  return Promise.race([
+    prompts(activeQuestions, {
+      onCancel() {
+        console.log(chalk.red('\n✖ Operation cancelled.'));
+        process.exit(0);
+      }
+    }),
+    new Promise(resolve => {
+      setTimeout(() => {
+        console.log(
+          chalk.yellow(
+            "\nInteractive input timeout / non-responsive TTY. Falling back to defaults."
+          )
+        );
+        resolve({});
+      }, 1000);
+    })
+  ]);
+}
+
 async function main() {
   console.log(`\n  ${chalk.bold.yellow('🎬 Cinematic Landing Kit')} ${chalk.dim(`v${pkg.version}`)}\n`);
 
-  let targetDirArg = process.argv[2];
-  let flags = {};
+  const { targetDirArg, flags } = parseCliArgs();
 
-  process.argv.slice(2).forEach(arg => {
-    if (arg.startsWith('--layout=')) {
-      flags.layout = arg.split('=')[1];
-    }
-  });
-
-  if (targetDirArg && targetDirArg.startsWith('--')) {
-    targetDirArg = null;
-  }
-
-  let responses;
-  try {
-    responses = await prompts(
-      [
-        {
-          type: targetDirArg ? null : 'text',
-          name: 'projectDir',
-          message: 'Project directory name:',
-          initial: 'my-cinematic-landing'
-        },
-        {
-          type: flags.layout ? null : 'select',
-          name: 'layout',
-          message: 'Select a layout template:',
-          choices: [
-            { title: 'Fullbleed Film (Long scroll film hero - Perfume, Watches, Luxury items)', value: 'fullbleed' },
-            { title: 'Editorial (Split-screen hero - Furniture, Auto, Skincare)', value: 'editorial' },
-            { title: 'Spatial (Establishing-shot hero - Real Estate, Architecture, Hospitality)', value: 'spatial' },
-            { title: 'Interface (Device mockup hero - SaaS, Digital Apps)', value: 'interface' },
-            { title: 'Minimal (Centered hero - Books, Digital products, Lightweight)', value: 'minimal' }
-          ],
-          initial: 0
-        }
-      ],
-      {
-        onCancel: () => {
-          console.log(chalk.red('\n✖ Operation cancelled.'));
-          process.exit(0);
-        }
-      }
-    );
-  } catch (err) {
-    console.error(err);
+  // Validate layout flag if explicitly passed
+  if (flags.layout && !VALID_LAYOUTS.has(flags.layout)) {
+    console.error(chalk.red(`✖ Unknown layout "${flags.layout}"`));
+    console.log(`\nAvailable layouts:
+  • fullbleed   (Long scroll film - Perfume, Watches, Automotive)
+  • editorial   (Split-screen hero - Furniture, Skincare, Founder stories)
+  • spatial     (Establishing shot hero - Real Estate, Hospitality)
+  • interface   (Device mockup hero - SaaS, Apps, Digital platforms)
+  • minimal     (Centered hero, no canvas film - Books, Digital products)\n`);
     process.exit(1);
   }
 
-  const projectDir = targetDirArg || responses.projectDir || 'my-cinematic-landing';
-  const layout = flags.layout || responses.layout || 'fullbleed';
+  const isInteractive = isInteractiveTerminal();
+  const willPrompt = isInteractive && !flags.yes && !flags.defaults && (!targetDirArg || !flags.layout);
+
+  if (!willPrompt) {
+    console.log(chalk.dim('ℹ Non-interactive or automated execution mode.'));
+  }
+
+  const questions = [
+    {
+      type: targetDirArg ? null : 'text',
+      name: 'projectDir',
+      message: 'Project directory name:',
+      initial: 'my-cinematic-landing'
+    },
+    {
+      type: flags.layout ? null : 'select',
+      name: 'layout',
+      message: 'Select a layout template:',
+      choices: [
+        { title: 'Fullbleed Film (Long scroll film hero - Perfume, Watches, Luxury items)', value: 'fullbleed' },
+        { title: 'Editorial (Split-screen hero - Furniture, Auto, Skincare)', value: 'editorial' },
+        { title: 'Spatial (Establishing-shot hero - Real Estate, Architecture, Hospitality)', value: 'spatial' },
+        { title: 'Interface (Device mockup hero - SaaS, Digital Apps)', value: 'interface' },
+        { title: 'Minimal (Centered hero - Books, Digital products, Lightweight)', value: 'minimal' }
+      ],
+      initial: 0
+    }
+  ];
+
+  let responses = {};
+  try {
+    responses = await safePrompts(questions, flags, isInteractive);
+  } catch (err) {
+    responses = {};
+  }
+
+  const projectDir = targetDirArg ?? responses.projectDir ?? 'my-cinematic-landing';
+  const layout = flags.layout ?? responses.layout ?? 'fullbleed';
+
+  console.log(`\n  ${chalk.bold('Configuration:')}
+    • Project directory: ${chalk.cyan(projectDir)}
+    • Selected layout:   ${chalk.cyan(layout)}\n`);
 
   const targetPath = path.resolve(process.cwd(), projectDir);
 

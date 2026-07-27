@@ -8,6 +8,8 @@ except ImportError:
     print("Required package not installed. Run:  pip install Pillow", file=sys.stderr)
     sys.exit(1)
 
+from _utils import split_spec
+
 PNG_EXTS = {".png", ".webp", ".tga", ".bmp", ".tiff"}
 
 def convert_to_jpg(src, dest, quality=87):
@@ -54,10 +56,11 @@ def main():
                 convert_to_jpg(src, dest, args.quality)
     elif args.pairs:
         for pair in args.pairs:
-            if ":" not in pair:
+            parts = split_spec(pair)
+            if len(parts) < 2:
                 print(f"[skip] '{pair}' — expected format  src:dest", file=sys.stderr)
                 continue
-            src, dest = pair.split(":", 1)
+            src, dest = parts[0], parts[1]
             convert_to_jpg(src.strip(), dest.strip(), args.quality)
     else:
         parser.print_help()

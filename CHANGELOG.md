@@ -5,7 +5,39 @@ All notable changes to the **[@alwkala/create-cinematic-kit](https://www.npmjs.c
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
----
+## [3.2.1] - 2026-07-27
+
+### Fixed & Enhanced
+- **Python Asset Pipeline Audit**:
+  - Updated `scripts/prepare_images.py` to use `split_spec` from `_utils.py` for Windows drive-letter path compatibility (`C:\path\src.png:C:\path\dest.jpg`).
+- **Build & Skill Validation Auto-Sync**:
+  - Integrated `--sync` flag into `tools/build-skill.js` and `tools/build-antigravity.js` to automatically keep reference command specs in 100% parity across targets.
+
+## [3.2.0] - 2026-07-27
+
+### Added
+- **Create-Vite Style TTY Automation & CLI Resilience**:
+  - `isInteractiveTerminal()` detection (`process.stdin.isTTY`, `process.stdout.isTTY`, `CI`, `NO_PROMPT`).
+  - Added `--yes` (`-y`) and `--defaults` automation flags for non-interactive AI Agent / CI execution.
+  - Added CLI layout validation with helpful list of valid layouts (`fullbleed`, `editorial`, `spatial`, `interface`, `minimal`).
+  - Added `safePrompts()` wrapper with interactive input timeout fallback to prevent hanging in non-responsive embedded TTYs.
+
+## [3.1.2] - 2026-07-27
+
+### Changed
+- **Workflow & Packaging Polish**:
+  - Updated release action secrets handling for workflow syntax compliance.
+  - Re-packaged distribution skill archives (`tidyfactor-cinematic.skill` and `cinematic-landing-kit.agents.zip`).
+
+## [3.1.1] - 2026-07-27
+
+### Added
+- **Enhanced Bilingual Documentation (`README.md` & `README.ar.md`)**:
+  - Overhauled Getting Started & Quick Start sections with clear step-by-step installation options (`npx @alwkala/create-cinematic-kit`, `npm install -g`, interactive mode).
+  - Detailed Agent Skill Injection guide (`npx add-cinematic-skill`) covering all production lifecycle use cases (Init, Convert, Audit/Improve, Variant).
+  - Complete 16-Command Reference Table in both Arabic and English documenting purpose, function, and reference specs (`references/commands/*.md`).
+- **Fixes**:
+  - Fixed syntax error in `.github/workflows/release.yml` line 53 for GitHub Actions workflow compatibility.
 
 ## [3.1.0] - 2026-07-27
 

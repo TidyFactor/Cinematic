@@ -88,7 +88,7 @@ function assertExists(p, hint) {
 
 function main() {
   log("running skill validation before build...");
-  execFileSync("node", [path.join(__dirname, "validate-skill.js")], { stdio: "inherit" });
+  execFileSync("node", [path.join(__dirname, "validate-skill.js"), "--sync"], { stdio: "inherit" });
 
   log(`repo root: ${ROOT}`);
   assertExists(

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * validate-skill.js — Validates skill frontmatter, file integrity,
- * command reference completeness, and path linkages across agent targets.
+ * command reference completeness, content parity, and path linkages across agent targets.
  */
 
 const fs = require('fs');
@@ -16,6 +16,8 @@ const REQUIRED_COMMANDS = [
   'theme', 'typeface', 'transitions', 'i18n', 'perf', 'a11y',
   'convert', 'audit', 'variant', 'deploy'
 ];
+
+const autoSync = process.argv.includes('--sync') || process.argv.includes('--fix');
 
 let errors = [];
 let warnings = [];
@@ -49,18 +51,46 @@ function checkFrontmatter(filePath, skillName) {
   log(`✓ Frontmatter valid for ${path.relative(ROOT, filePath)}`);
 }
 
-function checkCommands(refDir) {
-  if (!fs.existsSync(refDir)) {
-    errors.push(`Missing command references directory: ${path.relative(ROOT, refDir)}`);
+function checkCommandsAndParity() {
+  const agentsRefDir = path.join(AGENTS_SKILL_DIR, 'references', 'commands');
+  const claudeRefDir = path.join(CLAUDE_SKILL_DIR, 'references', 'commands');
+
+  if (!fs.existsSync(agentsRefDir)) {
+    errors.push(`Missing command references directory: ${path.relative(ROOT, agentsRefDir)}`);
     return;
   }
+  if (!fs.existsSync(claudeRefDir)) {
+    errors.push(`Missing command references directory: ${path.relative(ROOT, claudeRefDir)}`);
+    return;
+  }
+
   for (const cmd of REQUIRED_COMMANDS) {
-    const cmdFile = path.join(refDir, `${cmd}.md`);
-    if (!fs.existsSync(cmdFile)) {
-      errors.push(`Missing command reference spec for '${cmd}': ${path.relative(ROOT, cmdFile)}`);
+    const agentsFile = path.join(agentsRefDir, `${cmd}.md`);
+    const claudeFile = path.join(claudeRefDir, `${cmd}.md`);
+
+    if (!fs.existsSync(agentsFile)) {
+      errors.push(`Missing Antigravity command spec for '${cmd}': ${path.relative(ROOT, agentsFile)}`);
+      continue;
+    }
+    if (!fs.existsSync(claudeFile)) {
+      errors.push(`Missing Claude command spec for '${cmd}': ${path.relative(ROOT, claudeFile)}`);
+      continue;
+    }
+
+    const agentsContent = fs.readFileSync(agentsFile, 'utf8');
+    const claudeContent = fs.readFileSync(claudeFile, 'utf8');
+
+    if (agentsContent !== claudeContent) {
+      if (autoSync) {
+        fs.copyFileSync(agentsFile, claudeFile);
+        log(`⚡ Auto-synced '${cmd}.md' from .agents to .claude-skill`);
+      } else {
+        warnings.push(`Command spec '${cmd}.md' differs between .agents and .claude-skill. Run 'node tools/validate-skill.js --sync' to auto-sync.`);
+      }
     }
   }
-  log(`✓ All ${REQUIRED_COMMANDS.length} command specs present in ${path.relative(ROOT, refDir)}`);
+
+  log(`✓ All ${REQUIRED_COMMANDS.length} command specs verified with parity check across targets`);
 }
 
 function checkDirectory(dirPath, label) {
@@ -71,19 +101,26 @@ function checkDirectory(dirPath, label) {
   }
 }
 
+function checkMemoryFiles() {
+  const memoryDir = path.join(ROOT, 'memory');
+  if (!fs.existsSync(memoryDir)) return;
+  const files = fs.readdirSync(memoryDir).filter(f => f.endsWith('.md'));
+  log(`✓ Verified ${files.length} memory reference files in memory/`);
+}
+
 function main() {
   log('Starting skill validation check...');
 
-  // 1. Check Antigravity / Agentic IDE Skill
+  // 1. Check Skill Frontmatter
   checkFrontmatter(path.join(AGENTS_SKILL_DIR, 'SKILL.md'), 'cinematic-landing-kit');
-  checkCommands(path.join(AGENTS_SKILL_DIR, 'references', 'commands'));
-
-  // 2. Check Claude Skill
   checkFrontmatter(path.join(CLAUDE_SKILL_DIR, 'SKILL.md'), 'tidyfactor-cinematic');
-  checkCommands(path.join(CLAUDE_SKILL_DIR, 'references', 'commands'));
 
-  // 3. Check Core Repositories
+  // 2. Check Command Specs & Content Parity
+  checkCommandsAndParity();
+
+  // 3. Check Core Repositories & Memory
   checkDirectory(path.join(ROOT, 'memory'), 'memory');
+  checkMemoryFiles();
   checkDirectory(path.join(ROOT, 'templates', 'layouts'), 'templates/layouts');
   checkDirectory(path.join(ROOT, 'scripts'), 'scripts');
 
