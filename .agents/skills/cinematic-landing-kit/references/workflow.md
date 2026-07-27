@@ -40,10 +40,10 @@ here, once, and aren't re-litigated mid-build.
 
 **Convert** — audit the *source* (existing static page, a different
 landing-page generator's output, or a design mockup) before proposing the
-target layout. Converting an existing page's sections onto one of the five
+target layout. Converting an existing page's sections onto one of the seven
 fixed layouts still means fitting into that layout's shape — flag (don't
-silently drop) any source section that doesn't fit `fullbleed` /
-`editorial` / `spatial` / `interface` / `minimal`, and confirm with the user
+silently drop) any source section that doesn't fit `film` / `story` /
+`space` / `app` / `creator` / `product` / `store`, and confirm with the user
 whether it becomes an extra section within the chosen layout or is cut.
 
 **Improve** — audit is the primary deliverable if the user just wants a

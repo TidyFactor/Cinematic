@@ -20,9 +20,9 @@ This is the only command that runs the full build order end-to-end in one go
    `colors.dark`), story beats, voice register — from the product + brand.json,
    not by asking unless genuinely blocked.
 3. **Choose a layout** from `templates/layouts/` via `memory/10-use-cases.md`
-   routing: `fullbleed` (transformation stories), `editorial` (specs-heavy),
-   `spatial` (real estate/hospitality), `interface` (SaaS/apps), `minimal`
-   (fast/lightweight, no film).
+   routing: `film` (`fullbleed`), `story` (`editorial`), `space` (`spatial`),
+   `app` (`interface`), `creator` (`minimal`), `product` (single product e-commerce),
+   `store` (multi-product catalog store).
 4. **Scaffold**: copy the chosen template to `index.html`, override `:root`
    tokens per `memory/11-brand-json.md`'s mapping, wire `<meta>`/favicon/logo,
    fill every `{{PLACEHOLDER}}` per `voice.*`.

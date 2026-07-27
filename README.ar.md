@@ -1,6 +1,6 @@
 <div dir="rtl" align="right">
 
-# 🎬 حزمة الصفحات السينمائية — Cinematic Landing Kit `v3.3.0`
+# 🎬 حزمة الصفحات السينمائية — Cinematic Landing Kit `v3.3.1`
 
 **تجربة سينمائية بأسلوب Apple × Cartier — صفحات هبوط تفاعلية فاخرة تُعرض بالتمرير لأي وكيل ذكاء اصطناعي**
 
@@ -76,7 +76,10 @@ create-cinematic-kit my-luxury-landing
 قم بحقن ذاكرة وقواعد المهارة في بيئة عملك الحالية ليتمكن وكيل الذكاء الاصطناعي من بنائها وتطويرها:
 
 ```bash
-npx add-cinematic-skill
+npx @alwkala/create-cinematic-kit add-skill
+
+# تحديث وتحديث الملفات القائمة إلى أحدث إصدار
+npx @alwkala/create-cinematic-kit add-skill --force
 ```
 
 يضيف ملف `AGENTS.md` والمهارات والملفات المرجعية (`memory/`) والتوكنز المعتمدة في `brand.json` كمصدر وحيد للهوية.

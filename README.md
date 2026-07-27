@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🎬 Cinematic Landing Kit `v3.3.0`
+# 🎬 Cinematic Landing Kit `v3.3.1`
 ## We are building the open ecosystem for AI-ready business websites.
 
 **The official marketing website starter for the TidyFactor Ecosystem.**
@@ -97,7 +97,10 @@ create-cinematic-kit my-luxury-landing
 Inject the Agent Skill, rules, memory, and references into an existing workspace:
 
 ```bash
-npx add-cinematic-skill
+npx @alwkala/create-cinematic-kit add-skill
+
+# Force update existing workspace rules to latest version
+npx @alwkala/create-cinematic-kit add-skill --force
 ```
 
 This installs `.agents/skills/cinematic-landing-kit/` and `AGENTS.md`, enabling your AI coding agent to construct and maintain the page using `brand.json` as the single source of truth for design tokens.

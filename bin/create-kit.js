@@ -217,6 +217,15 @@ function printSuccessSummary(projectDir, layout) {
 async function main() {
   const { targetDirArg, flags } = parseCliArgs();
 
+  // Subcommand delegation: forward to add-skill.js if requested
+  const SUBCOMMANDS_SKILL = new Set(['add-skill', 'add-cinematic-skill', 'skill', 'install-skill']);
+  if (targetDirArg && SUBCOMMANDS_SKILL.has(targetDirArg.toLowerCase())) {
+    // Strip the subcommand argument and delegate to add-skill
+    process.argv.splice(2, 1);
+    require('./add-skill.js');
+    return;
+  }
+
   if (flags.version) {
     console.log(`v${pkg.version}`);
     process.exit(0);

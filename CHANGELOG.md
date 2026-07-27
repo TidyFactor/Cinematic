@@ -5,6 +5,18 @@ All notable changes to the **[@alwkala/create-cinematic-kit](https://www.npmjs.c
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.3.1] - 2026-07-28
+
+### Fixed & Enhanced
+- **Subcommand Delegation & `npx` Resolution (`bin/create-kit.js`)**:
+  - Added automatic CLI subcommand delegation so running `npx @alwkala/create-cinematic-kit add-skill` (or `add-cinematic-skill`, `skill`) directly invokes `bin/add-skill.js`.
+  - Solved `404` npm registry lookup errors caused by executing un-scoped `npx add-cinematic-skill`.
+- **Installer Consistency & In-Place Upgrades (`bin/add-skill.js`)**:
+  - Added `--force` (`-f`), `--yes` (`-y`), `--version` (`-v`), and `--help` (`-h`) CLI flags.
+  - Automatically updates existing workspace `AGENTS.md` rules and `.claude-skill` wrappers to version `3.3.1` definitions.
+- **Documentation Alignment**:
+  - Updated `README.md`, `README.ar.md`, `AGENTS.md`, and `SKILL.md` to reflect the correct `npx @alwkala/create-cinematic-kit add-skill` execution command.
+
 ## [3.3.0] - 2026-07-28
 
 ### Added
