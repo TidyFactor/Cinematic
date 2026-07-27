@@ -55,21 +55,30 @@
 متاحة رسمياً على منصة NPM باسم [**`@alwkala/create-cinematic-kit`**](https://www.npmjs.com/package/@alwkala/create-cinematic-kit).
 
 ### 1. إنشاء مشروع جديد جاهز (Scaffold)
-يولّد مجلد مشروع كامل يحتوي على قوالب HTML جاهزة (5 تصاميم: `fullbleed`, `editorial`, `spatial`, `interface`, `minimal`):
+يولّد مجلد مشروع كامل يحتوي على قوالب HTML جاهزة (7 تصاميم فاخرة: `film`, `story`, `space`, `app`, `creator`, `product`, `store`):
 
 ```bash
-# التشغيل التفاعلي (في الطرفية العادية TTY)
+# التشغيل التفاعلي (قائمة لاختيار التصاميم والألوان)
 npx @alwkala/create-cinematic-kit
 
-# التوليد المباشر مع تحديد مجلد المشروع والتصميم
-npx @alwkala/create-cinematic-kit my-luxury-landing --layout interface
+# إنشاء صفحة هبوط لمنتج واحد عالية التحويل مع تحويل واتساب مباشرة
+npx @alwkala/create-cinematic-kit my-watch-shop --layout=product
+
+# إنشاء متجر منتجات متعددة مع كرت واتساب وفلترة الفئات
+npx @alwkala/create-cinematic-kit my-boutique-store --layout=store
+
+# إنشاء صفحة سينمائية فاخرة لعطور أو سيارات (فيلم تمرير تفاعلي)
+npx @alwkala/create-cinematic-kit my-perfume-brand --layout=film
+
+# إنشاء صفحة تطبيق أو منصة SaaS مع محاكاة جهاز متجاوب
+npx @alwkala/create-cinematic-kit my-saas-app --layout=app
 
 # التشغيل التلقائي/لأدوات الذكاء الاصطناعي (بدون أسئلة أو توقف)
 npx @alwkala/create-cinematic-kit my-luxury-landing --yes
 
 # أو التثبيت العام على جهازك وتشغيله في أي وقت
 npm install -g @alwkala/create-cinematic-kit
-create-cinematic-kit my-luxury-landing
+create-cinematic-kit my-luxury-landing --layout=store
 ```
 
 ### 2. حقن "مهارة" (Agent Skill) داخل مشروع قائم

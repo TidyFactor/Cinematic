@@ -79,18 +79,27 @@ Published on NPM as [**`@alwkala/create-cinematic-kit`**](https://www.npmjs.com/
 Scaffold a complete, ready-to-build luxury landing page project with all layout templates:
 
 ```bash
-# Interactive execution (Real terminal TTY)
+# Interactive execution (Real terminal TTY with menu picker)
 npx @alwkala/create-cinematic-kit
 
-# Direct scaffolding with target directory & layout choice
-npx @alwkala/create-cinematic-kit my-luxury-landing --layout interface
+# Single product high-conversion e-commerce + WhatsApp layout
+npx @alwkala/create-cinematic-kit my-watch-shop --layout=product
+
+# Multi-product WhatsApp catalog store layout
+npx @alwkala/create-cinematic-kit my-boutique-store --layout=store
+
+# Luxury film scroll layout (Perfume, Watches, Automotive)
+npx @alwkala/create-cinematic-kit my-perfume-brand --layout=film
+
+# SaaS App / Platform device mockup layout
+npx @alwkala/create-cinematic-kit my-saas-app --layout=app
 
 # Non-interactive / AI Agent / CI mode (automated defaults, zero prompts)
 npx @alwkala/create-cinematic-kit my-luxury-landing --yes
 
 # Or install globally and run anytime
 npm install -g @alwkala/create-cinematic-kit
-create-cinematic-kit my-luxury-landing
+create-cinematic-kit my-luxury-landing --layout=store
 ```
 
 ### Option 2: Inject Agent Skill into an Existing Project
