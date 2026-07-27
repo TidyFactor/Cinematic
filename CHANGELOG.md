@@ -5,6 +5,16 @@ All notable changes to the **[@alwkala/create-cinematic-kit](https://www.npmjs.c
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.3.2] - 2026-07-28
+
+### Audited & Verified
+- **Unified Layout Registry & Agent Prompt Consistency**:
+  - Fully standardized layout aliases (`film`, `story`, `space`, `app`, `creator`, `product`, `store`) across all command specifications, memory files, CLI scripts, and AI agent interactive prompt questions.
+- **Skill Reference Parity**:
+  - Synchronized all 16 command specs and memory references between `.agents/skills/cinematic-landing-kit/` and `.claude-skill/`.
+- **Distribution Bundle Re-packaging**:
+  - Rebuilt clean distribution archives (`dist/tidyfactor-cinematic.skill` and `dist/cinematic-landing-kit.agents.zip`).
+
 ## [3.3.1] - 2026-07-28
 
 ### Fixed & Enhanced

@@ -10,7 +10,7 @@ without re-running the full asset pipeline from scratch.
 | Cheap to vary (no new media generation) | Expensive to vary (triggers `media` again) |
 |---|---|
 | `brand.json` color tokens (light/dark palette swap) | Different product photography subject |
-| `voice.tone` / headline copy | A layout that needs a different hero treatment (e.g. `fullbleed` → `spatial`) |
+| `voice.tone` / headline copy | A layout that needs a different hero treatment (e.g. `film` → `space`) |
 | CTA wording/placement | A materially different story arc (different film beats) |
 | Layout choice **within the same use-case's compatible set** (rare — most use-cases route to one layout in `memory/10-use-cases.md`) | Provider switch (`nanobanana` → `qwen`) mid-project |
 

@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🎬 Cinematic Landing Kit `v3.3.1`
+# 🎬 Cinematic Landing Kit `v3.3.2`
 ## We are building the open ecosystem for AI-ready business websites.
 
 **The official marketing website starter for the TidyFactor Ecosystem.**

@@ -21,11 +21,12 @@ the locked engine — no self-hosting, no build step).
 | Mood | Arabic heading | Arabic body | Latin accent | Best layouts | Avoid for |
 |---|---|---|---|---|---|
 | **Default luxury** (safe, warm) | El Messiri | Tajawal | Cormorant Garamond | any | — |
-| **Editorial / literary** | Markazi Text | IBM Plex Sans Arabic | Fraunces | `editorial` | `interface` (too soft for UI chrome) |
-| **Art-Deco / high fashion** | Jomhuria *(display sizes only, ≥48px — see note)* | Cairo | Bodoni Moda | `fullbleed` (fashion, jewelry, watches) | `minimal` (too loud for a quiet page) |
-| **Modern minimal / tech-luxury** | Cairo | Cairo (same family, weight-differentiated) | Marcellus | `interface`, `minimal` | `spatial` (reads cold for hospitality/real estate) |
-| **Warm hospitality / travel** | El Messiri | Almarai | Prata | `spatial` | — |
-| **Automotive / performance** | El Messiri (branding) + Oswald (spec numerals only) | Tajawal | Oswald | `fullbleed`, `editorial` (auto use case) | non-automotive builds |
+| **Editorial / literary** | Markazi Text | IBM Plex Sans Arabic | Fraunces | `story` (`editorial`) | `app` (too soft for UI chrome) |
+| **Art-Deco / high fashion** | Jomhuria *(display sizes only, ≥48px)* | Cairo | Bodoni Moda | `film` (`fullbleed`) | `creator` (too loud for a quiet page) |
+| **Modern minimal / tech-luxury** | Cairo | Cairo (weight-differentiated) | Marcellus | `app` (`interface`), `creator` (`minimal`) | `space` (reads cold for real estate) |
+| **Warm hospitality / travel** | El Messiri | Almarai | Prata | `space` (`spatial`) | — |
+| **E-Commerce & Conversion** | El Messiri | Tajawal | Cormorant Garamond | `product`, `store` | — |
+| **Automotive / performance** | El Messiri (branding) + Oswald (numerals) | Tajawal | Oswald | `film`, `story` (auto use case) | non-automotive builds |
 
 ## Notes on the less obvious picks
 

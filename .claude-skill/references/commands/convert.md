@@ -19,10 +19,10 @@ command is what completes the set here.
 1. **Audit the source first** (per `references/workflow.md`): identify what
    it actually has — hero image, feature sections, specs, testimonials,
    footer/CTA — before proposing a target shape. Don't assume; read it.
-2. **Map source sections onto one of the five fixed layouts**
-   (`memory/10-use-cases.md`) — the target is still one of `fullbleed` /
-   `editorial` / `spatial` / `interface` / `minimal`, chosen by the same
-   use-case fit test as `init`, not a hybrid invented per project.
+2. **Map source sections onto one of the seven fixed layouts**
+   (`memory/10-use-cases.md`) — the target is one of `film` (`fullbleed`),
+   `story` (`editorial`), `space` (`spatial`), `app` (`interface`), `creator` (`minimal`),
+   `product`, or `store`, chosen by the same use-case fit test as `init`.
 3. **Flag, don't silently drop**, any source section that doesn't fit the
    chosen layout's shape (e.g. a pricing table on a `fullbleed` transformation
    story). Confirm with the user whether it becomes an extra section within

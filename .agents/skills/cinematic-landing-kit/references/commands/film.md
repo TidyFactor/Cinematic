@@ -25,8 +25,7 @@ layout or media generation to fix.
    `ctx.drawImage`.
 4. **Sync `FRAME_COUNT`** in `index.html` to the actual extracted frame
    count (typical: 4 clips × 24 frames − 3 duplicated boundary frames = 93).
-   Applies to `fullbleed`, `editorial`, `spatial`, `interface` — **not**
-   `minimal` (no film).
+   Applies to `film` (`fullbleed`), `story` (`editorial`), `space` (`spatial`), `app` (`interface`), `product` — **not** `creator` (`minimal`) or `store` (no canvas film).
 5. Confirm hidden-tab behavior doesn't corrupt state: `requestAnimationFrame`
    pauses when `document.hidden === true` — this is expected OS behavior,
    not a bug to "fix" (see `memory/08-preview-and-env-gotchas.md`).

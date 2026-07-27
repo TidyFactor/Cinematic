@@ -13,13 +13,13 @@ touching the rest of the build.
 
 ## What it does
 1. **Layout-specific hero treatment** — never mix these:
-   - `fullbleed` / `editorial` / `minimal`: transparent PNG cutout
+   - `film` (`fullbleed`) / `story` (`editorial`) / `creator` (`minimal`) / `product`: transparent PNG cutout
      (`rembg` output from `media`), composited with a soft `drop-shadow`.
      **Never `mix-blend-mode`** on this element — it breaks the moment GSAP
      transforms it (new stacking context blends against white/black instead
      of the page).
-   - `spatial`: full-bleed establishing shot, no cutout needed.
-   - `interface`: CSS device-mockup frame, no cutout needed.
+   - `space` (`spatial`) / `store`: full-bleed establishing shot or store banner, no cutout needed.
+   - `app` (`interface`): CSS device-mockup frame, no cutout needed.
 2. Build the layer structure so each owns one transform channel (no
    conflicts): `.stage` (perspective) → `.aura` (gold radial light, CSS
    entrance + slow pulse + pointer parallax) → `.motes` (~8 drifting
