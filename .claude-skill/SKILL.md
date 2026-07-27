@@ -1,6 +1,6 @@
 ---
 name: tidyfactor-cinematic
-description: TidyFactor Cinematic track — builds single-file, scroll-driven luxury landing pages (Apple x Cartier aesthetic) as one index.html with CDN-only libraries (GSAP, Lenis, Tailwind), no build step, no framework. The product "film" is a JPG frame-sequence drawn on canvas and scrubbed by scroll, not a scrubbed video element. Reads brand.json as the single source of truth for colors, typography, voice, identity, and localization when present. Supports three media providers (Nano Banana default, Qwen+Wan, Higgsfield), five layouts (fullbleed, editorial, spatial, interface, minimal) selected via use-case routing, and a curated set of distinctive luxury Arabic typography pairings beyond the default El Messiri/Tajawal. Trigger on commands "init", "brand", "clone-brand", "media", "film", "hero", "theme", "typeface", "transitions", "i18n", "perf", "a11y", "convert", "audit", "variant", "deploy", or requests like "build a cinematic landing page", "scroll-driven product page", "luxury Apple-style landing page", "صفحة هبوط سينمائية", "convert this landing page to a cinematic one", "audit this cinematic page", "make the Arabic typography more distinctive/luxurious", "check page performance", "accessibility check", "clone our brand from this site", "make an A/B variant". Covers three modes — Init, Convert, Improve.
+description: TidyFactor Cinematic track — builds single-file, scroll-driven luxury landing pages (Apple x Cartier aesthetic) as one index.html with CDN-only libraries (GSAP, Lenis, Tailwind), no build step, no framework. The product "film" is a JPG frame-sequence drawn on canvas and scrubbed by scroll, not a scrubbed video element. Reads brand.json as the single source of truth for colors, typography, voice, identity, and localization when present. Supports three media providers (Nano Banana default, Qwen+Wan, Higgsfield), seven layouts (film, story, space, app, creator, product, store) selected via use-case routing, and a curated set of distinctive luxury Arabic typography pairings beyond the default El Messiri/Tajawal. Trigger on commands "init", "brand", "clone-brand", "media", "film", "hero", "theme", "typeface", "transitions", "i18n", "perf", "a11y", "convert", "audit", "variant", "deploy", or requests like "build a cinematic landing page", "scroll-driven product page", "luxury Apple-style landing page", "صفحة هبوط سينمائية", "convert this landing page to a cinematic one", "audit this cinematic page", "make the Arabic typography more distinctive/luxurious", "check page performance", "accessibility check", "clone our brand from this site", "make an A/B variant". Covers three modes — Init, Convert, Improve.
 ---
 
 # TidyFactor Cinematic (Scroll-Driven Luxury Landing Pages)
@@ -27,13 +27,22 @@ wants to inspire, not just list features → this skill.
   overrides every template default (colors, fonts, voice, identity,
   localization) — see `memory/11-brand-json.md`. Absent brand.json → the
   warm-gold + El Messiri/Tajawal fallback applies.
-- **Layouts**: `fullbleed`, `editorial`, `spatial`, `interface`, `minimal` —
-  chosen by product type via `memory/10-use-cases.md`, never asked unless
+- **Layouts**: `film` (`fullbleed`), `story` (`editorial`), `space` (`spatial`), `app` (`interface`), `creator` (`minimal`), `product` (`product`), `store` (`store`) — picked via `memory/10-use-cases.md`., never asked unless
   genuinely ambiguous.
 - **Media providers**: `nanobanana` (default, built-in `generate_image`
   tool, no extra deps), `qwen` (Qwen Image + Wan via DashScope, paid API),
   `higgsfield` (CLI, paid). Provider comes from `brand.json`'s
   `mediaProvider` field.
+
+## Memory Routing
+
+| Memory File | Purpose |
+|---|---|
+| `memory/10-use-cases.md` | Layout logic & user-case mapping |
+| `memory/11-brand-json.md` | Schema definition & override precedence |
+| `memory/12-arabic-typography.md` | Luxury pairings & mood classification |
+| `memory/13-performance-budget.md` | Asset constraints & optimization targets |
+| `memory/14-accessibility.md` | Canvas standards & keyboard navigation |
 
 ## Step 0 — Identify the mode (ask if not obvious)
 

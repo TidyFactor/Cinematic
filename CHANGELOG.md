@@ -5,6 +5,18 @@ All notable changes to the **[@alwkala/create-cinematic-kit](https://www.npmjs.c
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.3.0] - 2026-07-28
+
+### Added
+- **Expanded 7-Layout System & E-Commerce / WhatsApp Conversion Templates**:
+  - `product.html`: Single-product high-conversion layout featuring above-fold price & WhatsApp CTA, short scroll film, features grid, social proof reviews, FAQ accordion, floating WhatsApp bubble, and sticky mobile purchase bar.
+  - `store.html`: Multi-product catalog layout with category filter bar, product grid cards with per-item WhatsApp order deep links, featured product spotlight, trust strip, and floating WhatsApp bubble.
+  - Intuitive CLI layout aliases: `film` (`fullbleed`), `story` (`editorial`), `space` (`spatial`), `app` (`interface`), `creator` (`minimal`), `product` (`product`), `store` (`store`).
+- **CLI Interactive UI/UX Redesign (`bin/create-kit.js` & `bin/add-skill.js`)**:
+  - Stylized ASCII branding banners, rich layout selection menu with emojis and contextual descriptions, UX tips, and structured post-setup summary boxes.
+- **AI Agent Token Usage Optimization (Lazy Memory Load Routing)**:
+  - Routing table mapping each slash command to ONLY its required memory module (~80% reduction in context overhead).
+
 ## [3.2.2] - 2026-07-28
 
 ### Fixed & Hardened

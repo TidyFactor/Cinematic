@@ -8,13 +8,49 @@ const ora = require('ora');
 const PACKAGE_ROOT = path.resolve(__dirname, '..');
 const pkg = require(path.join(PACKAGE_ROOT, 'package.json'));
 
+function printBanner() {
+  const v = `v${pkg.version}`;
+  console.log('');
+  console.log(chalk.yellow('  ╔═══════════════════════════════════════════════════════╗'));
+  console.log(chalk.yellow('  ║') + chalk.bold.white('  🤖  Agent Skill Installer  ') + chalk.dim(v.padEnd(7)) + '                 ' + chalk.yellow('║'));
+  console.log(chalk.yellow('  ║') + chalk.dim('  Equip Antigravity, Claude Code, Cursor & Windsurf     ') + chalk.yellow('║'));
+  console.log(chalk.yellow('  ╚═══════════════════════════════════════════════════════╝'));
+  console.log('');
+}
+
+function printSuccessSummary() {
+  console.log('');
+  console.log(chalk.green('  ╔═══════════════════════════════════════════════════════╗'));
+  console.log(chalk.green('  ║') + chalk.bold.white('  ✅  Skill Installed Successfully!                    ') + chalk.green('║'));
+  console.log(chalk.green('  ╠═══════════════════════════════════════════════════════╣'));
+  console.log(chalk.green('  ║') + `  📂  ${chalk.cyan('.agents/skills/cinematic-landing-kit/SKILL.md')}`.padEnd(62) + chalk.green('║'));
+  console.log(chalk.green('  ║') + `  📚  ${chalk.cyan('.agents/skills/cinematic-landing-kit/references/')}`.padEnd(62) + chalk.green('║'));
+  console.log(chalk.green('  ║') + `  🧰  ${chalk.cyan('.agents/skills/cinematic-landing-kit/memory/')}`.padEnd(62) + chalk.green('║'));
+  console.log(chalk.green('  ║') + `  🤖  ${chalk.cyan('.claude-skill/')}`.padEnd(62) + chalk.green('║'));
+  console.log(chalk.green('  ║') + `  📄  ${chalk.cyan('AGENTS.md')} ${chalk.dim('(Updated workspace agent rules)')}`.padEnd(62) + chalk.green('║'));
+  console.log(chalk.green('  ╠═══════════════════════════════════════════════════════╣'));
+  console.log(chalk.green('  ║') + chalk.bold.white('  🚀  Supported AI Agent Slash Commands:               ') + chalk.green('║'));
+  console.log(chalk.green('  ║') + `  • ${chalk.cyan('init')}      — Full working cinematic page in 1 pass`.padEnd(60) + chalk.green('║'));
+  console.log(chalk.green('  ║') + `  • ${chalk.cyan('brand')}     — Scaffolds & validates brand.json tokens`.padEnd(60) + chalk.green('║'));
+  console.log(chalk.green('  ║') + `  • ${chalk.cyan('media')}     — Generates keyframes & video clips`.padEnd(60) + chalk.green('║'));
+  console.log(chalk.green('  ║') + `  • ${chalk.cyan('film')}      — Builds canvas scroll frame sequence`.padEnd(60) + chalk.green('║'));
+  console.log(chalk.green('  ║') + `  • ${chalk.cyan('perf')} / ${chalk.cyan('a11y')} — Quality-bar budget checks`.padEnd(60) + chalk.green('║'));
+  console.log(chalk.green('  ╚═══════════════════════════════════════════════════════╝'));
+  console.log('');
+  console.log(`  ${chalk.bold.yellow('✨ Your AI Agent is now fully empowered!')} ${chalk.dim('Prompt your agent with: "init"')}`);
+  console.log('');
+}
+
 async function main() {
-  console.log(`\n  ${chalk.bold.yellow('🤖 Cinematic Landing Kit - Agent Skill Installer')} ${chalk.dim(`v${pkg.version}`)}\n`);
+  printBanner();
 
   const workspaceRoot = process.cwd();
   const skillDir = path.join(workspaceRoot, '.agents', 'skills', 'cinematic-landing-kit');
 
-  const spinner = ora(`Installing Agent Skill in ${chalk.cyan('.agents/skills/cinematic-landing-kit')}...`).start();
+  const spinner = ora({
+    text: `Installing Agent Skill in ${chalk.cyan('.agents/skills/cinematic-landing-kit')}...`,
+    color: 'yellow',
+  }).start();
 
   try {
     // 1. Ensure target skill directory exists
@@ -90,18 +126,9 @@ async function main() {
       }
     });
 
-    spinner.succeed(chalk.green(`Agent Skill installed successfully!`));
+    spinner.succeed(chalk.green('Skill installation complete!'));
 
-    console.log(`
-  ${chalk.bold('Installed artifacts:')}
-    • ${chalk.cyan('.agents/skills/cinematic-landing-kit/SKILL.md')}
-    • ${chalk.cyan('.agents/skills/cinematic-landing-kit/references/')}
-    • ${chalk.cyan('.agents/skills/cinematic-landing-kit/memory/')}
-    • ${chalk.cyan('.claude-skill/')}
-    • ${chalk.cyan('AGENTS.md')} (Updated workspace rules)
-
-  ${chalk.bold.yellow('✨ Your AI Agent is now ready to build luxury landing pages with full slash commands!')}
-`);
+    printSuccessSummary();
 
   } catch (err) {
     spinner.fail(chalk.red('Failed to install Agent Skill.'));

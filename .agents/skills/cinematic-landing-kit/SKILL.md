@@ -1,6 +1,6 @@
 ---
 name: cinematic-landing-kit
-description: Universal AI Agent Skill — Builds single-file, scroll-driven luxury landing pages (Apple x Cartier aesthetic) as one index.html with CDN-only libraries (GSAP, Lenis, Tailwind), zero build step, no framework. Fully compatible out-of-the-box with Google Antigravity, Claude Code, Cursor, Windsurf, Roo Code, Cline, Codex, and all AGENTS.md compliant AI coding agents. Scrubbed canvas frame sequence product film. Reads brand.json as single source of truth for identity, colors, typography, voice, and localization. Supports 5 luxury layouts (fullbleed, editorial, spatial, interface, minimal) and curated luxury Arabic typography. Trigger on commands "init", "brand", "clone-brand", "media", "film", "hero", "theme", "typeface", "transitions", "i18n", "perf", "a11y", "convert", "audit", "variant", "deploy", or requests like "build a cinematic landing page", "scroll-driven product page", "luxury Apple-style landing page", "صفحة هبوط سينمائية".
+description: Universal AI Agent Skill — Builds single-file, scroll-driven luxury landing pages (Apple x Cartier aesthetic) as one index.html with CDN-only libraries (GSAP, Lenis, Tailwind), zero build step, no framework. Fully compatible out-of-the-box with Google Antigravity, Claude Code, Cursor, Windsurf, Roo Code, Cline, Codex, and all AGENTS.md compliant AI coding agents. Scrubbed canvas frame sequence product film. Reads brand.json as single source of truth for identity, colors, typography, voice, and localization. Supports 7 luxury layouts (film, story, space, app, creator, product, store) and curated luxury Arabic typography. Trigger on commands "init", "brand", "clone-brand", "media", "film", "hero", "theme", "typeface", "transitions", "i18n", "perf", "a11y", "convert", "audit", "variant", "deploy", or requests like "build a cinematic landing page", "scroll-driven product page", "luxury Apple-style landing page", "صفحة هبوط سينمائية".
 ---
 
 # Universal AI Agent Skill — Cinematic Landing Kit
@@ -26,11 +26,13 @@ This skill leverages native Agentic IDE capabilities:
 - **Film Engine**: JPG frame-sequence (`assets/seq/f000.jpg … fNNN.jpg`) drawn on `<canvas>`, scrubbed smoothly by scroll progress. **NEVER scrub `video.currentTime`** — H.264 keyframe-seeking causes stutter.
 - **Brand Source of Truth**: `brand.json` at project root overrides template defaults (colors, fonts, voice, identity, localization) per `memory/11-brand-json.md`.
 - **Layout Selection** (via `memory/10-use-cases.md`):
-  - `fullbleed.html` — Long scroll film, aura + motes hero (High-ticket products, watches, luxury automotive)
-  - `editorial.html` — Split-screen hero, specs film (Specs-heavy products, brand stories, founder pages)
-  - `spatial.html` — Establishing shot hero, walkthrough film (Real estate, architecture, hospitality)
-  - `interface.html` — Device mockup frame hero, UI flow film (SaaS, mobile apps, digital platforms)
-  - `minimal.html` — Centered hero cutout, no canvas film (Digital products, books, creators)
+  - `film` (`fullbleed.html`) — Long scroll film, aura + motes hero (Perfume, watches, luxury automotive)
+  - `story` (`editorial.html`) — Split-screen hero, specs film (Specs-heavy products, brand stories, founder pages)
+  - `space` (`spatial.html`) — Establishing shot hero, walkthrough film (Real estate, architecture, hospitality)
+  - `app` (`interface.html`) — Device mockup frame hero, UI flow film (SaaS, mobile apps, digital platforms)
+  - `creator` (`minimal.html`) — Centered hero cutout, no canvas film (Digital products, books, creators)
+  - `product` (`product.html`) — Single product high-conversion e-commerce with price above fold & WhatsApp CTA
+  - `store` (`store.html`) — Multi-product catalog grid with category filter & per-card WhatsApp links
 - **Media Providers**: `nanobanana` (default, built-in `generate_image` tool), `qwen` (Qwen Image + Wan via DashScope API), `higgsfield` (Higgsfield CLI).
 
 ---
@@ -66,6 +68,29 @@ All detailed command specs reside in `references/commands/`:
 | `audit` | Quality-bar + brand.json verification checklist as a standalone report | `references/commands/audit.md` | — |
 | `variant` | Produce an A/B page from an already-built project | `references/commands/variant.md` | — |
 | `deploy` | Preview, asset optimization, static-hosting export | `references/commands/deploy.md` | 3 |
+
+---
+
+## ⚡ Memory Load Routing (Token Budget Optimization)
+
+To keep AI agent token usage minimal (~80% reduction), read **ONLY** the specific memory module required for the current command:
+
+| Command | Load ONLY these memory files |
+|---|---|
+| `init` | `memory/10-use-cases.md` + `memory/11-brand-json.md` + chosen layout file |
+| `brand` | `memory/11-brand-json.md` |
+| `clone-brand` | `memory/11-brand-json.md` + `memory/15-brand-extraction.md` |
+| `media` | `memory/06-media-pipeline.md` + provider file (`nanobanana`/`qwen`/`higgsfield`) |
+| `film` | `memory/02-scroll-film-canvas.md` |
+| `hero` | `memory/04-cinematic-hero.md` |
+| `theme` | `memory/05-theming.md` |
+| `typeface` | `memory/12-arabic-typography.md` |
+| `perf` | `memory/13-performance-budget.md` |
+| `a11y` | `memory/14-accessibility.md` |
+| `convert` | `memory/15-brand-extraction.md` + `memory/10-use-cases.md` |
+| `audit` | `memory/09-quality-bar.md` |
+| `variant` | `memory/16-variants.md` |
+| `deploy` | `memory/08-preview-and-env-gotchas.md` |
 
 ---
 

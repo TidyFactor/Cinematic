@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<!-- ============================================================================
+     PRODUCT LAYOUT  (single product, high-conversion e-commerce + WhatsApp CTA)
+     Fill the {{PLACEHOLDERS}}, drop assets into assets/.
+     The engine (Lenis+GSAP ticker, hide/show header, per-section ambient,
+     reveals, fallbacks) is already correct.
+     Layout: hero with above-fold price & WhatsApp CTA, short film, features,
+             social proof, FAQ, sticky mobile CTA bar.
+     Default theme = LIGHT. To go DARK: swap the palette vars + ambient values.
+     WhatsApp: set WHATSAPP_NUMBER (with country code, no +) and PRODUCT_MSG.
+     ============================================================================ -->
+<html lang="{{LANG|ar}}" dir="{{DIR|rtl}}">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>{{PRODUCT_NAME}}</title>
+<meta name="description" content="{{META_DESCRIPTION}}" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&family=Tajawal:wght@200;300;400;500;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" integrity="sha512-onMTRKJBKz8M1TnqqDuGBlowlH0ohFzMXYRNebz+yOcc5TQr/zAKsthzhuv0hiyUKEiQEQXEynnXCvNTOk50dg==" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js" integrity="sha256-eUny2Hql6qBbqmuoQ60u6ueG2eCZVKQaGygqwCPquug=" crossorigin="anonymous"></script>
+
+<style>
+  /* TOKEN MAPPING — when brand.json is present, override :root variables below:
+     --paper=colors.<theme>.background  --ink=colors.<theme>.text
+     --mist=colors.<theme>.surface      --ink-soft=colors.<theme>.textMuted
+     --cream=colors.<theme>.surface2    --ink-faint=derive(textMuted, 40% opacity)
+     --gold=colors.primary (same both themes)
+     --gold-deep/dark=darken primary 15%  --gold-bright=lighten primary 12%
+     --accent=colors.secondary or colors.accent
+     --wa-green=#25D366 (WhatsApp brand — do not override)
+     --line/--line-soft=colors.<theme>.border at 30%/15% opacity
+     --maxw=breakpoints.xl  --ease=motion.easing.emphasized
+     Fonts: h1/h2/.display=typography.families.heading.primary
+            body/.sub/.lead=typography.families.body.primary
+     html[lang]=localization.defaultLocale  html[dir]=localization.rtlLocales
+     Full reference: memory/11-brand-json.md
+     ============================================================================ */
+  :root{
+    --paper:#FBF8F2; --mist:#F7F4EC; --cream:#F3EEE2; --sand:#ECE2CF;
+    --ink:#241812; --ink-soft:#6E5C4B; --ink-faint:#9A8975;
+    --gold:#A97B33; --gold-deep:#8A6128; --gold-bright:#C2974A; --accent:#A8632E;
+    --line:rgba(58,33,20,.16); --line-soft:rgba(58,33,20,.09);
+    --ambient:#FBF8F2; --maxw:1280px; --ease:cubic-bezier(.22,.61,.36,1);
+    --wa-green:#25D366; --wa-dark:#128C7E;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%} html{scroll-behavior:auto}
+  body{background:var(--paper);color:var(--ink);font-family:"Tajawal",system-ui,sans-serif;font-weight:300;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden;line-height:1.8}
+  ::selection{background:var(--gold-bright);color:#fff}
+  h1,h2,h3,.display{font-family:"El Messiri",serif;font-weight:600;line-height:1.1;color:var(--ink)}
+  .latin{font-family:"Cormorant Garamond",serif;letter-spacing:.34em;text-transform:uppercase}
+
+  #ambient{position:fixed;inset:0;z-index:-3;background:var(--ambient)}
+  #glow{position:fixed;inset:0;z-index:-2;pointer-events:none;opacity:.5;
+    background:radial-gradient(120% 90% at 50% 0%,rgba(255,255,255,.8),rgba(244,239,229,0) 60%)}
+  #vignette{position:fixed;inset:0;z-index:-1;pointer-events:none;
+    background:radial-gradient(135% 120% at 50% 42%,transparent 55%,rgba(120,90,50,.06) 100%)}
+  #grain{position:fixed;inset:-50%;z-index:60;pointer-events:none;opacity:.035;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  #progress{position:fixed;top:0;right:0;left:0;height:2px;z-index:70;transform-origin:right;transform:scaleX(0);
+    background:linear-gradient(90deg,var(--gold-deep),var(--gold-bright),var(--accent))}
+
+  /* HEADER */
+  header{position:fixed;top:0;right:0;left:0;z-index:50;display:flex;align-items:center;justify-content:space-between;
+    padding:clamp(14px,2.4vw,28px) clamp(18px,4vw,54px);will-change:transform;
+    transition:transform .5s var(--ease),background .5s,backdrop-filter .5s,box-shadow .5s,padding .5s}
+  header.hidden{transform:translateY(-115%)}
+  header.solid{background:rgba(251,248,242,.85);backdrop-filter:blur(12px);box-shadow:0 1px 0 var(--line-soft);
+    padding-top:clamp(10px,1.6vw,16px);padding-bottom:clamp(10px,1.6vw,16px)}
+  .brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+  .brand .wm{font-family:"El Messiri",serif;font-weight:700;font-size:clamp(20px,2.2vw,26px);color:var(--ink)}
+  header nav{display:flex;align-items:center;gap:clamp(12px,2vw,28px)}
+  header nav a{color:var(--ink-soft);text-decoration:none;font-size:14px;font-weight:500;transition:color .3s}
+  header nav a:hover{color:var(--gold-deep)}
+  .nav-wa{display:flex;align-items:center;gap:7px;background:var(--wa-green);color:#fff!important;
+    border-radius:999px;padding:8px 20px;font-weight:500;font-size:14px;transition:background .3s,transform .2s}
+  .nav-wa:hover{background:var(--wa-dark);transform:scale(1.04)}
+  @media(max-width:680px){header nav a:not(.nav-wa){display:none}}
+
+  /* LAYOUT UTILITIES */
+  section{position:relative}
+  .wrap{max-width:var(--maxw);margin-inline:auto;padding-inline:clamp(20px,5vw,68px)}
+  .eyebrow{font-family:"Cormorant Garamond",serif;letter-spacing:.46em;text-transform:uppercase;font-size:13px;color:var(--gold-deep);font-weight:500}
+  .gold-text{background:linear-gradient(180deg,var(--gold-bright),var(--gold) 50%,var(--gold-deep));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+  .reveal.in{opacity:1;transform:none}
+  .fallback-host{position:relative}
+  .fallback-host.is-missing{background-image:linear-gradient(135deg,var(--cream),var(--sand) 78%);background-size:cover}
+  a:focus-visible,.btn:focus-visible{outline:2px solid var(--gold-deep);outline-offset:3px;border-radius:6px}
+
+  /* HERO — product + price + CTA above fold */
+  #hero{min-height:100svh;display:grid;grid-template-columns:1fr 1fr;align-items:center;
+    gap:clamp(24px,4vw,72px);padding:clamp(90px,12vh,130px) clamp(20px,5vw,68px) clamp(48px,8vh,90px);
+    max-width:var(--maxw);margin-inline:auto}
+  @media(max-width:860px){#hero{grid-template-columns:1fr;text-align:center;padding-top:clamp(100px,18vh,130px)}}
+  #hero .product-image-wrap{position:relative;display:flex;justify-content:center;align-items:center}
+  #hero .product-img{max-height:70vh;width:auto;max-width:100%;object-fit:contain;position:relative;z-index:2;
+    filter:drop-shadow(0 30px 60px rgba(169,123,51,.25))}
+  #hero .aura{position:absolute;inset:-15%;border-radius:50%;background:radial-gradient(circle,rgba(169,123,51,.18) 0%,transparent 70%);
+    z-index:1;pointer-events:none;animation:pulse-aura 4s ease-in-out infinite}
+  @keyframes pulse-aura{0%,100%{transform:scale(1);opacity:.7}50%{transform:scale(1.08);opacity:1}}
+  #hero .content-col{display:flex;flex-direction:column;gap:clamp(16px,2.4vh,28px)}
+  @media(max-width:860px){#hero .product-image-wrap{order:-1}}
+  .badge{display:inline-flex;align-items:center;gap:8px;background:var(--mist);border:1px solid var(--line);
+    border-radius:999px;padding:6px 16px;font-size:13px;color:var(--ink-soft);width:fit-content}
+  .price-block{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+  .price-main{font-family:"El Messiri",serif;font-size:clamp(36px,5vw,60px);font-weight:700;color:var(--ink);line-height:1}
+  .price-currency{font-size:clamp(18px,2.4vw,28px);color:var(--ink-soft)}
+  .price-original{font-size:clamp(18px,2vw,24px);color:var(--ink-faint);text-decoration:line-through}
+  .savings-badge{background:var(--accent);color:#fff;border-radius:6px;padding:4px 12px;font-size:13px;font-weight:600}
+  .btn-wa{display:flex;align-items:center;justify-content:center;gap:10px;
+    background:var(--wa-green);color:#fff;border:none;border-radius:16px;
+    padding:clamp(14px,2vh,20px) clamp(24px,4vw,40px);font-family:"El Messiri",serif;
+    font-size:clamp(16px,1.6vw,20px);font-weight:600;cursor:pointer;text-decoration:none;
+    transition:background .3s,transform .2s,box-shadow .3s;
+    box-shadow:0 8px 32px rgba(37,211,102,.3)}
+  .btn-wa:hover{background:var(--wa-dark);transform:translateY(-2px);box-shadow:0 12px 40px rgba(37,211,102,.4)}
+  .btn-wa svg{width:22px;height:22px;fill:#fff;flex-shrink:0}
+  .trust-strip{display:flex;align-items:center;gap:clamp(12px,2vw,24px);flex-wrap:wrap}
+  .trust-item{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--ink-soft)}
+  .trust-item .dot{width:6px;height:6px;border-radius:50%;background:var(--wa-green);flex-shrink:0}
+  .stars{color:var(--gold-bright);font-size:16px;letter-spacing:2px}
+
+  /* CANVAS FILM (optional — remove if using product-only layout) */
+  #film-section{height:480vh;position:relative}
+  #film-sticky{position:sticky;top:0;height:100svh;overflow:hidden;display:flex;align-items:center;justify-content:center}
+  #film-canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0}
+  .film-caption{position:absolute;bottom:0;inset-inline-start:0;inset-inline-end:0;
+    padding:clamp(28px,5vh,56px) clamp(20px,5vw,68px);
+    background:linear-gradient(to top,rgba(0,0,0,.6) 0%,transparent 100%);
+    color:#fff;z-index:5}
+  .film-caption .eyebrow{color:rgba(255,255,255,.7)}
+  .film-caption h2{font-size:clamp(24px,3.4vw,44px);margin-top:8px;color:#fff}
+  #film-fallback{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;
+    background:linear-gradient(135deg,var(--cream),var(--sand) 78%)}
+
+  /* FEATURES GRID */
+  #features{padding:clamp(60px,10vh,120px) 0;background:var(--mist)}
+  .features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:clamp(20px,3vw,36px);margin-top:clamp(32px,5vh,56px)}
+  .feature-card{background:var(--paper);border-radius:20px;padding:clamp(24px,3vh,36px);
+    border:1px solid var(--line-soft);transition:transform .3s,box-shadow .3s}
+  .feature-card:hover{transform:translateY(-6px);box-shadow:0 20px 48px rgba(58,33,20,.1)}
+  .feature-icon{width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,var(--gold-bright),var(--gold-deep));
+    display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:clamp(12px,2vh,20px)}
+  .feature-card h3{font-size:clamp(17px,1.6vw,21px);margin-bottom:8px}
+  .feature-card p{color:var(--ink-soft);font-size:15px;line-height:1.7}
+
+  /* SOCIAL PROOF */
+  #social-proof{padding:clamp(60px,10vh,120px) 0}
+  .section-header{text-align:center;margin-bottom:clamp(36px,6vh,64px)}
+  .section-header h2{font-size:clamp(28px,4vw,52px);margin-top:12px}
+  .reviews-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(16px,2.4vw,28px)}
+  .review-card{background:var(--mist);border-radius:20px;padding:clamp(20px,2.4vh,32px);border:1px solid var(--line-soft)}
+  .review-header{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+  .reviewer-avatar{width:44px;height:44px;border-radius:50%;background:var(--cream);display:flex;align-items:center;justify-content:center;font-family:"El Messiri",serif;font-weight:700;font-size:18px;color:var(--gold-deep);flex-shrink:0}
+  .reviewer-name{font-weight:600;font-size:15px}
+  .reviewer-meta{font-size:13px;color:var(--ink-soft)}
+  .review-text{color:var(--ink-soft);font-size:15px;line-height:1.8}
+  .stats-row{display:flex;justify-content:center;gap:clamp(32px,6vw,80px);margin-bottom:clamp(36px,5vh,60px);flex-wrap:wrap}
+  .stat-item{text-align:center}
+  .stat-num{font-family:"El Messiri",serif;font-size:clamp(32px,4vw,54px);font-weight:700;line-height:1}
+  .stat-label{color:var(--ink-soft);font-size:14px;margin-top:4px}
+
+  /* FAQ */
+  #faq{padding:clamp(60px,10vh,120px) 0;background:var(--mist)}
+  .faq-list{max-width:720px;margin-inline:auto;margin-top:clamp(32px,5vh,52px)}
+  .faq-item{border-bottom:1px solid var(--line);overflow:hidden}
+  .faq-question{display:flex;align-items:center;justify-content:space-between;gap:16px;
+    padding:clamp(16px,2.4vh,24px) 0;cursor:pointer;background:none;border:none;width:100%;
+    text-align:start;font-family:"El Messiri",serif;font-size:clamp(16px,1.4vw,20px);color:var(--ink);transition:color .3s}
+  .faq-question:hover{color:var(--gold-deep)}
+  .faq-icon{width:28px;height:28px;border-radius:50%;border:1.5px solid var(--line);
+    display:flex;align-items:center;justify-content:center;color:var(--gold-deep);flex-shrink:0;
+    transition:transform .35s var(--ease),background .3s}
+  .faq-item.open .faq-icon{transform:rotate(45deg);background:var(--gold);border-color:var(--gold);color:#fff}
+  .faq-answer{max-height:0;overflow:hidden;transition:max-height .4s var(--ease)}
+  .faq-answer-inner{padding-bottom:clamp(14px,2vh,20px);color:var(--ink-soft);font-size:15px;line-height:1.8}
+  .faq-item.open .faq-answer{max-height:400px}
+
+  /* FINAL CTA */
+  #cta{padding:clamp(80px,14vh,160px) 0;text-align:center}
+  #cta h2{font-size:clamp(30px,4.5vw,60px);max-width:700px;margin-inline:auto;margin-bottom:clamp(20px,3vh,36px)}
+  .cta-buttons{display:flex;justify-content:center;align-items:center;gap:16px;flex-wrap:wrap}
+  .btn-primary{display:flex;align-items:center;justify-content:center;gap:10px;
+    background:var(--wa-green);color:#fff;border:none;border-radius:16px;
+    padding:clamp(16px,2.2vh,22px) clamp(32px,4vw,52px);font-family:"El Messiri",serif;
+    font-size:clamp(17px,1.6vw,22px);font-weight:700;cursor:pointer;text-decoration:none;
+    transition:background .3s,transform .2s,box-shadow .3s;
+    box-shadow:0 8px 32px rgba(37,211,102,.35)}
+  .btn-primary:hover{background:var(--wa-dark);transform:translateY(-2px);box-shadow:0 16px 48px rgba(37,211,102,.45)}
+  .btn-primary svg{width:24px;height:24px;fill:#fff;flex-shrink:0}
+
+  /* FLOATING WHATSAPP BUTTON */
+  #wa-float{position:fixed;bottom:clamp(80px,10vw,100px);inset-inline-end:clamp(16px,3vw,28px);z-index:49;
+    display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0;pointer-events:none;
+    transition:opacity .5s var(--ease)}
+  #wa-float.visible{opacity:1;pointer-events:auto}
+  .wa-bubble{width:58px;height:58px;border-radius:50%;background:var(--wa-green);
+    display:flex;align-items:center;justify-content:center;cursor:pointer;text-decoration:none;
+    box-shadow:0 8px 28px rgba(37,211,102,.45);transition:transform .3s,box-shadow .3s}
+  .wa-bubble:hover{transform:scale(1.12);box-shadow:0 12px 40px rgba(37,211,102,.55)}
+  .wa-bubble svg{width:30px;height:30px;fill:#fff}
+  .wa-pulse-ring{position:absolute;inset:-6px;border-radius:50%;border:2px solid rgba(37,211,102,.5);
+    animation:wa-ring 2.4s cubic-bezier(.4,0,.6,1) infinite}
+  @keyframes wa-ring{0%{transform:scale(1);opacity:.8}100%{transform:scale(1.5);opacity:0}}
+  .wa-tooltip{background:var(--ink);color:#fff;border-radius:10px;padding:7px 14px;font-size:13px;
+    white-space:nowrap;pointer-events:none;opacity:0;transform:translateY(4px);
+    transition:opacity .3s,transform .3s}
+  #wa-float:hover .wa-tooltip{opacity:1;transform:none}
+
+  /* STICKY MOBILE BAR */
+  #sticky-bar{position:fixed;bottom:0;inset-inline-start:0;inset-inline-end:0;z-index:48;
+    background:rgba(251,248,242,.95);backdrop-filter:blur(12px);border-top:1px solid var(--line-soft);
+    padding:10px clamp(16px,4vw,28px);display:flex;align-items:center;justify-content:space-between;gap:12px;
+    transform:translateY(100%);transition:transform .5s var(--ease);
+    box-shadow:0 -4px 24px rgba(58,33,20,.08)}
+  #sticky-bar.visible{transform:none}
+  .sticky-product-info{display:flex;flex-direction:column}
+  .sticky-product-name{font-family:"El Messiri",serif;font-size:15px;font-weight:600;color:var(--ink)}
+  .sticky-price{font-size:14px;color:var(--gold-deep);font-weight:500}
+  .btn-sticky-wa{display:flex;align-items:center;gap:8px;background:var(--wa-green);color:#fff;
+    border:none;border-radius:12px;padding:11px 22px;font-family:"El Messiri",serif;font-size:15px;
+    font-weight:600;cursor:pointer;text-decoration:none;white-space:nowrap;transition:background .3s}
+  .btn-sticky-wa:hover{background:var(--wa-dark)}
+  .btn-sticky-wa svg{width:18px;height:18px;fill:#fff;flex-shrink:0}
+  @media(min-width:1024px){#sticky-bar{display:none}}
+
+  /* FOOTER */
+  footer{border-top:1px solid var(--line);padding:clamp(28px,4vh,48px) clamp(20px,5vw,68px);
+    display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;max-width:var(--maxw);margin-inline:auto}
+  .footer-copy{font-size:13px;color:var(--ink-faint)}
+  .footer-wa{display:flex;align-items:center;gap:8px;color:var(--wa-green);text-decoration:none;font-size:14px;font-weight:500}
+  @media(max-width:600px){footer{justify-content:center;text-align:center}}
+
+  /* REDUCED MOTION */
+  @media(prefers-reduced-motion:reduce){
+    .reveal{opacity:1;transform:none!important;transition:none}
+    .btn-wa,.btn-primary{transition:none}
+    .wa-pulse-ring{animation:none}
+    .aura{animation:none}
+  }
+</style>
+</head>
+<body>
+
+<!-- Ambient & texture layers -->
+<div id="ambient" aria-hidden="true"></div>
+<div id="glow" aria-hidden="true"></div>
+<div id="vignette" aria-hidden="true"></div>
+<div id="grain" aria-hidden="true"></div>
+<div id="progress" role="progressbar" aria-label="{{PROGRESS_LABEL|تقدم التمرير}}"></div>
+
+<!-- HEADER -->
+<header id="site-header" role="banner">
+  <a href="#" class="brand" aria-label="{{BRAND_NAME}}">
+    <img src="assets/logo.png" alt="{{BRAND_NAME}}" height="36" class="fallback-host" onerror="this.parentElement.classList.add('is-missing');this.style.display='none';" />
+    <span class="wm">{{BRAND_NAME}}</span>
+  </a>
+  <nav aria-label="{{NAV_LABEL|التنقل الرئيسي}}">
+    <a href="#features">{{NAV_FEATURES|المميزات}}</a>
+    <a href="#social-proof">{{NAV_REVIEWS|آراء العملاء}}</a>
+    <a href="https://wa.me/{{WHATSAPP_NUMBER}}?text={{WHATSAPP_MSG_ENCODED}}" class="nav-wa" target="_blank" rel="noopener noreferrer" id="header-wa-btn">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="#fff" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.115.553 4.1 1.518 5.837L0 24l6.335-1.5A11.935 11.935 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.6a9.6 9.6 0 01-4.894-1.339l-.35-.207-3.635.861.875-3.534-.228-.363A9.6 9.6 0 012.4 12c0-5.302 4.298-9.6 9.6-9.6s9.6 4.298 9.6 9.6-4.298 9.6-9.6 9.6z"/></svg>
+      {{NAV_ORDER_WHATSAPP|اطلب عبر واتساب}}
+    </a>
+  </nav>
+</header>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     SECTION 1 · HERO — Product + Price + WhatsApp CTA above fold
+     ═══════════════════════════════════════════════════════════════════ -->
+<section id="hero" aria-label="{{HERO_LABEL|عرض المنتج الرئيسي}}">
+  <!-- Product image column -->
+  <div class="product-image-wrap" role="img" aria-label="{{PRODUCT_IMAGE_ALT|صورة المنتج}}">
+    <div class="aura" aria-hidden="true"></div>
+    <img
+      id="hero-product-img"
+      class="product-img media-tilt fallback-host"
+      src="assets/hero-product.png"
+      alt="{{PRODUCT_NAME}}"
+      onerror="this.classList.add('is-missing');this.style.display='none';"
+    />
+  </div>
+  <!-- Content column -->
+  <div class="content-col">
+    <span class="badge reveal">
+      <span class="dot" aria-hidden="true"></span>
+      {{BADGE_TEXT|متوفر الآن · شحن سريع}}
+    </span>
+    <div class="reveal">
+      <p class="eyebrow">{{EYEBROW|منتج مميز}}</p>
+      <h1 style="font-size:clamp(28px,4vw,54px);margin-top:8px">{{PRODUCT_NAME}}</h1>
+      <p class="sub" style="color:var(--ink-soft);margin-top:12px;font-size:clamp(15px,1.3vw,18px)">{{PRODUCT_TAGLINE|وصف موجز جذاب للمنتج يشرح الفائدة الرئيسية}}</p>
+    </div>
+    <div class="price-block reveal">
+      <span class="price-currency">{{CURRENCY|ر.س}}</span>
+      <span class="price-main">{{PRICE|٢٩٩}}</span>
+      <span class="price-original">{{PRICE_ORIGINAL|٣٩٩}}</span>
+      <span class="savings-badge">{{SAVINGS_LABEL|وفر ٢٥٪}}</span>
+    </div>
+    <div class="stars reveal" aria-label="{{RATING_LABEL|تقييم ٤.٩ من ٥}}">★★★★★</div>
+    <a
+      href="https://wa.me/{{WHATSAPP_NUMBER}}?text={{WHATSAPP_MSG_ENCODED}}"
+      class="btn-wa reveal"
+      target="_blank" rel="noopener noreferrer"
+      id="hero-wa-btn"
+      aria-label="{{WA_BTN_ARIA|اطلب المنتج عبر واتساب}}"
+    >
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.115.553 4.1 1.518 5.837L0 24l6.335-1.5A11.935 11.935 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.6a9.6 9.6 0 01-4.894-1.339l-.35-.207-3.635.861.875-3.534-.228-.363A9.6 9.6 0 012.4 12c0-5.302 4.298-9.6 9.6-9.6s9.6 4.298 9.6 9.6-4.298 9.6-9.6 9.6z"/></svg>
+      {{WA_BTN_TEXT|اطلب الآن عبر واتساب}}
+    </a>
+    <div class="trust-strip reveal">
+      <div class="trust-item"><span class="dot" aria-hidden="true"></span>{{TRUST_1|ضمان ٣٠ يوم}}</div>
+      <div class="trust-item"><span class="dot" aria-hidden="true"></span>{{TRUST_2|شحن مجاني}}</div>
+      <div class="trust-item"><span class="dot" aria-hidden="true"></span>{{TRUST_3|دفع عند الاستلام}}</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     SECTION 2 · FILM (scroll-driven canvas — remove if not needed)
+     ═══════════════════════════════════════════════════════════════════ -->
+<section id="film-section" aria-label="{{FILM_LABEL|فيلم المنتج}}">
+  <div id="film-sticky">
+    <canvas id="film-canvas" aria-hidden="true"></canvas>
+    <div id="film-fallback" class="fallback-host" aria-hidden="true"></div>
+    <div class="film-caption" aria-live="polite">
+      <p class="eyebrow">{{FILM_EYEBROW|التفاصيل}}</p>
+      <h2 id="film-caption-text">{{FILM_CAPTION_1|الجودة التي تلمسها}}</h2>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     SECTION 3 · FEATURES
+     ═══════════════════════════════════════════════════════════════════ -->
+<section id="features">
+  <div class="wrap">
+    <div class="section-header reveal">
+      <p class="eyebrow">{{FEATURES_EYEBROW|لماذا نحن}}</p>
+      <h2>{{FEATURES_TITLE|مميزات لا تجدها في أي مكان آخر}}</h2>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <div class="feature-icon" aria-hidden="true">✦</div>
+        <h3>{{FEATURE_1_TITLE|جودة استثنائية}}</h3>
+        <p>{{FEATURE_1_DESC|وصف المميزة الأولى بشكل موجز ومؤثر يوضح الفائدة للعميل}}</p>
+      </div>
+      <div class="feature-card reveal" style="transition-delay:.1s">
+        <div class="feature-icon" aria-hidden="true">◈</div>
+        <h3>{{FEATURE_2_TITLE|شحن سريع}}</h3>
+        <p>{{FEATURE_2_DESC|وصف المميزة الثانية بشكل موجز ومؤثر يوضح الفائدة للعميل}}</p>
+      </div>
+      <div class="feature-card reveal" style="transition-delay:.2s">
+        <div class="feature-icon" aria-hidden="true">◇</div>
+        <h3>{{FEATURE_3_TITLE|ضمان مُعتمد}}</h3>
+        <p>{{FEATURE_3_DESC|وصف المميزة الثالثة بشكل موجز ومؤثر يوضح الفائدة للعميل}}</p>
+      </div>
+      <div class="feature-card reveal" style="transition-delay:.3s">
+        <div class="feature-icon" aria-hidden="true">⬡</div>
+        <h3>{{FEATURE_4_TITLE|دعم مستمر}}</h3>
+        <p>{{FEATURE_4_DESC|وصف المميزة الرابعة بشكل موجز ومؤثر يوضح الفائدة للعميل}}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     SECTION 4 · SOCIAL PROOF
+     ═══════════════════════════════════════════════════════════════════ -->
+<section id="social-proof">
+  <div class="wrap">
+    <div class="stats-row reveal">
+      <div class="stat-item">
+        <div class="stat-num gold-text">{{STAT_1_NUM|٢٤٠٠+}}</div>
+        <div class="stat-label">{{STAT_1_LABEL|عميل راضٍ}}</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num gold-text">{{STAT_2_NUM|٤.٩}}</div>
+        <div class="stat-label">{{STAT_2_LABEL|متوسط التقييم}}</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num gold-text">{{STAT_3_NUM|٩٨٪}}</div>
+        <div class="stat-label">{{STAT_3_LABEL|نسبة الرضا}}</div>
+      </div>
+    </div>
+    <div class="section-header reveal">
+      <p class="eyebrow">{{REVIEWS_EYEBROW|آراء حقيقية}}</p>
+      <h2>{{REVIEWS_TITLE|ماذا يقول عملاؤنا؟}}</h2>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card reveal">
+        <div class="review-header">
+          <div class="reviewer-avatar" aria-hidden="true">{{REVIEWER_1_INITIAL|م}}</div>
+          <div><div class="reviewer-name">{{REVIEWER_1_NAME|محمد أ.}}</div>
+          <div class="stars" aria-label="5 نجوم">★★★★★</div></div>
+        </div>
+        <p class="review-text">{{REVIEW_1_TEXT|تجربة رائعة ومنتج يفوق التوقعات. سرعة التوصيل ممتازة والتغليف احترافي جداً. سأكرر الطلب بالتأكيد.}}</p>
+      </div>
+      <div class="review-card reveal" style="transition-delay:.1s">
+        <div class="review-header">
+          <div class="reviewer-avatar" aria-hidden="true">{{REVIEWER_2_INITIAL|س}}</div>
+          <div><div class="reviewer-name">{{REVIEWER_2_NAME|سارة خ.}}</div>
+          <div class="stars" aria-label="5 نجوم">★★★★★</div></div>
+        </div>
+        <p class="review-text">{{REVIEW_2_TEXT|أفضل شراء قمت به هذا الشهر. الجودة استثنائية والخدمة ممتازة. أنصح به بشدة لكل من يبحث عن منتج موثوق.}}</p>
+      </div>
+      <div class="review-card reveal" style="transition-delay:.2s">
+        <div class="review-header">
+          <div class="reviewer-avatar" aria-hidden="true">{{REVIEWER_3_INITIAL|ع}}</div>
+          <div><div class="reviewer-name">{{REVIEWER_3_NAME|عبدالله م.}}</div>
+          <div class="stars" aria-label="5 نجوم">★★★★★</div></div>
+        </div>
+        <p class="review-text">{{REVIEW_3_TEXT|تعاملت معهم أكثر من مرة ودائماً راضٍ. المنتج طبق المواصفات والتوصيل في الوقت المحدد. شكراً جزيلاً.}}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     SECTION 5 · FAQ
+     ═══════════════════════════════════════════════════════════════════ -->
+<section id="faq">
+  <div class="wrap">
+    <div class="section-header reveal">
+      <p class="eyebrow">{{FAQ_EYEBROW|أسئلة شائعة}}</p>
+      <h2>{{FAQ_TITLE|كل ما تريد معرفته}}</h2>
+    </div>
+    <div class="faq-list" role="list">
+      <div class="faq-item" role="listitem">
+        <button class="faq-question" aria-expanded="false">
+          {{FAQ_1_Q|كيف يمكنني الطلب؟}}
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer" role="region"><div class="faq-answer-inner">{{FAQ_1_A|يمكنك الطلب بسهولة عبر واتساب بالضغط على الزر أعلاه، وسيرد عليك فريقنا خلال دقائق لتأكيد الطلب وتحديد موعد التوصيل.}}</div></div>
+      </div>
+      <div class="faq-item" role="listitem">
+        <button class="faq-question" aria-expanded="false">
+          {{FAQ_2_Q|ما هي طرق الدفع المتاحة؟}}
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer" role="region"><div class="faq-answer-inner">{{FAQ_2_A|نقبل الدفع عند الاستلام، والتحويل البنكي، وجميع بطاقات الائتمان. اختر الأنسب لك عند التواصل معنا.}}</div></div>
+      </div>
+      <div class="faq-item" role="listitem">
+        <button class="faq-question" aria-expanded="false">
+          {{FAQ_3_Q|ما هي سياسة الإرجاع؟}}
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer" role="region"><div class="faq-answer-inner">{{FAQ_3_A|نوفر ضمان استرداد كامل خلال ٣٠ يوماً من تاريخ الاستلام في حال وجود أي عيب في المنتج. رضاك هو أولويتنا.}}</div></div>
+      </div>
+      <div class="faq-item" role="listitem">
+        <button class="faq-question" aria-expanded="false">
+          {{FAQ_4_Q|كم يستغرق التوصيل؟}}
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer" role="region"><div class="faq-answer-inner">{{FAQ_4_A|يتم التوصيل خلال ٢-٤ أيام عمل داخل المدن الرئيسية، و٤-٧ أيام للمناطق الأخرى. يمكنك تتبع طلبك عبر واتساب.}}</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     SECTION 6 · FINAL CTA
+     ═══════════════════════════════════════════════════════════════════ -->
+<section id="cta">
+  <div class="wrap">
+    <p class="eyebrow reveal" style="text-align:center">{{CTA_EYEBROW|لا تتردد}}</p>
+    <h2 class="reveal">{{CTA_HEADLINE|جرّب الآن بضمان استرداد كامل ٣٠ يوماً}}</h2>
+    <div class="cta-buttons reveal">
+      <a
+        href="https://wa.me/{{WHATSAPP_NUMBER}}?text={{WHATSAPP_MSG_ENCODED}}"
+        class="btn-primary"
+        target="_blank" rel="noopener noreferrer"
+        id="cta-wa-btn"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.115.553 4.1 1.518 5.837L0 24l6.335-1.5A11.935 11.935 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.6a9.6 9.6 0 01-4.894-1.339l-.35-.207-3.635.861.875-3.534-.228-.363A9.6 9.6 0 012.4 12c0-5.302 4.298-9.6 9.6-9.6s9.6 4.298 9.6 9.6-4.298 9.6-9.6 9.6z"/></svg>
+        {{CTA_BTN|اطلب الآن عبر واتساب}}
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FLOATING WHATSAPP BUTTON -->
+<div id="wa-float" aria-label="{{WA_FLOAT_LABEL|تواصل عبر واتساب}}">
+  <div class="wa-tooltip" role="tooltip">{{WA_TOOLTIP|تواصل معنا الآن}}</div>
+  <a
+    href="https://wa.me/{{WHATSAPP_NUMBER}}?text={{WHATSAPP_MSG_ENCODED}}"
+    class="wa-bubble"
+    target="_blank" rel="noopener noreferrer"
+    id="wa-float-btn"
+    aria-label="{{WA_FLOAT_ARIA|فتح محادثة واتساب}}"
+  >
+    <div class="wa-pulse-ring" aria-hidden="true"></div>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.115.553 4.1 1.518 5.837L0 24l6.335-1.5A11.935 11.935 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.6a9.6 9.6 0 01-4.894-1.339l-.35-.207-3.635.861.875-3.534-.228-.363A9.6 9.6 0 012.4 12c0-5.302 4.298-9.6 9.6-9.6s9.6 4.298 9.6 9.6-4.298 9.6-9.6 9.6z"/></svg>
+  </a>
+</div>
+
+<!-- STICKY MOBILE BAR -->
+<div id="sticky-bar" role="complementary" aria-label="{{STICKY_LABEL|شريط الطلب السريع}}">
+  <div class="sticky-product-info">
+    <span class="sticky-product-name">{{PRODUCT_NAME}}</span>
+    <span class="sticky-price">{{CURRENCY|ر.س}} {{PRICE|٢٩٩}}</span>
+  </div>
+  <a
+    href="https://wa.me/{{WHATSAPP_NUMBER}}?text={{WHATSAPP_MSG_ENCODED}}"
+    class="btn-sticky-wa"
+    target="_blank" rel="noopener noreferrer"
+    id="sticky-wa-btn"
+  >
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.115.553 4.1 1.518 5.837L0 24l6.335-1.5A11.935 11.935 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.6a9.6 9.6 0 01-4.894-1.339l-.35-.207-3.635.861.875-3.534-.228-.363A9.6 9.6 0 012.4 12c0-5.302 4.298-9.6 9.6-9.6s9.6 4.298 9.6 9.6-4.298 9.6-9.6 9.6z"/></svg>
+    {{STICKY_WA_BTN|اطلب الآن}}
+  </a>
+</div>
+
+<!-- FOOTER -->
+<footer role="contentinfo">
+  <span class="footer-copy">{{FOOTER_COPY|© ٢٠٢٥ {{BRAND_NAME}}. جميع الحقوق محفوظة.}}</span>
+  <a href="https://wa.me/{{WHATSAPP_NUMBER}}" class="footer-wa" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.115.553 4.1 1.518 5.837L0 24l6.335-1.5A11.935 11.935 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.6a9.6 9.6 0 01-4.894-1.339l-.35-.207-3.635.861.875-3.534-.228-.363A9.6 9.6 0 012.4 12c0-5.302 4.298-9.6 9.6-9.6s9.6 4.298 9.6 9.6-4.298 9.6-9.6 9.6z"/></svg>
+    {{WA_NUMBER_DISPLAY|+966 5X XXX XXXX}}
+  </a>
+</footer>
+
+<script>
+/* ─── WhatsApp Config ────────────────────────────────────────────── */
+// Replace these two constants with actual values from brand.json
+// WHATSAPP_NUMBER: phone with country code, no + (e.g. "966512345678")
+// WHATSAPP_MSG: pre-filled message (URI-encoded in template via {{WHATSAPP_MSG_ENCODED}})
+
+/* ─── Engine Init ─────────────────────────────────────────────────── */
+const lenis = new Lenis({ lerp: 0.085, wheelMultiplier: 0.95, touchMultiplier: 1.8 });
+gsap.ticker.add(t => lenis.raf(t * 1000));
+gsap.ticker.lagSmoothing(0);
+
+/* ─── Scroll Progress Bar ─────────────────────────────────────────── */
+const progressBar = document.getElementById('progress');
+lenis.on('scroll', ({ progress }) => {
+  gsap.set(progressBar, { scaleX: 1 - progress });
+});
+
+/* ─── Header Hide/Show ────────────────────────────────────────────── */
+const header = document.getElementById('site-header');
+let lastY = 0, headerVisible = true;
+lenis.on('scroll', ({ scroll }) => {
+  const delta = scroll - lastY; lastY = scroll;
+  const solid = scroll > 60;
+  header.classList.toggle('solid', solid);
+  if (delta > 4 && scroll > 120) { if (headerVisible) { header.classList.add('hidden'); headerVisible = false; } }
+  else if (delta < -4) { if (!headerVisible) { header.classList.remove('hidden'); headerVisible = true; } }
+});
+
+/* ─── Scroll Reveals ─────────────────────────────────────────────── */
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+/* ─── 3D Tilt on hero product ────────────────────────────────────── */
+const imgWrap = document.querySelector('.media-tilt');
+if (imgWrap) {
+  document.addEventListener('mousemove', e => {
+    const cx = window.innerWidth / 2, cy = window.innerHeight / 2;
+    const rx = ((e.clientY - cy) / cy * -7).toFixed(2);
+    const ry = ((e.clientX - cx) / cx * 9).toFixed(2);
+    gsap.to(imgWrap, { rotateX: rx, rotateY: ry, duration: 0.6, ease: 'power2.out' });
+  });
+  document.addEventListener('mouseleave', () => {
+    gsap.to(imgWrap, { rotateX: 0, rotateY: 0, duration: 0.8, ease: 'power3.out' });
+  });
+}
+
+/* ─── Canvas Film ─────────────────────────────────────────────────── */
+const FRAME_COUNT = 93; // ← SYNC to actual extracted frame count
+const CAPTIONS = [
+  "{{FILM_CAPTION_1|الجودة التي تلمسها}}",
+  "{{FILM_CAPTION_2|التفاصيل التي تُميّزنا}}",
+  "{{FILM_CAPTION_3|مصنوع ليدوم}}"
+];
+const canvas = document.getElementById('film-canvas');
+const ctx = canvas ? canvas.getContext('2d') : null;
+const captionEl = document.getElementById('film-caption-text');
+const frames = [];
+let framesLoaded = 0, filmReady = false;
+
+function pad(n) { return String(n).padStart(3, '0'); }
+
+if (ctx) {
+  // Resize canvas
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+
+  // Preload frames
+  const filmFallback = document.getElementById('film-fallback');
+  for (let i = 0; i < FRAME_COUNT; i++) {
+    const img = new Image();
+    img.src = `assets/seq/f${pad(i)}.jpg`;
+    img.onload = () => {
+      framesLoaded++;
+      if (framesLoaded === FRAME_COUNT) { filmReady = true; canvas.style.opacity = '1'; if (filmFallback) filmFallback.style.opacity = '0'; }
+    };
+    img.onerror = () => { framesLoaded++; };
+    frames[i] = img;
+  }
+
+  // Draw frame by scroll
+  function drawFrame(idx) {
+    const img = frames[Math.min(idx, FRAME_COUNT - 1)];
+    if (!img || !img.complete || img.naturalWidth === 0) return;
+    const { width: cw, height: ch } = canvas;
+    const scale = Math.max(cw / img.naturalWidth, ch / img.naturalHeight);
+    const w = img.naturalWidth * scale, h = img.naturalHeight * scale;
+    ctx.clearRect(0, 0, cw, ch);
+    ctx.drawImage(img, (cw - w) / 2, (ch - h) / 2, w, h);
+  }
+
+  ScrollTrigger.create({
+    trigger: '#film-section',
+    start: 'top top',
+    end: 'bottom bottom',
+    scrub: true,
+    onUpdate: self => {
+      if (!filmReady) return;
+      const idx = Math.round(self.progress * (FRAME_COUNT - 1));
+      drawFrame(idx);
+      // Update caption
+      const capIdx = Math.floor(self.progress * CAPTIONS.length);
+      if (captionEl && CAPTIONS[capIdx]) captionEl.textContent = CAPTIONS[Math.min(capIdx, CAPTIONS.length - 1)];
+    }
+  });
+}
+
+/* ─── Ambient Color Shifts ─────────────────────────────────────────── */
+const ambientMap = [
+  { id: 'hero', color: '#FBF8F2' },
+  { id: 'film-section', color: '#1A1410' },
+  { id: 'features', color: '#F7F4EC' },
+  { id: 'social-proof', color: '#FBF8F2' },
+  { id: 'faq', color: '#F3EEE2' },
+  { id: 'cta', color: '#FBF8F2' }
+];
+ambientMap.forEach(({ id, color }) => {
+  const el = document.getElementById(id);
+  if (!el) return;
+  ScrollTrigger.create({
+    trigger: el, start: 'top 60%', end: 'bottom 60%',
+    onEnter: () => gsap.to('#ambient', { backgroundColor: color, duration: 1.2, ease: 'power2.out' }),
+    onEnterBack: () => gsap.to('#ambient', { backgroundColor: color, duration: 1.2, ease: 'power2.out' })
+  });
+});
+
+/* ─── Floating WhatsApp Button ─────────────────────────────────────── */
+const waFloat = document.getElementById('wa-float');
+ScrollTrigger.create({
+  trigger: '#hero', start: 'bottom 70%',
+  onEnter: () => waFloat && waFloat.classList.add('visible'),
+  onLeaveBack: () => waFloat && waFloat.classList.remove('visible')
+});
+
+/* ─── Sticky Mobile Bar ────────────────────────────────────────────── */
+const stickyBar = document.getElementById('sticky-bar');
+ScrollTrigger.create({
+  trigger: '#hero', start: 'bottom 80%',
+  onEnter: () => stickyBar && stickyBar.classList.add('visible'),
+  onLeaveBack: () => stickyBar && stickyBar.classList.remove('visible')
+});
+
+/* ─── FAQ Accordion ─────────────────────────────────────────────────── */
+document.querySelectorAll('.faq-question').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item = btn.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(el => { el.classList.remove('open'); el.querySelector('.faq-question').setAttribute('aria-expanded', 'false'); });
+    if (!isOpen) { item.classList.add('open'); btn.setAttribute('aria-expanded', 'true'); }
+  });
+});
+</script>
+</body>
+</html>

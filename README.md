@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🎬 Cinematic Landing Kit `v3.2.2`
+# 🎬 Cinematic Landing Kit `v3.3.0`
 ## We are building the open ecosystem for AI-ready business websites.
 
 **The official marketing website starter for the TidyFactor Ecosystem.**
@@ -149,13 +149,15 @@ Works seamlessly out of the box with any AI agent that reads workspace instructi
 
 Five layout variants cover 15 distinct luxury use cases automatically routed by `memory/10-use-cases.md`:
 
-| Layout Template | Hero Style | Film Experience | Primary Use Cases |
-| :--- | :--- | :--- | :--- |
-| **`fullbleed.html`** | Product cutout + aura + motes | Long transformation film (640vh) | High-ticket products, launches, rebrands, luxury automotive, fashion, watches |
-| **`editorial.html`** | Split-screen (Image + Copy) | Story focus film (420vh) | Brand stories, events, conferences, founder stories |
-| **`spatial.html`** | Full-bleed establishing shot | Spatial walkthrough film (500vh) | Real estate, architecture, luxury travel, hospitality |
-| **`interface.html`** | CSS Device mockup frame | UI workflow film (420vh) | SaaS launches, mobile apps, digital platforms |
-| **`minimal.html`** | Centered cutout, clean background | Section-based (No film) | Personal brands, creators, ebooks, digital products |
+| Layout Template | CLI Alias | Hero Style | Film Experience | Primary Use Cases |
+| :--- | :--- | :--- | :--- | :--- |
+| **`fullbleed.html`** | `film` | Product cutout + aura + motes | Long transformation film (640vh) | High-ticket products, launches, rebrands, luxury automotive, fashion, watches |
+| **`editorial.html`** | `story` | Split-screen (Image + Copy) | Story focus film (420vh) | Brand stories, events, conferences, founder stories |
+| **`spatial.html`** | `space` | Full-bleed establishing shot | Spatial walkthrough film (500vh) | Real estate, architecture, luxury travel, hospitality |
+| **`interface.html`** | `app` | CSS Device mockup frame | UI workflow film (420vh) | SaaS launches, mobile apps, digital platforms |
+| **`minimal.html`** | `creator` | Centered cutout, clean background | Section-based (No film) | Personal brands, creators, ebooks, digital products |
+| **`product.html`** | `product` | Hero image + price + WhatsApp CTA above fold | Optional short film (480vh) | Single product high-conversion e-commerce sales pages |
+| **`store.html`** | `store` | Store banner + WhatsApp CTA | Product grid + Category filter | Multi-product WhatsApp catalog stores |
 
 ---
 

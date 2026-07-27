@@ -16,11 +16,13 @@ If all three pass → cinematic kit is the right choice.
 
 | Layout | File | Best for | Hero type | Film type |
 |--------|------|----------|-----------|-----------|
-| **fullbleed** | `fullbleed.html` | Physical goods, brand stories, rebrands, fashion, causes, artisan | Product cutout + aura + motes | Long transformation film (600vh, 4 clips) |
-| **editorial** | `editorial.html` | Specs-heavy products, founders, events, conferences | Split-screen: image + copy | Shorter transformation film (420vh, 3-4 clips) |
-| **minimal** | `minimal.html` | Personal brands, creators, digital products, books | Centered cutout, no aura | No film — section-based scroll |
-| **spatial** | `spatial.html` | Real estate, architecture, travel, hospitality, venues | Wide establishing shot, no cutout | Spatial walkthrough film (500vh, 4-5 clips) |
-| **interface** | `interface.html` | SaaS, apps, digital platforms | Device mockup (phone/laptop frame) | UI flow film (420vh, 3-4 clips) |
+| **film** (`fullbleed`) | `fullbleed.html` | Physical goods, brand stories, rebrands, fashion, causes, artisan | Product cutout + aura + motes | Long transformation film (600vh, 4 clips) |
+| **story** (`editorial`) | `editorial.html` | Specs-heavy products, founders, events, conferences | Split-screen: image + copy | Shorter transformation film (420vh, 3-4 clips) |
+| **space** (`spatial`) | `spatial.html` | Real estate, architecture, travel, hospitality, venues | Wide establishing shot, no cutout | Spatial walkthrough film (500vh, 4-5 clips) |
+| **app** (`interface`) | `interface.html` | SaaS, apps, digital platforms | Device mockup (phone/laptop frame) | UI flow film (420vh, 3-4 clips) |
+| **creator** (`minimal`) | `minimal.html` | Personal brands, creators, digital products, books | Centered cutout, clean background | No film — section-based scroll |
+| **product** | `product.html` | Single product high-conversion e-commerce | Hero product + price + WhatsApp CTA | Optional canvas film (480vh, 3 clips) |
+| **store** | `store.html` | Multi-product catalog store | Store banner + WhatsApp CTA | No film — catalog grid with category filter |
 
 ---
 
@@ -160,6 +162,26 @@ If all three pass → cinematic kit is the right choice.
 **Media:** Keyframes that progressively reveal less to more. Wan clips that tease without showing everything.  
 **Ambient palette:** Dark and mysterious — deep blacks with a single accent color matching the product  
 **Gotcha:** The scroll itself is the countdown. Frame count and section heights must create real pacing tension. The final reveal must feel earned. Add a live countdown timer in HTML if there's a real drop date.
+
+### 16 · Single product high-conversion e-commerce
+**Layout:** product (`product.html`)  
+**Sections:** Hero (product + price + WhatsApp CTA above fold) → Short film (craft/lifestyle) → Feature grid (4 key benefits) → Social proof (stats + customer reviews) → FAQ accordion → Final CTA + Sticky mobile bar  
+**Hero:** Product image + price (original + discounted) + savings badge + rating stars + WhatsApp CTA button  
+**Film beats:** Material quality → detail craftsmanship → lifestyle usage in context  
+**Media:** 1 high-res transparent product PNG for hero; 3 keyframe images for film sequence; optional rembg product cutouts  
+**Ambient palette:** Warm luxury neutrals (`#FBF8F2` paper, `#F7F4EC` mist, `#F3EEE2` cream)  
+**WhatsApp integration:** Header WhatsApp button, Hero CTA, floating WhatsApp bubble with pulse animation, sticky bottom bar on mobile.  
+**Gotcha:** Ensure `WHATSAPP_NUMBER` is configured with country code without `+` (e.g. `966512345678`). Message text should be pre-filled via `wa.me/NUMBER?text=ENCODED_MSG`.
+
+### 17 · Multi-product WhatsApp catalog store
+**Layout:** store (`store.html`)  
+**Sections:** Hero (store banner + WhatsApp CTA) → Category filter bar → Product grid (category-filtered) → Featured product spotlight → Trust & guarantee strip → Footer + Floating WhatsApp bubble  
+**Hero:** Store promotional banner image + overlay text + "Shop Now" / "WhatsApp" CTA  
+**Film:** None — catalog grid focused on scannability and fast loading  
+**Media:** 1 store banner image; 1 product image per grid card; 1 featured spotlight product image  
+**Ambient palette:** Modern clean paper background with dark footer (`#FBF8F2` paper to `#241812` dark)  
+**WhatsApp integration:** Every product card has its own WhatsApp deep link with a pre-filled item order message (`wa.me/NUMBER?text=أريد+طلب+المنتج+...`); floating WhatsApp bubble always visible on all scroll positions.  
+**Gotcha:** Mobile category filter uses smooth horizontal scroll snap. Maintain clear contrast for price text.
 
 ---
 

@@ -108,6 +108,21 @@ function checkMemoryFiles() {
   log(`✓ Verified ${files.length} memory reference files in memory/`);
 }
 
+function checkLayouts() {
+  const layoutsDir = path.join(ROOT, 'templates', 'layouts');
+  const requiredLayouts = [
+    'fullbleed.html', 'editorial.html', 'spatial.html',
+    'interface.html', 'minimal.html', 'product.html', 'store.html'
+  ];
+  for (const layout of requiredLayouts) {
+    const layoutPath = path.join(layoutsDir, layout);
+    if (!fs.existsSync(layoutPath)) {
+      errors.push(`Missing required layout template: ${path.relative(ROOT, layoutPath)}`);
+    }
+  }
+  log(`✓ Verified all ${requiredLayouts.length} layout templates in templates/layouts/`);
+}
+
 function main() {
   log('Starting skill validation check...');
 
@@ -122,6 +137,7 @@ function main() {
   checkDirectory(path.join(ROOT, 'memory'), 'memory');
   checkMemoryFiles();
   checkDirectory(path.join(ROOT, 'templates', 'layouts'), 'templates/layouts');
+  checkLayouts();
   checkDirectory(path.join(ROOT, 'scripts'), 'scripts');
 
   // 4. Check Root Markdown entry point

@@ -44,6 +44,18 @@ The product "film" is a **JPG frame-sequence drawn on `<canvas>`**, scrubbed by 
    - `spatial.html` — establishing-shot hero, walkthrough film, experience/location sections (real estate, architecture, luxury travel, hospitality)
    - `interface.html` — device mockup hero, UI-flow film, feature/workflow sections (SaaS, apps, digital platforms)
    - `minimal.html` — centered hero, no canvas film, section-based (fast/lightweight: digital products, books)
+   - `product.html` — single-product high-conversion e-commerce: price above fold, WhatsApp CTA, social proof, FAQ, sticky mobile bar
+   - `store.html` — multi-product WhatsApp catalog: product grid, category filter, per-card WhatsApp links, floating WhatsApp bubble
+
+   | CLI alias | Template file | Best for |
+   |-----------|--------------|----------|
+   | `film` | `fullbleed.html` | Luxury goods, perfume, watches, automotive, fashion, rebrands |
+   | `story` | `editorial.html` | Founder pages, events, skincare, spec-heavy products |
+   | `space` | `spatial.html` | Real estate, architecture, hospitality, travel |
+   | `app` | `interface.html` | SaaS, mobile apps, digital platforms |
+   | `creator` | `minimal.html` | Personal brands, ebooks, digital products, creators |
+   | `product` | `product.html` | Single-product e-commerce with WhatsApp conversion |
+   | `store` | `store.html` | Multi-product WhatsApp catalog & boutique stores |
 3. **Scaffold**: copy the chosen template to root as `index.html`, then:
    - Override the template's `:root` CSS variables with brand.json tokens using the mapping table at the top of each layout's `<style>` section (or see `memory/11-brand-json.md` for the full reference).
    - Set `<html lang>` and `<html dir>` from `localization.*`.
@@ -54,7 +66,8 @@ The product "film" is a **JPG frame-sequence drawn on `<canvas>`**, scrubbed by 
    - `templates/MEDIA-PROMPTS-nanobanana.template.md` — Nano Banana (default, uses built-in `generate_image` tool)
    - `templates/MEDIA-PROMPTS-qwen.template.md` — Qwen Image + Wan (DashScope API)
    - `templates/MEDIA-PROMPTS-higgsfield.template.md` — Higgsfield CLI
-   Ensure prompts are numbered, boundary-matched, and include identity + modesty clauses. Apply `voice.tone` and `voice.doNotUse` to any generated caption text. Skip the film-section prompts if building from `minimal.html`.
+   Ensure prompts are numbered, boundary-matched, and include identity + modesty clauses. Apply `voice.tone` and `voice.doNotUse` to any generated caption text. Skip the film-section prompts if building from `minimal.html`, `product.html` (film is optional), or `store.html` (no canvas film).
+   For `product.html` and `store.html`: generate product images + one lifestyle/banner image. No video pipeline needed unless the client requests it.
 5. **Generate assets** (see `memory/06-media-pipeline.md` for selection and the provider-specific guide): keyframe images in parallel → boundary-matched video clips (after keyframes verified) → extract frames → transparent hero cutout via `rembg`. Source product identity from `identity.logo.*` and `meta.product` to preserve brand accuracy.
 6. **Sync `FRAME_COUNT`** in `index.html` to the actual extracted frame count (4 clips × 24 frames − 3 duplicates = 93 is typical). Applies to `fullbleed`, `editorial`, `spatial`, and `interface` templates (not `minimal`).
 7. **Preview locally & verify** (see "Preview & verification" below). Run the brand.json verification checklist from `memory/11-brand-json.md` (no hardcoded hex values, contrast passes, voice compliance, etc.) in addition to the cinematic verification. Web-optimize heavy assets via `scripts/optimize_assets.py`.
