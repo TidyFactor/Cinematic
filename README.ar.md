@@ -1,6 +1,6 @@
 <div dir="rtl" align="right">
 
-# 🎬 حزمة الصفحات السينمائية — Cinematic Landing Kit `v3.2.1`
+# 🎬 حزمة الصفحات السينمائية — Cinematic Landing Kit `v3.2.2`
 
 **تجربة سينمائية بأسلوب Apple × Cartier — صفحات هبوط تفاعلية فاخرة تُعرض بالتمرير لأي وكيل ذكاء اصطناعي**
 

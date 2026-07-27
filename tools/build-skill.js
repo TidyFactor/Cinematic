@@ -2,43 +2,11 @@
 /**
  * build-skill.js — packages the distributable Claude Skill (.skill file)
  * for TidyFactor Cinematic from the repo's single source of truth.
- *
- * WHY THIS EXISTS
- * ----------------
- * The repo has ONE copy of memory/, templates/, scripts/, requirements.txt,
- * and brand.json — read directly by any AI agent via AGENTS.md. Those files
- * are never duplicated in git.
- *
- * `.claude-skill/` (SKILL.md + references/) is the Claude-specific wrapper.
- * It is git-tracked but intentionally incomplete on its own — it has no
- * memory/, templates/, or scripts/ of its own.
- *
- * A Claude Skill (.skill upload on claude.ai, or a folder under
- * .claude/skills/ for Claude Code) must be SELF-CONTAINED: it ships alone,
- * with no access to sibling folders in this repo. So at *build time only*
- * (never committed), this script assembles:
- *
- *   dist/tidyfactor-cinematic/
- *     ├── SKILL.md                  ← from .claude-skill/SKILL.md
- *     ├── references/               ← from .claude-skill/references/
- *     ├── memory/                   ← copied from repo root memory/
- *     ├── templates/                ← copied from repo root templates/
- *     ├── scripts/                  ← copied from repo root scripts/
- *     ├── assets/.gitkeep           ← copied from repo root assets/
- *     ├── brand.json                ← copied from repo root brand.json (template)
- *     ├── requirements.txt          ← copied from repo root
- *     └── LICENSE                   ← copied from repo root
- *
- * ...then zips it to dist/tidyfactor-cinematic.skill.
- *
- * Usage:
- *   node tools/build-skill.js
- *   node tools/build-skill.js --out dist/custom-name.skill
  */
 
 const fs = require("fs");
 const path = require("path");
-const { execFileSync } = require("child_process");
+const { execFileSync, spawnSync } = require("child_process");
 
 const ROOT = path.resolve(__dirname, "..");
 const SKILL_NAME = "tidyfactor-cinematic";
@@ -53,7 +21,6 @@ const OUT_FILE =
     ? path.resolve(ROOT, args[outFlagIdx + 1])
     : path.join(DIST_DIR, `${SKILL_NAME}.skill`);
 
-// Single-source folders/files copied as-is from repo root into the package.
 const ROOT_COPIES = [
   "memory",
   "templates",
@@ -84,6 +51,62 @@ function assertExists(p, hint) {
   if (!fs.existsSync(p)) {
     throw new Error(`Missing required path: ${p}\n${hint || ""}`);
   }
+}
+
+function zipArchive(stagePath, outFile, cwdDir) {
+  log("zipping Claude skill archive...");
+  if (fs.existsSync(outFile)) fs.rmSync(outFile);
+
+  const stageBasename = path.basename(stagePath);
+
+  // 1. Try native `zip` command
+  try {
+    execFileSync("zip", ["-r", "-q", outFile, stageBasename], {
+      cwd: cwdDir,
+      stdio: "inherit",
+    });
+    return;
+  } catch (err) {
+    log("`zip` binary unavailable or failed; trying Python fallback...");
+  }
+
+  // 2. Try Python built-in zipfile module (Cross-platform: Linux, macOS, Windows)
+  try {
+    const pythonCmd = process.platform === "win32" ? "python" : "python3";
+    execFileSync(pythonCmd, ["-m", "zipfile", "-c", outFile, stageBasename], {
+      cwd: cwdDir,
+      stdio: "inherit",
+    });
+    return;
+  } catch (pyErr) {
+    log("Python zipfile fallback failed; trying PowerShell fallback...");
+  }
+
+  // 3. Try PowerShell Compress-Archive (Windows fallback)
+  try {
+    const tmpZip = outFile.replace(/\.(skill|zip)$/, ".zip");
+    if (fs.existsSync(tmpZip)) fs.rmSync(tmpZip);
+    const result = spawnSync(
+      "powershell",
+      [
+        "-NoProfile",
+        "-NonInteractive",
+        "-Command",
+        `Compress-Archive -Path "${stagePath}" -DestinationPath "${tmpZip}" -Force`,
+      ],
+      { stdio: "inherit" }
+    );
+    if (result.status === 0) {
+      if (tmpZip !== outFile) {
+        fs.renameSync(tmpZip, outFile);
+      }
+      return;
+    }
+  } catch (winErr) {
+    // Ignore and throw cumulative error
+  }
+
+  throw new Error("Failed to create zip archive via zip, Python, or PowerShell.");
 }
 
 function main() {
@@ -135,38 +158,8 @@ function main() {
     ].join("\n")
   );
 
-  log("zipping...");
   fs.mkdirSync(path.dirname(OUT_FILE), { recursive: true });
-  if (fs.existsSync(OUT_FILE)) fs.rmSync(OUT_FILE);
-
-  try {
-    execFileSync("zip", ["-r", "-q", OUT_FILE, SKILL_NAME], {
-      cwd: DIST_DIR,
-      stdio: "inherit",
-    });
-  } catch (err) {
-    try {
-      const { spawnSync } = require("child_process");
-      const tmpZip = OUT_FILE.replace(/\.skill$/, ".zip");
-      if (fs.existsSync(tmpZip)) fs.rmSync(tmpZip);
-      const result = spawnSync(
-        "powershell",
-        [
-          "-NoProfile", "-NonInteractive", "-Command",
-          `Compress-Archive -Path "${path.join(DIST_DIR, SKILL_NAME)}" -DestinationPath "${tmpZip}" -Force`,
-        ],
-        { stdio: "inherit" }
-      );
-      if (result.status !== 0) throw new Error("Compress-Archive failed");
-      fs.renameSync(tmpZip, OUT_FILE);
-    } catch (winErr) {
-      throw new Error(
-        "`zip` command and PowerShell fallback both failed.\n" +
-          "Install zip (e.g. `apt-get install zip`) or use `archiver` npm package.\n" +
-          err.message
-      );
-    }
-  }
+  zipArchive(STAGE_DIR, OUT_FILE, DIST_DIR);
 
   const sizeKb = (fs.statSync(OUT_FILE).size / 1024).toFixed(1);
   log(`done → ${path.relative(ROOT, OUT_FILE)} (${sizeKb} KB)`);
