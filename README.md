@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🎬 Cinematic Landing Kit `v3.4.0`
+# 🎬 Cinematic Landing Kit `v3.3.3`
 ## We are building the open ecosystem for AI-ready business websites.
 
 **The official marketing website starter for the TidyFactor Ecosystem.**
@@ -87,6 +87,9 @@ npx @alwkala/create-cinematic-kit my-watch-shop --layout=product
 
 # Multi-product WhatsApp catalog store layout
 npx @alwkala/create-cinematic-kit my-boutique-store --layout=store
+
+# Automotive & Performance magazine layout (Cars, Racing, Community)
+npx @alwkala/create-cinematic-kit my-car-hub --layout=auto
 
 # Luxury film scroll layout (Perfume, Watches, Automotive)
 npx @alwkala/create-cinematic-kit my-perfume-brand --layout=film

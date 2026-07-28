@@ -23,6 +23,7 @@ If all three pass → cinematic kit is the right choice.
 | **creator** (`minimal`) | `minimal.html` | Personal brands, creators, digital products, books | Centered cutout, clean background | No film — section-based scroll |
 | **product** | `product.html` | Single product high-conversion e-commerce | Hero product + price + WhatsApp CTA | Optional canvas film (480vh, 3 clips) |
 | **store** | `store.html` | Multi-product catalog store | Store banner + WhatsApp CTA | No film — catalog grid with category filter |
+| **auto** | `auto.html` | Automotive & performance magazine showpiece | Hero car + tachometer gauge preloader | Interactive 3D car slider stage + HUD spec tooltips |
 
 ---
 

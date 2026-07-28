@@ -118,7 +118,7 @@ function checkLayouts() {
   const layoutsDir = path.join(ROOT, 'templates', 'layouts');
   const requiredLayouts = [
     'fullbleed.html', 'editorial.html', 'spatial.html',
-    'interface.html', 'minimal.html', 'product.html', 'store.html'
+    'interface.html', 'minimal.html', 'product.html', 'store.html', 'auto.html'
   ];
   for (const layout of requiredLayouts) {
     const layoutPath = path.join(layoutsDir, layout);

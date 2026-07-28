@@ -1,6 +1,6 @@
 ---
 name: cinematic-landing-kit
-description: Universal AI Agent Skill — Builds single-file, scroll-driven luxury landing pages (Apple x Cartier aesthetic) as one index.html with CDN-only libraries (GSAP, Lenis, Tailwind), zero build step, no framework. Fully compatible out-of-the-box with Google Antigravity, Claude Code, Cursor, Windsurf, Roo Code, Cline, Codex, and all AGENTS.md compliant AI coding agents. Scrubbed canvas frame sequence product film. Reads brand.json as single source of truth for identity, colors, typography, voice, and localization. Supports 7 luxury layouts (film, story, space, app, creator, product, store) and curated luxury Arabic typography. Trigger on commands "init", "brand", "clone-brand", "media", "film", "hero", "theme", "typeface", "transitions", "i18n", "perf", "a11y", "convert", "audit", "variant", "deploy", "polish", or requests like "build a cinematic landing page", "scroll-driven product page", "luxury Apple-style landing page", "صفحة هبوط سينمائية".
+description: Universal AI Agent Skill — Builds single-file, scroll-driven luxury landing pages (Apple x Cartier aesthetic) as one index.html with CDN-only libraries (GSAP, Lenis, Tailwind), zero build step, no framework. Fully compatible out-of-the-box with Google Antigravity, Claude Code, Cursor, Windsurf, Roo Code, Cline, Codex, and all AGENTS.md compliant AI coding agents. Scrubbed canvas frame sequence product film. Reads brand.json as single source of truth for identity, colors, typography, voice, and localization. Supports 8 luxury layouts (film, story, space, app, creator, product, store, auto) and curated luxury Arabic typography. Trigger on commands "init", "brand", "clone-brand", "media", "film", "hero", "theme", "typeface", "transitions", "i18n", "perf", "a11y", "convert", "audit", "variant", "deploy", "polish", or requests like "build a cinematic landing page", "scroll-driven product page", "luxury Apple-style landing page", "صفحة هبوط سينمائية".
 ---
 
 # Universal AI Agent Skill — Cinematic Landing Kit
@@ -33,6 +33,7 @@ This skill leverages native Agentic IDE capabilities:
   - `creator` (`minimal.html`) — Centered hero cutout, no canvas film (Digital products, books, creators)
   - `product` (`product.html`) — Single product high-conversion e-commerce with price above fold & WhatsApp CTA
   - `store` (`store.html`) — Multi-product catalog grid with category filter & per-card WhatsApp links
+  - `auto` (`auto.html`) — High-octane automotive & performance magazine with 3D car slider & HUD tooltips
 - **Media Providers**: `nanobanana` (default, built-in `generate_image` tool), `qwen` (Qwen Image + Wan via DashScope API), `higgsfield` (Higgsfield CLI).
 
 ---

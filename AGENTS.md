@@ -47,6 +47,7 @@ The product "film" is a **JPG frame-sequence drawn on `<canvas>`**, scrubbed by 
    - `minimal.html` — centered hero, no canvas film, section-based (fast/lightweight: digital products, books)
    - `product.html` — single-product high-conversion e-commerce: price above fold, WhatsApp CTA, social proof, FAQ, sticky mobile bar
    - `store.html` — multi-product WhatsApp catalog: product grid, category filter, per-card WhatsApp links, floating WhatsApp bubble
+   - `auto.html` — automotive & performance magazine: 3D car slider stage, HUD spec tooltips, animated gauge preloader, dark graphite & racing red theme
 
    | CLI alias | Template file | Best for |
    |-----------|--------------|----------|
@@ -57,6 +58,7 @@ The product "film" is a **JPG frame-sequence drawn on `<canvas>`**, scrubbed by 
    | `creator` | `minimal.html` | Personal brands, ebooks, digital products, creators |
    | `product` | `product.html` | Single-product e-commerce with WhatsApp conversion |
    | `store` | `store.html` | Multi-product WhatsApp catalog & boutique stores |
+   | `auto` | `auto.html` | Automotive, performance, racing & car community showpieces |
 3. **Scaffold**: copy the chosen template to root as `index.html`, then:
    - Override the template's `:root` CSS variables with brand.json tokens using the mapping table at the top of each layout's `<style>` section (or see `memory/11-brand-json.md` for the full reference).
    - Set `<html lang>` and `<html dir>` from `localization.*`.

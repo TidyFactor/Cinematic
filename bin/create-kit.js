@@ -67,6 +67,13 @@ const LAYOUTS = [
     label: 'Product Store',
     desc:  'Multi-product showcase with WhatsApp conversion',
   },
+  {
+    name:  'auto',
+    file:  'auto',
+    emoji: '🏎️',
+    label: 'Automotive & Performance',
+    desc:  'High-octane cars, racing & community magazine showpiece',
+  },
 ];
 
 // Build lookup maps

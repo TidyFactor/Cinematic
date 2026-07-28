@@ -1,6 +1,6 @@
 <div dir="rtl" align="right">
 
-# 🎬 حزمة الصفحات السينمائية — Cinematic Landing Kit `v3.4.0`
+# 🎬 حزمة الصفحات السينمائية — Cinematic Landing Kit `v3.3.3`
 
 **تجربة سينمائية بأسلوب Apple × Cartier — صفحات هبوط تفاعلية فاخرة تُعرض بالتمرير لأي وكيل ذكاء اصطناعي**
 
@@ -64,10 +64,13 @@ npx @alwkala/create-cinematic-kit
 # إنشاء صفحة هبوط لمنتج واحد عالية التحويل مع تحويل واتساب مباشرة
 npx @alwkala/create-cinematic-kit my-watch-shop --layout=product
 
-# إنشاء متجر منتجات متعددة مع كرت واتساب وفلترة الفئات
+# إنشاء متجر كالوج المنتجات المتعددة مع تحويل الواتساب
 npx @alwkala/create-cinematic-kit my-boutique-store --layout=store
 
-# إنشاء صفحة سينمائية فاخرة لعطور أو سيارات (فيلم تمرير تفاعلي)
+# قالب مجلة السيارات والأداء العالي والتجمعات
+npx @alwkala/create-cinematic-kit my-car-hub --layout=auto
+
+# العرض السينمائي الكامل (عطور، ساعات، سيارات)
 npx @alwkala/create-cinematic-kit my-perfume-brand --layout=film
 
 # إنشاء صفحة تطبيق أو منصة SaaS مع محاكاة جهاز متجاوب

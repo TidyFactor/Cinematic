@@ -58,7 +58,8 @@ function printHelp() {
   console.log(`    • ${chalk.cyan('app')}        (interface.html) — SaaS device mockups & UI flows`);
   console.log(`    • ${chalk.cyan('creator')}    (minimal.html)   — Personal brands & digital products`);
   console.log(`    • ${chalk.cyan('product')}    (product.html)   — Single product e-commerce + WhatsApp`);
-  console.log(`    • ${chalk.cyan('store')}      (store.html)     — Multi-product WhatsApp catalog store\n`);
+  console.log(`    • ${chalk.cyan('store')}      (store.html)     — Multi-product WhatsApp catalog store`);
+  console.log(`    • ${chalk.cyan('auto')}       (auto.html)      — Automotive & performance magazine showpiece\n`);
 }
 
 function printSuccessSummary() {

@@ -5,6 +5,16 @@ All notable changes to the **[@alwkala/create-cinematic-kit](https://www.npmjs.c
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.3.3] - 2026-07-28
+
+### 🌟 Added New Automotive Layout & Skill Memory Enhancements
+- **New 8th Layout Template (`auto` / `auto.html`)**:
+  - Added new high-octane automotive & performance magazine layout (`templates/layouts/auto.html`) tested via `masrmotors-landing`.
+  - Features Dark Graphite & Egyptian Racing Red theme (`#0A0A0A` / `#E53935`), animated tachometer/gauge preloader overlay (`#loader`), interactive 3D car slider stage (`.v-car-stage`) with HUD spec tooltips (`.v-hud-tooltip`), and custom brand scrollbar.
+- **Skill Memory & Routing Hardening**:
+  - Updated `memory/10-use-cases.md`, `memory/12-arabic-typography.md`, `AGENTS.md`, `SKILL.md` to support 8 layout options (`film`, `story`, `space`, `app`, `creator`, `product`, `store`, `auto`).
+  - Standardized interactive AI Agent prompts to present all 8 layout options consistently with clear Arabic & English descriptions.
+
 ## [3.4.0] - 2026-07-28
 
 ### Added & Enhanced from Test Learnings (`arome-royal-landing`)
