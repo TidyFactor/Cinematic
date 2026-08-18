@@ -1,0 +1,2460 @@
+<!DOCTYPE html>
+<!-- ============================================================================
+     MASRMOTORS.COM (مصر موتورز) — CINEMATIC AUTOMOTIVE LANDING PAGE (REFINED v3.3.2)
+     Single-file scroll-driven luxury automotive engine built with GSAP, Lenis & Tailwind.
+     Dark Graphite & Egyptian Racing Red Theme (#0A0A0A / #E53935).
+     ============================================================================ -->
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>مصر موتورز — MasrMotors.com | مجتمع وعالم السيارات في مصر</title>
+  <meta name="description"
+    content="المجلة والمجتمع الرائد لعشاق السيارات في مصر. أحدث أخبار السيارات، تقارير تجارب القيادة، والمنتدى العربي الأكبر لنوادي السيارات." />
+  <meta property="og:title" content="مصر موتورز — MasrMotors.com — مجتمع وعالم السيارات في مصر" />
+  <meta property="og:description"
+    content="المجلة والمجتمع الرائد لعشاق السيارات في مصر. أحدث أخبار السيارات، تقارير تجارب القيادة، والمنتدى العربي الأكبر لنوادي السيارات." />
+  <meta property="og:image" content="assets/og-default.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&family=Tajawal:wght@300;400;500;700&family=Oswald:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&display=swap"
+    rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
+    integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg=="
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"
+    integrity="sha512-onMTRKJBKz8M1TnqqDuGBlowlH0ohFzMXYRNebz+yOcc5TQr/zAKsthzhuv0hiyUKEiQEQXEynnXCvNTOk50dg=="
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"
+    integrity="sha256-eUny2Hql6qBbqmuoQ60u6ueG2eCZVKQaGygqwCPquug=" crossorigin="anonymous"></script>
+
+  <style>
+    :root {
+      /* Dark Graphite & Egyptian Racing Red Palette */
+      --paper: #0A0A0A;
+      --mist: #141414;
+      --cream: #1F1F1F;
+      --sand: #2E2E2E;
+      --ink: #F5F5F5;
+      --ink-soft: #A0A0A0;
+      --ink-faint: #666666;
+      --gold: #E53935;
+      --gold-deep: #C62828;
+      --gold-bright: #FF5252;
+      --accent: #D4AF37;
+      --line: rgba(255, 255, 255, .12);
+      --line-soft: rgba(255, 255, 255, .06);
+      --ambient: #0A0A0A;
+      --maxw: 1280px;
+      --ease: cubic-bezier(.22, .61, .36, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box
+    }
+
+    html,
+    body {
+      height: 100%
+    }
+
+    html {
+      scroll-behavior: auto
+    }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "Tajawal", system-ui, sans-serif;
+      font-weight: 300;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      line-height: 1.8
+    }
+
+    /* Custom Brand Scrollbar Styling */
+    ::-webkit-scrollbar {
+      width: 9px;
+      height: 9px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #080808;
+      border-left: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, var(--gold), var(--gold-deep));
+      border-radius: 99px;
+      border: 2px solid #080808;
+      box-shadow: inset 0 0 6px rgba(255, 82, 82, 0.5);
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(180deg, var(--gold-bright), var(--gold));
+      box-shadow: 0 0 12px rgba(255, 82, 82, 0.8);
+    }
+    * {
+      scrollbar-width: thin;
+      scrollbar-color: var(--gold) #080808;
+    }
+
+    /* Creative Luxury Preloader Overlay */
+    #loader {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: #060606;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      overflow: hidden;
+      transition: clip-path 1.1s cubic-bezier(.77,0,.175,1), opacity 0.8s ease;
+      clip-path: inset(0 0 0% 0);
+    }
+    #loader.out {
+      clip-path: inset(0 0 100% 0);
+      pointer-events: none;
+    }
+    .loader-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+    }
+    .loader-gauge {
+      width: 140px;
+      height: 140px;
+      position: relative;
+      display: grid;
+      place-items: center;
+      margin-bottom: 20px;
+    }
+    .loader-gauge svg {
+      width: 100%;
+      height: 100%;
+    }
+    .loader-gauge .l-track {
+      fill: none;
+      stroke: rgba(255, 255, 255, 0.08);
+      stroke-width: 6;
+    }
+    .loader-gauge .l-fill {
+      fill: none;
+      stroke: var(--gold);
+      stroke-width: 6;
+      stroke-dasharray: 527;
+      stroke-dashoffset: 527;
+      transition: stroke-dashoffset 0.1s linear;
+      filter: drop-shadow(0 0 10px rgba(229, 57, 53, 0.8));
+    }
+    .loader-badge {
+      position: absolute;
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: rgba(20, 20, 20, 0.8);
+      border: 1px solid rgba(229, 57, 53, 0.4);
+      display: grid;
+      place-items: center;
+      box-shadow: 0 0 25px rgba(229, 57, 53, 0.3);
+    }
+    .loader-badge svg {
+      width: 28px;
+      height: 28px;
+      fill: none;
+      stroke: var(--gold-bright);
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      animation: spinSteer 4s infinite linear;
+    }
+    @keyframes spinSteer {
+      0% { transform: rotate(0deg); }
+      50% { transform: rotate(180deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .loader-brand {
+      font-family: "El Messiri", serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: #FFFFFF;
+      letter-spacing: .02em;
+    }
+    .loader-sub {
+      font-family: "Oswald", sans-serif;
+      font-size: 11px;
+      letter-spacing: .28em;
+      color: var(--gold-bright);
+      margin-top: 4px;
+    }
+    .loader-num {
+      font-family: "Oswald", sans-serif;
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--ink);
+      margin-top: 14px;
+    }
+    .loader-bars {
+      display: flex;
+      gap: 5px;
+      margin-top: 14px;
+    }
+    .loader-bars span {
+      width: 4px;
+      height: 18px;
+      background: var(--gold);
+      border-radius: 4px;
+      animation: barRev 0.8s infinite ease-in-out alternate;
+    }
+    .loader-bars span:nth-child(1) { animation-delay: 0.1s; }
+    .loader-bars span:nth-child(2) { animation-delay: 0.25s; }
+    .loader-bars span:nth-child(3) { animation-delay: 0.4s; }
+    .loader-bars span:nth-child(4) { animation-delay: 0.55s; }
+    .loader-bars span:nth-child(5) { animation-delay: 0.7s; }
+    @keyframes barRev {
+      0% { height: 6px; opacity: 0.4; }
+      100% { height: 24px; opacity: 1; background: var(--gold-bright); }
+    }
+
+    /* fixed cinematic layers */
+    #ambient {
+      position: fixed;
+      inset: 0;
+      z-index: -3;
+      background: var(--ambient);
+      transition: background-color 1.2s ease-out
+    }
+
+    #glow {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      pointer-events: none;
+      opacity: .6;
+      background: radial-gradient(120% 90% at 50% 0%, rgba(229, 57, 53, .22), rgba(10, 10, 10, 0) 65%)
+    }
+
+    #vignette {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      background: radial-gradient(135% 120% at 50% 42%, transparent 50%, rgba(0, 0, 0, .75) 100%)
+    }
+
+    #grain {
+      position: fixed;
+      inset: -50%;
+      z-index: 60;
+      pointer-events: none;
+      opacity: .025;
+      mix-blend-mode: overlay;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")
+    }
+
+    #progress {
+      position: fixed;
+      top: 0;
+      right: 0;
+      left: 0;
+      height: 3px;
+      z-index: 70;
+      transform-origin: right;
+      transform: scaleX(0);
+      background: linear-gradient(90deg, var(--gold-deep), var(--gold-bright), var(--accent))
+    }
+
+    /* header */
+    header {
+      position: fixed;
+      top: 0;
+      right: 0;
+      left: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: clamp(14px, 2.4vw, 28px) clamp(18px, 4vw, 54px);
+      will-change: transform;
+      transition: transform .5s var(--ease), background .5s, backdrop-filter .5s, box-shadow .5s, padding .5s
+    }
+
+    header.hidden {
+      transform: translateY(-115%)
+    }
+
+    header.solid {
+      background: rgba(10, 10, 10, .88);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 1px 0 var(--line-soft);
+      padding-top: clamp(10px, 1.6vw, 16px);
+      padding-bottom: clamp(10px, 1.6vw, 16px)
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none
+    }
+
+    .brand img {
+      width: 32px;
+      height: 32px
+    }
+
+    .brand .wm {
+      font-family: "El Messiri", serif;
+      font-weight: 700;
+      font-size: clamp(21px, 2.4vw, 27px);
+      color: var(--ink)
+    }
+
+    header nav {
+      display: flex;
+      align-items: center;
+      gap: clamp(16px, 2.4vw, 36px)
+    }
+
+    header nav a {
+      color: var(--ink-soft);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color .3s
+    }
+
+    header nav a:hover {
+      color: var(--gold-bright)
+    }
+
+    .nav-cta {
+      border: 1px solid var(--gold);
+      border-radius: 999px;
+      padding: 8px 24px;
+      color: var(--gold-bright) !important;
+      transition: all .35s var(--ease);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 44px;
+      background: rgba(229, 57, 53, .1)
+    }
+
+    .nav-cta:hover {
+      background: var(--gold);
+      color: #fff !important;
+      box-shadow: 0 8px 24px -6px rgba(229, 57, 53, .6)
+    }
+
+    /* Mobile Hamburger Button */
+    #mobileMenuBtn {
+      display: none;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      z-index: 60;
+      color: var(--ink);
+      min-height: 44px;
+      min-width: 44px
+    }
+
+    #mobileMenuBtn svg {
+      width: 26px;
+      height: 26px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2
+    }
+
+    @media(max-width:768px) {
+      header nav {
+        display: none
+      }
+
+      #mobileMenuBtn {
+        display: flex;
+        align-items: center;
+        justify-content: center
+      }
+    }
+
+    /* Mobile Glassmorphism Navigation Drawer Overlay */
+    #mobileNavOverlay {
+      position: fixed;
+      inset: 0;
+      z-index: 55;
+      background: rgba(10, 10, 10, .96);
+      backdrop-filter: blur(24px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 28px;
+      padding: 40px 24px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-20px);
+      transition: opacity .4s var(--ease), transform .4s var(--ease)
+    }
+
+    #mobileNavOverlay.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0)
+    }
+
+    #mobileNavOverlay a {
+      font-family: "El Messiri", serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--ink);
+      text-decoration: none;
+      transition: color .3s
+    }
+
+    #mobileNavOverlay a:hover {
+      color: var(--gold-bright)
+    }
+
+    #mobileNavOverlay .mobile-wa-btn {
+      background: linear-gradient(180deg, var(--gold-bright), var(--gold));
+      color: #fff;
+      border-radius: 999px;
+      padding: 14px 36px;
+      font-size: 18px;
+      margin-top: 16px
+    }
+
+    /* Floating WhatsApp conversion bubble */
+    #waBubble {
+      position: fixed;
+      bottom: 28px;
+      left: 28px;
+      z-index: 90;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: linear-gradient(135deg, #25D366, #128C7E);
+      color: #fff;
+      text-decoration: none;
+      padding: 12px 20px;
+      border-radius: 999px;
+      box-shadow: 0 12px 32px rgba(18, 140, 126, .5);
+      font-family: "Tajawal", sans-serif;
+      font-weight: 500;
+      font-size: 14px;
+      transition: transform .35s var(--ease), box-shadow .35s;
+      animation: waPulse 3.5s ease-in-out infinite;
+      min-height: 44px
+    }
+
+    #waBubble:hover {
+      transform: scale(1.06) translateY(-2px);
+      box-shadow: 0 18px 40px rgba(18, 140, 126, .65)
+    }
+
+    #waBubble svg {
+      width: 22px;
+      height: 22px;
+      fill: currentColor
+    }
+
+    @keyframes waPulse {
+
+      0%,
+      100% {
+        box-shadow: 0 12px 32px rgba(18, 140, 126, .4)
+      }
+
+      50% {
+        box-shadow: 0 12px 42px rgba(37, 211, 102, .75)
+      }
+    }
+
+    /* Premium Scroll To Top Button */
+    #scrollTopBtn {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 90;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(20, 20, 20, .85);
+      border: 1px solid var(--gold);
+      color: var(--gold-bright);
+      backdrop-filter: blur(12px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, .4);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(16px);
+      transition: opacity .4s var(--ease), transform .4s var(--ease), background .3s, color .3s
+    }
+
+    #scrollTopBtn.visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0)
+    }
+
+    #scrollTopBtn:hover {
+      background: var(--gold);
+      color: #fff;
+      transform: translateY(-3px);
+      box-shadow: 0 16px 35px rgba(229, 57, 53, .5)
+    }
+
+    #scrollTopBtn svg {
+      width: 20px;
+      height: 20px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2.2;
+      stroke-linecap: round;
+      stroke-linejoin: round
+    }
+
+    @media(max-width:640px) {
+      #waBubble {
+        bottom: 20px;
+        left: 16px;
+        padding: 10px 16px;
+        font-size: 13px
+      }
+
+      #waBubble span {
+        display: none
+      }
+
+      #scrollTopBtn {
+        bottom: 20px;
+        right: 16px;
+        width: 44px;
+        height: 44px
+      }
+    }
+
+    /* layout helpers */
+    section {
+      position: relative
+    }
+
+    .wrap {
+      max-width: var(--maxw);
+      margin-inline: auto;
+      padding-inline: clamp(20px, 5vw, 68px)
+    }
+
+    .eyebrow {
+      font-family: "Oswald", serif;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      font-size: 13px;
+      color: var(--gold-bright);
+      font-weight: 500
+    }
+
+    .idx {
+      font-family: "El Messiri", serif;
+      font-size: 15px;
+      color: var(--gold-bright);
+      font-weight: 600
+    }
+
+    .gold-text {
+      background: linear-gradient(180deg, var(--gold-bright), var(--gold) 50%, var(--gold-deep));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent
+    }
+
+    .fallback-host {
+      position: relative
+    }
+
+    .fallback-host.is-missing {
+      background-image: linear-gradient(135deg, var(--cream), var(--sand) 78%);
+      background-size: cover
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(34px);
+      transition: opacity 1.1s var(--ease), transform 1.1s var(--ease)
+    }
+
+    .reveal.in {
+      opacity: 1;
+      transform: none
+    }
+
+    /* 1 · HERO */
+    #hero {
+      height: 135vh
+    }
+
+    #hero .stage {
+      position: sticky;
+      top: 0;
+      height: 100svh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 6vh 18px 0;
+      perspective: 1300px
+    }
+
+    #hero .aura {
+      position: absolute;
+      top: 44%;
+      left: 50%;
+      width: 88vmin;
+      height: 88vmin;
+      border-radius: 50%;
+      z-index: 0;
+      pointer-events: none;
+      transform: translate3d(calc(-50% + var(--px, 0px)), calc(-50% + var(--py, 0px)), 0);
+      background: radial-gradient(circle, rgba(229, 57, 53, .35), rgba(212, 175, 55, .12) 40%, transparent 66%);
+      filter: blur(20px);
+      opacity: 0;
+      will-change: transform, opacity;
+      animation: auraIn 1.6s ease-out .15s forwards, auraPulse 8s ease-in-out 1.8s infinite
+    }
+
+    @keyframes auraIn {
+      to {
+        opacity: .8
+      }
+    }
+
+    @keyframes auraPulse {
+
+      0%,
+      100% {
+        opacity: .7
+      }
+
+      50% {
+        opacity: .95
+      }
+    }
+
+    #hero .motes {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      overflow: hidden
+    }
+
+    #hero .motes span {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0;
+      will-change: transform, opacity;
+      filter: blur(.4px);
+      background: radial-gradient(circle, rgba(255, 82, 82, .95), rgba(255, 82, 82, 0) 70%);
+      animation: mote linear infinite
+    }
+
+    @keyframes mote {
+      0% {
+        opacity: 0;
+        transform: translateY(40px) scale(.5)
+      }
+
+      12% {
+        opacity: .75
+      }
+
+      55% {
+        opacity: .55
+      }
+
+      100% {
+        opacity: 0;
+        transform: translateY(-120px) scale(1.05)
+      }
+    }
+
+    #hero .hero-inner {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      will-change: transform, opacity
+    }
+
+    #hero .latin {
+      font-size: 13px;
+      color: var(--gold-bright);
+      margin-bottom: 2.6vh;
+      opacity: 0
+    }
+
+    #hero .media-float {
+      animation: floaty 6.5s var(--ease) infinite
+    }
+
+    @keyframes floaty {
+
+      0%,
+      100% {
+        transform: translateY(0)
+      }
+
+      50% {
+        transform: translateY(-18px)
+      }
+    }
+
+    #hero .media-tilt {
+      position: relative;
+      transform-style: preserve-3d;
+      transform: rotateX(var(--tx, 0deg)) rotateY(var(--ty, 0deg));
+      transition: transform .3s ease-out
+    }
+
+    #hero .hero-media {
+      display: block;
+      height: 48vh;
+      width: auto;
+      max-width: 85vw;
+      object-fit: contain;
+      opacity: 0;
+      filter: drop-shadow(0 28px 45px rgba(229, 57, 53, .3))
+    }
+
+    #hero .specular {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      mix-blend-mode: screen;
+      opacity: 0;
+      -webkit-mask: url(assets/product-cut.png) center/contain no-repeat;
+      mask: url(assets/product-cut.png) center/contain no-repeat;
+      background: linear-gradient(115deg, transparent 40%, rgba(255, 255, 255, .75) 50%, transparent 60%);
+      background-size: 280% 280%;
+      animation: sheen 7.5s ease-in-out 2.2s infinite
+    }
+
+    @keyframes sheen {
+
+      0%,
+      16% {
+        background-position: 150% 0;
+        opacity: 0
+      }
+
+      24% {
+        opacity: .95
+      }
+
+      46%,
+      100% {
+        background-position: -50% 0;
+        opacity: 0
+      }
+    }
+
+    #hero h1 {
+      font-size: clamp(48px, 11vw, 140px);
+      font-weight: 700;
+      line-height: .9;
+      margin-top: 2.6vh;
+      opacity: 0;
+      clip-path: inset(0 0 100% 0)
+    }
+
+    #hero .sub {
+      margin-top: 1.4vh;
+      font-size: clamp(15px, 2vw, 21px);
+      color: var(--ink-soft);
+      opacity: 0;
+      padding-inline: 16px;
+      max-width: 44ch
+    }
+
+    .scrollcue {
+      position: absolute;
+      bottom: 26px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: var(--ink-faint);
+      font-size: 11px;
+      letter-spacing: .32em;
+      font-family: "Oswald", sans-serif;
+      text-transform: uppercase
+    }
+
+    .scrollcue .bar {
+      width: 1px;
+      height: 44px;
+      background: linear-gradient(var(--gold), transparent);
+      animation: cue 2.4s var(--ease) infinite
+    }
+
+    @keyframes cue {
+      0% {
+        transform: scaleY(.2);
+        opacity: .2;
+        transform-origin: top
+      }
+
+      50% {
+        transform: scaleY(1);
+        opacity: 1
+      }
+
+      100% {
+        transform: scaleY(.2);
+        opacity: .2;
+        transform-origin: bottom
+      }
+    }
+
+    /* 2 · PULSE (content-driven stat panels with tachometer accent) */
+    #velocity {
+      position: relative;
+    }
+
+    #velocity .stage {
+      position: sticky;
+      top: 0;
+      height: 100svh;
+      overflow: hidden;
+      background: #050505;
+      isolation: isolate
+    }
+
+    /* living ambient backdrop — always subtly alive, independent of scroll */
+    #velocity .v-rays {
+      position: absolute;
+      inset: -20%;
+      z-index: 1;
+      opacity: .28;
+      background: repeating-conic-gradient(from 0deg, rgba(229, 57, 53, .85) 0deg 1.1deg, transparent 1.1deg 9deg);
+      -webkit-mask: radial-gradient(circle at 22% 50%, transparent 0, transparent 8%, #000 26%, #000 46%, transparent 62%);
+      mask: radial-gradient(circle at 22% 50%, transparent 0, transparent 8%, #000 26%, #000 46%, transparent 62%);
+      animation: vSpin 40s linear infinite;
+      will-change: transform
+    }
+
+    @keyframes vSpin {
+      to {
+        transform: rotate(360deg)
+      }
+    }
+
+    #velocity .v-rings {
+      position: absolute;
+      left: 22%;
+      top: 50%;
+      z-index: 1;
+      width: 0;
+      height: 0
+    }
+
+    #velocity .v-rings span {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 80px;
+      height: 80px;
+      margin: -40px 0 0 -40px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 82, 82, .4);
+      animation: vPing 5.6s cubic-bezier(.22, .61, .36, 1) infinite
+    }
+
+    #velocity .v-rings span:nth-child(2) {
+      animation-delay: 1.4s
+    }
+
+    #velocity .v-rings span:nth-child(3) {
+      animation-delay: 2.8s
+    }
+
+    #velocity .v-rings span:nth-child(4) {
+      animation-delay: 4.2s
+    }
+
+    @keyframes vPing {
+      0% {
+        transform: scale(.3);
+        opacity: .7;
+        border-color: rgba(255, 82, 82, .6)
+      }
+
+      100% {
+        transform: scale(9);
+        opacity: 0;
+        border-color: rgba(255, 82, 82, 0)
+      }
+    }
+
+    #velocity .v-lines {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      opacity: .16;
+      background-image: repeating-linear-gradient(90deg, rgba(245, 245, 245, .09) 0 1px, transparent 1px 64px);
+      -webkit-mask: linear-gradient(180deg, transparent 0%, #000 42%, #000 58%, transparent 100%);
+      mask: linear-gradient(180deg, transparent 0%, #000 42%, #000 58%, transparent 100%);
+      animation: vSlide 1.1s linear infinite
+    }
+
+    @keyframes vSlide {
+      from {
+        background-position-x: 0
+      }
+
+      to {
+        background-position-x: -64px
+      }
+    }
+
+    /* racing silhouette — brief flourish that sweeps once per panel change */
+    #velocity .v-car {
+      position: absolute;
+      top: 80%;
+      right: -40%;
+      z-index: 3;
+      width: min(30vw, 300px);
+      height: auto;
+      transform: translateY(-50%);
+      filter: drop-shadow(0 0 22px rgba(255, 82, 82, .5));
+      opacity: 0;
+      transition: none
+    }
+
+    #velocity .v-car.sweep {
+      animation: vSweep 1.4s cubic-bezier(.4, .05, .2, 1)
+    }
+
+    @keyframes vSweep {
+      0% {
+        opacity: 0;
+        right: -40%
+      }
+
+      12% {
+        opacity: .9
+      }
+
+      85% {
+        opacity: .9
+      }
+
+      100% {
+        opacity: 0;
+        right: 118%
+      }
+    }
+
+    #velocity .v-car path {
+      fill: #111214;
+      stroke: rgba(255, 255, 255, .08);
+      stroke-width: 1
+    }
+
+    #velocity .v-car .glass {
+      fill: rgba(229, 57, 53, .16)
+    }
+
+    #velocity .v-car .stripe {
+      fill: var(--gold-bright)
+    }
+
+    #velocity .v-trail {
+      position: absolute;
+      top: 80%;
+      right: -40%;
+      z-index: 2;
+      width: 26vw;
+      height: 2px;
+      transform: translateY(-50%);
+      background: linear-gradient(90deg, transparent, rgba(255, 82, 82, .9) 60%, rgba(255, 255, 255, .95));
+      filter: blur(2px);
+      border-radius: 99px;
+      opacity: 0
+    }
+
+    #velocity .v-car.sweep+.v-trail {
+      opacity: 0
+    }
+
+    /* Interactive HUD Spec Tooltip */
+    .v-hud-tooltip {
+      position: absolute;
+      z-index: 20;
+      pointer-events: none;
+      padding: 10px 18px;
+      border-radius: 12px;
+      background: rgba(15, 15, 15, 0.88);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(229, 57, 53, 0.4);
+      box-shadow: 0 14px 35px rgba(0, 0, 0, 0.8), 0 0 20px rgba(229, 57, 53, 0.25);
+      opacity: 0;
+      transform: translate(-50%, -120%) scale(0.85);
+      transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
+      text-align: center;
+    }
+    .v-hud-tooltip.active {
+      opacity: 1;
+      transform: translate(-50%, -120%) scale(1);
+    }
+    .v-hud-name {
+      display: block;
+      font-family: "El Messiri", serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: #FFFFFF;
+    }
+    .v-hud-stats {
+      font-family: "Oswald", sans-serif;
+      font-size: 12px;
+      letter-spacing: .08em;
+      color: var(--gold-bright);
+      margin-top: 2px;
+    }
+
+    /* 3D Car Slider Stage */
+    #velocity .v-car-stage {
+      position: absolute;
+      left: 46%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 5;
+      width: min(44vw, 520px);
+      height: 320px;
+      perspective: 1200px;
+      pointer-events: none;
+      display: grid;
+      place-items: center;
+    }
+    #velocity .v-car-img {
+      position: absolute;
+      width: 100%;
+      height: auto;
+      max-height: 320px;
+      object-fit: contain;
+      opacity: 0;
+      transform: scale(0.65) rotateY(-35deg) translateZ(-140px) translateY(40px);
+      filter: drop-shadow(0 25px 45px rgba(229,57,53,0.35));
+      transition: opacity 0.85s var(--ease), transform 0.85s var(--ease), filter 0.85s;
+      will-change: transform, opacity;
+    }
+    #velocity .v-car-img.active {
+      opacity: 1;
+      transform: scale(1.06) rotateY(var(--ry, 0deg)) rotateX(var(--rx, 0deg)) translateZ(30px) translateY(0);
+      filter: drop-shadow(0 35px 75px rgba(255,82,82,0.6));
+    }
+    #velocity .v-progress span {
+      cursor: pointer;
+    }
+
+    /* Responsive Mobile View for #velocity Section */
+    @media(max-width:768px){
+      #velocity .stage {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding: clamp(70px, 12vh, 90px) 18px clamp(80px, 10vh, 100px);
+        overflow-y: auto;
+      }
+      #velocity .v-panels {
+        position: relative;
+        right: auto;
+        top: auto;
+        transform: none;
+        width: 100%;
+        height: auto;
+        text-align: center;
+        margin-top: 0;
+        z-index: 10;
+        order: 1;
+      }
+      #velocity .v-panel {
+        position: relative;
+        inset: auto;
+        display: none;
+        opacity: 0;
+        transform: translateY(18px);
+        transition: opacity .5s var(--ease), transform .5s var(--ease);
+      }
+      #velocity .v-panel.active {
+        display: flex;
+        opacity: 1;
+        transform: translateY(0);
+        align-items: center;
+      }
+      #velocity .v-panel p {
+        margin-inline: auto;
+        font-size: 14px;
+        line-height: 1.7;
+      }
+      #velocity .v-car-stage {
+        position: relative;
+        left: auto;
+        top: auto;
+        transform: none;
+        width: 100%;
+        max-width: 320px;
+        height: 190px;
+        margin: 14px 0 10px;
+        z-index: 5;
+        order: 2;
+      }
+      #velocity .v-car-img {
+        max-height: 180px;
+        transform: scale(0.88) translateY(0);
+      }
+      #velocity .v-car-img.active {
+        transform: scale(1.02) rotateY(var(--ry, 0deg)) rotateX(var(--rx, 0deg)) translateY(0);
+      }
+      #velocity .v-gauge {
+        position: relative;
+        left: auto;
+        top: auto;
+        transform: none;
+        width: 110px;
+        height: 110px;
+        margin: 10px 0;
+        order: 3;
+      }
+      #velocity .v-speed-num { font-size: 24px; }
+      #velocity .v-speed-unit { font-size: 9px; }
+      #velocity .v-speed-label { display: none; }
+      #velocity .v-chips {
+        justify-content: center;
+        margin-top: 10px;
+        order: 4;
+      }
+      #velocity .v-panel .btn {
+        align-self: center;
+        width: 100%;
+        max-width: 280px;
+        margin-top: 16px;
+      }
+      #velocity .v-progress {
+        left: 50%;
+        top: auto;
+        bottom: 20px;
+        transform: translateX(-50%);
+        flex-direction: row;
+        gap: 12px;
+        z-index: 15;
+      }
+      .v-hud-tooltip { display: none !important; }
+    }
+
+    /* progress dots */
+    #velocity .v-progress {
+      position: absolute;
+      left: clamp(18px, 5vw, 42px);
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 7;
+      display: flex;
+      flex-direction: column;
+      gap: 14px
+    }
+
+    #velocity .v-progress span {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .18);
+      transition: all .4s var(--ease)
+    }
+
+    #velocity .v-progress span.on {
+      background: var(--gold-bright);
+      box-shadow: 0 0 12px rgba(255, 82, 82, .8);
+      transform: scale(1.3)
+    }
+
+    /* stat gauge accent — shared ring + counter, retargeted per active panel */
+    #velocity .v-gauge {
+      position: absolute;
+      left: clamp(48px, 10vw, 120px);
+      top: 50%;
+      z-index: 4;
+      width: min(38vw, 260px);
+      aspect-ratio: 1/1;
+      transform: translateY(-50%);
+      display: grid;
+      place-items: center;
+      opacity: 0;
+      transition: opacity .6s var(--ease)
+    }
+
+    #velocity .v-gauge.on {
+      opacity: 1
+    }
+
+    #velocity .v-gauge svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible
+    }
+
+    #velocity .v-gauge .track {
+      fill: none;
+      stroke: rgba(255, 255, 255, .08);
+      stroke-width: 6
+    }
+
+    #velocity .v-gauge .fill {
+      fill: none;
+      stroke: url(#vGrad);
+      stroke-width: 6;
+      stroke-linecap: round;
+      stroke-dasharray: 753;
+      stroke-dashoffset: 753;
+      filter: drop-shadow(0 0 10px rgba(255, 82, 82, .65));
+      transition: stroke-dashoffset 1.15s cubic-bezier(.22, .61, .36, 1)
+    }
+
+    #velocity .v-gauge-center {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      text-align: center;
+      width: 78%
+    }
+
+    #velocity .v-speed-num {
+      font-family: "Oswald", sans-serif;
+      font-weight: 600;
+      font-size: clamp(32px, 4.6vw, 52px);
+      color: #fff;
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+      text-shadow: 0 0 26px rgba(255, 82, 82, .5)
+    }
+
+    #velocity .v-speed-unit {
+      font-family: "Oswald", sans-serif;
+      font-size: 10px;
+      letter-spacing: .28em;
+      color: var(--gold-bright);
+      margin-top: 2px
+    }
+
+    #velocity .v-speed-label {
+      font-family: "Tajawal", sans-serif;
+      font-size: 11px;
+      line-height: 1.5;
+      color: var(--ink-faint);
+      margin-top: 8px
+    }
+
+    /* content panels — the actual message of the section */
+    #velocity .v-panels {
+      position: absolute;
+      right: clamp(20px, 6vw, 90px);
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 6;
+      width: min(46vw, 560px);
+      height: clamp(280px, 40vh, 380px);
+      text-align: right
+    }
+
+    #velocity .v-panel {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      opacity: 0;
+      transform: translateY(26px);
+      pointer-events: none;
+      transition: opacity .7s var(--ease), transform .7s var(--ease)
+    }
+
+    #velocity .v-panel.active {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto
+    }
+
+    #velocity .v-kicker {
+      font-family: "Oswald", sans-serif;
+      font-size: 12px;
+      letter-spacing: .3em;
+      color: var(--gold-bright);
+      text-transform: uppercase;
+      margin-bottom: 14px
+    }
+
+    #velocity .v-panel h3 {
+      font-size: clamp(28px, 4vw, 46px);
+      margin-bottom: 14px
+    }
+
+    #velocity .v-panel p {
+      color: var(--ink-soft);
+      font-size: clamp(14px, 1.4vw, 17px);
+      max-width: 42ch;
+      margin-inline-start: auto;
+      line-height: 1.85
+    }
+
+    #velocity .v-chips {
+      margin-top: 22px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end
+    }
+
+    #velocity .v-chips span {
+      font-family: "Oswald", sans-serif;
+      font-size: 12px;
+      letter-spacing: .04em;
+      color: var(--ink-soft);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 8px 16px;
+      background: rgba(255, 255, 255, .03)
+    }
+
+    #velocity .v-chips span b {
+      color: #fff;
+      font-weight: 600;
+      margin-inline-end: 5px
+    }
+
+    #velocity .v-panel .btn {
+      margin-top: 26px;
+      align-self: flex-end
+    }
+
+    /* climactic optical flare — celebrates the final "join" panel */
+    #velocity .v-flare {
+      position: absolute;
+      left: 22%;
+      top: 50%;
+      z-index: 2;
+      width: 10px;
+      height: 10px;
+      pointer-events: none;
+      transform: translate(-50%, -50%) scale(0);
+      opacity: 0;
+      transition: opacity .9s var(--ease), transform .9s var(--ease)
+    }
+
+    #velocity .v-flare.on {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1)
+    }
+
+    #velocity .v-flare .core {
+      position: absolute;
+      inset: 0;
+      margin: auto;
+      width: 700px;
+      height: 700px;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      left: 50%;
+      top: 50%;
+      background: radial-gradient(circle, rgba(255, 255, 255, .9) 0%, rgba(255, 82, 82, .5) 16%, rgba(229, 57, 53, 0) 42%)
+    }
+
+    #velocity .v-flare .ghost {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      border-radius: 50%;
+      background: rgba(255, 82, 82, .4);
+      filter: blur(1px)
+    }
+
+    #velocity .v-flare .g1 {
+      width: 22px;
+      height: 22px;
+      transform: translate(140px, -80px)
+    }
+
+    #velocity .v-flare .g2 {
+      width: 12px;
+      height: 12px;
+      transform: translate(240px, -140px);
+      background: rgba(212, 175, 55, .55)
+    }
+
+    #velocity .v-flare .g3 {
+      width: 36px;
+      height: 36px;
+      transform: translate(-180px, 110px);
+      background: rgba(255, 255, 255, .3)
+    }
+
+    @media(max-width:900px) {
+      #velocity .v-gauge {
+        display: none
+      }
+
+      #velocity .v-panels {
+        right: 50%;
+        transform: translate(50%, -50%);
+        width: min(90vw, 520px);
+        text-align: center;
+        height: auto;
+        min-height: 340px
+      }
+
+      #velocity .v-panel {
+        align-items: center
+      }
+
+      #velocity .v-panel p {
+        margin-inline: auto
+      }
+
+      #velocity .v-chips {
+        justify-content: center
+      }
+
+      #velocity .v-panel .btn {
+        align-self: center
+      }
+
+      #velocity .v-progress {
+        left: 50%;
+        top: auto;
+        bottom: 18px;
+        transform: translateX(-50%);
+        flex-direction: row
+      }
+
+      #velocity .v-flare {
+        left: 50%
+      }
+    }
+
+
+    /* 3 · REVEAL (Engineering Specs) */
+    #reveal {
+      padding: 22vh 0 18vh
+    }
+
+    #reveal .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: clamp(40px, 6vw, 84px);
+      align-items: center
+    }
+
+    @media(min-width:900px) {
+      #reveal .grid {
+        grid-template-columns: 1.05fr .95fr
+      }
+    }
+
+    #reveal .shot {
+      position: relative;
+      aspect-ratio: 4/3;
+      display: grid;
+      place-items: center
+    }
+
+    #reveal .shot img {
+      width: 100%;
+      height: 100%;
+      max-height: 500px;
+      object-fit: contain;
+      filter: drop-shadow(0 20px 35px rgba(229, 57, 53, .25))
+    }
+
+    #reveal .copy {
+      text-align: right
+    }
+
+    #reveal .idx {
+      display: block;
+      margin-bottom: 12px
+    }
+
+    #reveal h2 {
+      font-size: clamp(36px, 5.6vw, 78px);
+      margin: 8px 0 22px
+    }
+
+    #reveal .lead {
+      font-size: clamp(16px, 1.8vw, 20px);
+      color: var(--ink-soft);
+      max-width: 46ch;
+      margin-inline-start: auto
+    }
+
+    #reveal .specs {
+      list-style: none;
+      margin-top: 36px
+    }
+
+    #reveal .specs li {
+      display: flex;
+      align-items: baseline;
+      justify-content: flex-end;
+      gap: 18px;
+      padding: 18px 0;
+      border-top: 1px solid var(--line)
+    }
+
+    #reveal .specs li:last-child {
+      border-bottom: 1px solid var(--line)
+    }
+
+    #reveal .specs .k {
+      font-family: "El Messiri", serif;
+      color: var(--gold-bright);
+      font-weight: 600;
+      white-space: nowrap
+    }
+
+    #reveal .specs .v {
+      color: var(--ink-soft)
+    }
+
+    /* 4 · RITUAL (Track & Community Gatherings) */
+    #ritual {
+      padding: 20vh 0
+    }
+
+    #ritual .frame {
+      position: relative;
+      height: clamp(460px, 84vh, 840px);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 50px 110px -50px rgba(229, 57, 53, .3)
+    }
+
+    #ritual .frame img {
+      position: absolute;
+      inset: -6%;
+      width: 112%;
+      height: 112%;
+      object-fit: cover;
+      will-change: transform
+    }
+
+    #ritual .frame::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to left, rgba(10, 10, 10, .94), rgba(10, 10, 10, .4) 52%, transparent 84%), linear-gradient(0deg, rgba(10, 10, 10, .85), transparent 52%)
+    }
+
+    #ritual .copy {
+      position: absolute;
+      z-index: 2;
+      right: clamp(24px, 5vw, 72px);
+      bottom: clamp(42px, 9vh, 96px);
+      max-width: min(88vw, 540px);
+      text-align: right
+    }
+
+    #ritual .idx {
+      display: block;
+      margin-bottom: 12px
+    }
+
+    #ritual h2 {
+      font-size: clamp(34px, 5.6vw, 70px);
+      margin: 8px 0 16px;
+      color: #F5F5F5
+    }
+
+    #ritual p {
+      color: var(--ink-soft);
+      font-size: clamp(15px, 1.7vw, 19px);
+      max-width: 44ch;
+      margin-inline-start: auto
+    }
+
+    /* 5 · CTA (Refined Glassmorphic Floating Container) */
+    #cta {
+      height: 260vh
+    }
+
+    #cta .stage {
+      position: sticky;
+      top: 0;
+      height: 100svh;
+      overflow: hidden;
+      display: grid;
+      place-items: center;
+      background: #0A0A0A
+    }
+
+    #cta .cta-poster {
+      position: absolute;
+      inset: -4%;
+      width: 108%;
+      height: 108%;
+      object-fit: cover;
+      opacity: .30;
+      transition: opacity .8s ease, transform 1.2s var(--ease);
+      filter: brightness(.7) contrast(1.1)
+    }
+
+    #cta .dim {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      backdrop-filter: blur(6px);
+      background: radial-gradient(120% 100% at 50% 50%, rgba(15, 10, 10, .85), rgba(10, 10, 10, .98))
+    }
+
+    /* Floating Glassmorphic CTA Card Box */
+    #cta .cta-card {
+      position: relative;
+      z-index: 3;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(36px);
+      width: min(90vw, 680px);
+      padding: clamp(36px, 5vw, 60px) clamp(24px, 4vw, 48px);
+      background: rgba(15, 15, 15, .88);
+      backdrop-filter: blur(24px);
+      border: 1px solid rgba(229, 57, 53, .35);
+      border-radius: 24px;
+      box-shadow: 0 30px 80px -20px rgba(229, 57, 53, .35), 0 0 40px rgba(0, 0, 0, .9);
+      display: flex;
+      flex-direction: column;
+      align-items: center
+    }
+
+    #cta .cta-badge {
+      display: inline-block;
+      padding: 6px 18px;
+      border-radius: 999px;
+      background: rgba(229, 57, 53, .15);
+      border: 1px solid var(--gold);
+      color: var(--gold-bright);
+      font-size: 12px;
+      font-family: "Oswald", sans-serif;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      margin-bottom: 18px
+    }
+
+    #cta h2 {
+      font-size: clamp(36px, 6vw, 68px);
+      line-height: 1.1;
+      color: #FFFFFF;
+      margin-bottom: 16px
+    }
+
+    #cta p {
+      color: rgba(245, 245, 245, .85);
+      font-size: clamp(15px, 1.6vw, 18px);
+      max-width: 44ch;
+      line-height: 1.7
+    }
+
+    #cta .btns {
+      margin-top: 32px;
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      width: 100%
+    }
+
+    .btn {
+      border-radius: 999px;
+      padding: 14px 36px;
+      font-family: "El Messiri", serif;
+      font-size: 16px;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: transform .35s var(--ease), box-shadow .35s, background .35s, color .35s;
+      min-height: 44px
+    }
+
+    .btn-primary {
+      background: linear-gradient(180deg, var(--gold-bright), var(--gold));
+      color: #fff;
+      box-shadow: 0 16px 40px -14px rgba(229, 57, 53, .7)
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 22px 50px -12px rgba(255, 82, 82, .85)
+    }
+
+    .btn-ghost {
+      border: 1px solid var(--gold);
+      color: var(--gold-bright);
+      background: rgba(20, 20, 20, .6)
+    }
+
+    .btn-ghost:hover {
+      background: var(--gold);
+      color: #fff;
+      transform: translateY(-4px)
+    }
+
+    /* 6 · EDITIONS (Automotive Sections & Magazine Grid) */
+    #editions {
+      padding: 18vh 0 12vh;
+      text-align: center
+    }
+
+    #editions .head {
+      margin-bottom: clamp(40px, 6vw, 72px)
+    }
+
+    #editions .idx {
+      display: block;
+      margin-bottom: 10px
+    }
+
+    #editions h2 {
+      font-size: clamp(34px, 5.4vw, 66px);
+      margin-top: 6px
+    }
+
+    #editions .cards {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+      perspective: 1000px
+    }
+
+    @media(min-width:760px) {
+      #editions .cards {
+        grid-template-columns: repeat(3, 1fr)
+      }
+    }
+
+    .ed-card {
+      position: relative;
+      border: 1px solid var(--line-soft);
+      border-radius: 14px;
+      overflow: hidden;
+      background: var(--mist);
+      transition: transform .5s var(--ease), box-shadow .5s, border-color .5s;
+      transform-style: preserve-3d;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between
+    }
+
+    .ed-card:hover {
+      transform: translateY(-10px) rotateX(4deg) rotateY(-2deg);
+      box-shadow: 0 34px 70px -30px rgba(229, 57, 53, .35);
+      border-color: var(--gold)
+    }
+
+    .ed-card .pic {
+      aspect-ratio: 4/3;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      padding: 8%;
+      position: relative
+    }
+
+    .ed-card .pic img {
+      width: 100%;
+      height: 100%;
+      max-height: 240px;
+      object-fit: contain;
+      transition: transform .9s var(--ease);
+      filter: drop-shadow(0 14px 22px rgba(0, 0, 0, .4))
+    }
+
+    .ed-card:hover .pic img {
+      transform: scale(1.08) translateY(-6px)
+    }
+
+    .ed-card .body {
+      padding: 16px 24px 32px;
+      text-align: right
+    }
+
+    .ed-card h3 {
+      font-size: 23px;
+      color: var(--ink)
+    }
+
+    .ed-card p {
+      font-size: 14px;
+      color: var(--ink-soft);
+      margin-top: 8px
+    }
+
+    .ed-card .card-cta {
+      margin-top: 16px;
+      display: inline-block;
+      font-size: 14px;
+      color: var(--gold-bright);
+      font-weight: 600;
+      text-decoration: none;
+      transition: color .3s
+    }
+
+    .ed-card .card-cta:hover {
+      color: var(--gold-bright)
+    }
+
+    footer {
+      padding: 9vh 0 5vh;
+      text-align: center;
+      border-top: 1px solid var(--line)
+    }
+
+    footer .wm {
+      font-family: "El Messiri", serif;
+      font-size: 40px;
+      font-weight: 700
+    }
+
+    footer .links {
+      margin: 24px 0;
+      display: flex;
+      gap: 30px;
+      justify-content: center;
+      flex-wrap: wrap
+    }
+
+    footer .links a {
+      color: var(--ink-soft);
+      text-decoration: none;
+      font-size: 14px;
+      transition: color .3s
+    }
+
+    footer .links a:hover {
+      color: var(--gold-bright)
+    }
+
+    footer .cr {
+      color: var(--ink-faint);
+      font-size: 12px
+    }
+
+    @media(prefers-reduced-motion:reduce) {
+
+      #hero .aura,
+      #hero .motes span,
+      #hero .specular,
+      #hero .media-float,
+      .scrollcue .bar,
+      #waBubble,
+      #scrollTopBtn {
+        animation: none
+      }
+
+      #hero .aura {
+        opacity: .6
+      }
+
+      #hero .latin,
+      #hero .hero-media,
+      #hero h1,
+      #hero .sub {
+        opacity: 1;
+        clip-path: none
+      }
+
+      * {
+        scroll-behavior: auto
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Creative Luxury Preloader Overlay -->
+  <div id="loader" aria-label="جاري تحميل مجلة مصر موتورز">
+    <div class="loader-inner">
+      <div class="loader-gauge">
+        <svg viewBox="0 0 200 200">
+          <circle class="l-track" cx="100" cy="100" r="84" pathLength="527" />
+          <circle class="l-fill" id="loaderFill" cx="100" cy="100" r="84" pathLength="527" transform="rotate(-90 100 100)" />
+        </svg>
+        <div class="loader-badge">
+          <svg class="l-steer" viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 18a8 8 0 110-16 8 8 0 010 16zm-5-8h10M12 7v5"/></svg>
+        </div>
+      </div>
+      <span class="loader-brand">مصر موتورز</span>
+      <span class="loader-sub">EGYPTIAN AUTOMOTIVE ENGINE</span>
+      <div class="loader-num" id="loaderNum">0%</div>
+      <div class="loader-bars">
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+
+  <div id="ambient"></div>
+  <div id="glow"></div>
+  <div id="vignette"></div>
+  <div id="grain"></div>
+  <div id="progress"></div>
+
+  <!-- Mobile Navigation Drawer Overlay -->
+  <div id="mobileNavOverlay">
+    <a href="#reveal" class="mobile-nav-link">تجارب القيادة</a>
+    <a href="#ritual" class="mobile-nav-link">مجتمع النادي</a>
+    <a href="#editions" class="mobile-nav-link">المنتدى والمجلات</a>
+    <a href="https://wa.me/201000000000?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C+%D8%A3%D8%B1%D9%8A%D8%AF+%D8%A7%D9%84%D8%A7%D9%86%D8%B6%D9%85%D8%A7%D9%85+%D8%A5%D9%84%D9%89+%D9%86%D8%A7%D8%AF%D9%8A+%D9%85%D8%B5%D8%B1+%D9%85%D9%88%D8%AA%D9%88%D8%B1%D8%B2"
+      target="_blank" rel="noopener" class="mobile-wa-btn">انضم لنادي السيارات</a>
+  </div>
+
+  <!-- Floating WhatsApp Car Club Bubble -->
+  <a id="waBubble"
+    href="https://wa.me/201000000000?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C+%D8%A3%D8%B1%D9%8A%D8%AF+%D8%A7%D9%84%D8%A7%D9%86%D8%B6%D9%85%D8%A7%D9%85+%D8%A5%D9%84%D9%89+%D9%86%D8%A7%D8%AF%D9%8A+%D9%85%D8%B5%D8%B1+%D9%85%D9%88%D8%AA%D9%88%D8%B1%D8%B2"
+    target="_blank" rel="noopener" aria-label="انضم لمجموعة الواتساب">
+    <svg viewBox="0 0 24 24">
+      <path
+        d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.463 1.065 2.876 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z" />
+    </svg>
+    <span>انضم لنادي السيارات</span>
+  </a>
+
+  <!-- Premium Scroll To Top Button -->
+  <button id="scrollTopBtn" aria-label="الرجوع للأعلى" title="الرجوع للأعلى">
+    <svg viewBox="0 0 24 24">
+      <path d="M12 19V5M5 12l7-7 7 7" />
+    </svg>
+  </button>
+
+  <header id="header">
+    <a class="brand" href="#hero">
+      <img src="assets/favicon.svg" alt="شعار مصر موتورز" />
+      <span class="wm">مصر موتورز</span>
+    </a>
+    <nav>
+      <a href="#reveal">تجارب القيادة</a><a href="#ritual">مجتمع النادي</a><a href="#editions">المنتدى والمجلات</a>
+      <a class="nav-cta"
+        href="https://wa.me/201000000000?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C+%D8%A3%D8%B1%D9%8A%D8%AF+%D8%A7%D9%84%D8%A7%D9%86%D8%B6%D9%85%D8%A7%D9%85+%D8%A5%D9%84%D9%89+%D9%86%D8%A7%D8%AF%D9%8A+%D9%85%D8%B5%D8%B1+%D9%85%D9%88%D8%AA%D9%88%D8%B1%D8%B2"
+        target="_blank" rel="noopener">انضم للنادي</a>
+    </nav>
+    <button id="mobileMenuBtn" aria-label="القائمة">
+      <svg id="menuIconOpen" viewBox="0 0 24 24">
+        <line x1="3" y1="6" x2="21" y2="6" />
+        <line x1="3" y1="12" x2="21" y2="12" />
+        <line x1="3" y1="18" x2="21" y2="18" />
+      </svg>
+      <svg id="menuIconClose" viewBox="0 0 24 24" style="display:none">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    </button>
+  </header>
+
+  <main>
+    <!-- 1 · HERO -->
+    <section id="hero" data-ambient="#0A0A0A" data-glow="0">
+      <div class="stage fallback-host">
+        <div class="aura" aria-hidden="true"></div>
+        <div class="motes" aria-hidden="true">
+          <span style="left:24%;top:64%;width:7px;height:7px;animation-duration:9s;animation-delay:0s"></span>
+          <span style="left:38%;top:72%;width:5px;height:5px;animation-duration:11s;animation-delay:1.4s"></span>
+          <span style="left:52%;top:60%;width:9px;height:9px;animation-duration:13s;animation-delay:3.1s"></span>
+          <span style="left:63%;top:70%;width:4px;height:4px;animation-duration:10s;animation-delay:.7s"></span>
+          <span style="left:71%;top:64%;width:6px;height:6px;animation-duration:12s;animation-delay:2.3s"></span>
+          <span style="left:45%;top:78%;width:5px;height:5px;animation-duration:14s;animation-delay:4.2s"></span>
+          <span style="left:31%;top:55%;width:4px;height:4px;animation-duration:11s;animation-delay:5.5s"></span>
+          <span style="left:58%;top:80%;width:7px;height:7px;animation-duration:9.5s;animation-delay:6.1s"></span>
+        </div>
+        <div class="hero-inner">
+          <span class="latin">EGYPTIAN AUTOMOTIVE COMMUNITY & MAGAZINE</span>
+          <div class="media-float">
+            <div class="media-tilt">
+              <img class="hero-media" src="assets/product-cut.png" alt="مصر موتورز" loading="eager" />
+              <span class="specular" aria-hidden="true"></span>
+            </div>
+          </div>
+          <h1>مصر موتورز</h1>
+          <div class="sub">المجلة والمجتمع الرائد لعشاق السيارات ونوادي القيادة في مصر.</div>
+        </div>
+        <div class="scrollcue"><span>اكتشف الطريق</span><span class="bar"></span></div>
+      </div>
+    </section>
+
+    <!-- 2 · PULSE (content panels: performance, field tests, community, join — with tachometer + flare accents) -->
+    <section id="velocity" data-ambient="#050505" data-glow=".7">
+      <div class="stage fallback-host">
+        <div class="v-rays" aria-hidden="true"></div>
+        <div class="v-lines" aria-hidden="true"></div>
+        <div class="v-rings" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+        <div class="v-flare" id="vFlare" aria-hidden="true">
+          <div class="core"></div>
+          <div class="ghost g1"></div>
+          <div class="ghost g2"></div>
+          <div class="ghost g3"></div>
+        </div>
+
+        <div class="v-trail" aria-hidden="true"></div>
+        <svg class="v-car" id="vCar" viewBox="0 0 600 220" aria-hidden="true">
+          <path
+            d="M40 168 C34 140 58 118 96 112 L146 76 C168 60 198 50 232 50 L392 50 C424 50 452 62 472 84 L508 112 C542 118 566 140 560 168 L560 176 C560 186 552 194 542 194 L500 194 C500 168 480 148 454 148 C428 148 408 168 408 194 L200 194 C200 168 180 148 154 148 C128 148 108 168 108 194 L58 194 C48 194 40 186 40 176 Z" />
+          <path class="glass" d="M188 108 L226 74 C242 62 262 56 282 56 L360 56 C384 56 406 66 420 84 L440 108 Z" />
+          <path class="stripe" d="M96 112 L472 112 L472 122 L96 122 Z" />
+          <circle cx="154" cy="176" r="30" fill="#0b0b0c" stroke="rgba(255,255,255,.15)" />
+          <circle cx="454" cy="176" r="30" fill="#0b0b0c" stroke="rgba(255,255,255,.15)" />
+        </svg>
+
+        <div class="v-car-stage" id="vCarStage">
+          <img class="v-car-img active" src="assets/product-cut.png" alt="فيراري سوبركار" data-index="0" />
+          <img class="v-car-img" src="assets/edition-1.png" alt="استون مارتن بلاك" data-index="1" />
+          <img class="v-car-img" src="assets/edition-2.png" alt="سباقات التراك" data-index="2" />
+          <img class="v-car-img" src="assets/product-hero.png" alt="ماكلارين مفهوم" data-index="3" />
+        </div>
+
+        <div class="v-progress" id="vProgress"><span class="on" title="الشريحة ١"></span><span title="الشريحة ٢"></span><span title="الشريحة ٣"></span><span title="الشريحة ٤"></span></div>
+
+        <div class="v-gauge on" id="vGauge">
+          <svg viewBox="0 0 260 260">
+            <defs>
+              <linearGradient id="vGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#C62828" />
+                <stop offset="55%" stop-color="#E53935" />
+                <stop offset="100%" stop-color="#FF5252" />
+              </linearGradient>
+            </defs>
+            <circle class="track" cx="130" cy="130" r="120" pathLength="753" />
+            <circle class="fill" id="vFill" cx="130" cy="130" r="120" pathLength="753"
+              transform="rotate(-90 130 130)" />
+          </svg>
+          <div class="v-gauge-center">
+            <span class="v-speed-num" id="vSpeedNum">0</span>
+            <span class="v-speed-unit" id="vSpeedUnit">KM/H</span>
+            <span class="v-speed-label" id="vSpeedLabel">أقصى سرعة قصوى نسجلها ميدانياً</span>
+          </div>
+        </div>
+
+        <!-- Interactive HUD Spec Tooltip -->
+        <div id="vHudTooltip" class="v-hud-tooltip">
+          <span id="vHudName" class="v-hud-name">فيراري SF90 سترادالي</span>
+          <div id="vHudStats" class="v-hud-stats"><span>1000 HP</span> • <span>2.5s 0-100</span></div>
+        </div>
+
+        <div class="v-panels" id="vPanels">
+          <article class="v-panel active" data-target="340" data-suffix=" KM/H" data-unit="السرعة القصوى"
+            data-label="فيراري SF90 سترادالي — 1000 حصان هجين" data-name="فيراري SF90 سترادالي" data-spec="1000 HP • 2.5s 0-100">
+            <span class="v-kicker">EXOTIC SUPERCAR SHOWCASE</span>
+            <h3 class="gold-text">فيراري SF90 سترادالي</h3>
+            <p>قمة الأداء الهجين: تجمع بين محرك V8 توين تيربو مع 3 محركات كهربائية لتوليد 1000 حصان، وتسارع خارق من 0 إلى 100 كم/س في 2.5 ثانية فقط.</p>
+            <div class="v-chips"><span>القوة <b>1000</b> حصان</span><span>0–100 <b>2.5</b>ث</span><span>سرعة <b>340</b> KM/H</span></div>
+            <a class="btn btn-primary" href="#reveal">اقرأ تقرير الفيراري الكامل ←</a>
+          </article>
+          
+          <article class="v-panel" data-target="340" data-suffix=" KM/H" data-unit="السرعة القصوى"
+            data-label="أستون مارتن DBS سوبرليجيرا — V12 تيربو" data-name="أستون مارتن DBS سوبرليجيرا" data-spec="725 HP • 900 Nm">
+            <span class="v-kicker">GRAND TOURER SHOWCASE</span>
+            <h3 class="gold-text">أستون مارتن DBS سوبرليجيرا</h3>
+            <p>الفخامة القاطعة: محرك V12 سعة 5.2 لتر مزدوج التوربو يولد 725 حصاناً وعزم 900 نيوتن.متر مع هيكل من ألياف الكربون الخفيف للتوازن المطلق.</p>
+            <div class="v-chips"><span>محرك <b>V12</b> تيربو</span><span>عزم <b>900</b> Nm</span><span>هيكل <b>Carbon</b></span></div>
+            <a class="btn btn-primary" href="#reveal">استكشف التجربة الميدانية ←</a>
+          </article>
+          
+          <article class="v-panel" data-target="9000" data-suffix=" RPM" data-unit="أقصى دوران"
+            data-label="بورشه 911 GT3 RS — وحش الحلبة" data-name="بورشه 911 GT3 RS" data-spec="525 HP • 9,000 RPM">
+            <span class="v-kicker">TRACK EDITION SHOWCASE</span>
+            <h3 class="gold-text">بورشه 911 GT3 RS</h3>
+            <p>سيدة حلبات السباق: محرك 4.0 لتر تنفس طبيعي يدور حتى 9,000 دورة في الدقيقة مع جناح خلفي متكيف بنظام DRS المستوحى من الفورمولا 1.</p>
+            <div class="v-chips"><span>محرك <b>4.0L</b> تنفس</span><span>دوران <b>9,000</b> RPM</span><span>نظام <b>DRS</b></span></div>
+            <a class="btn btn-primary" href="#ritual">شاهد تجربة حلبة السباق ←</a>
+          </article>
+          
+          <article class="v-panel" data-target="180" data-suffix="+" data-unit="تقرير منشور"
+            data-label="معرض المقالات الحصرية ونادي مصر موتورز" data-name="نادي مصر موتورز" data-spec="+180 تقرير • +12K عضو">
+            <span class="v-kicker">VIP AUTOMOTIVE GALLERY & CLUB</span>
+            <h3 class="gold-text">معرض التجارب والنادي</h3>
+            <p>تصفح المكتبة الكاملة لمقالات السيارات الحصرية واكتشف التفاصيل الأكثر إبهاراً مع دعوات حصرية لأيام التراك والتجمعات القادمة.</p>
+            <div class="v-chips"><span>مقالات وتجارب <b>180+</b></span><span>أعضاء النادي <b>12,000+</b></span></div>
+            <div style="display:flex;gap:12px;margin-top:20px;flex-wrap:wrap;justify-content:flex-end">
+              <a class="btn btn-primary" href="https://wa.me/201000000000?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C+%D8%A3%D8%B1%D9%8A%D8%AF+%D8%A7%D9%84%D8%A7%D9%86%D8%B6%D9%85%D8%A7%D9%85+%D8%A5%D9%84%D9%89+%D9%86%D8%A7%D8%AF%D9%8A+%D9%85%D8%B5%D8%B1+%D9%85%D9%88%D8%AA%D9%88%D8%B1%D8%B2" target="_blank" rel="noopener">انضم عبر الواتساب الآن</a>
+              <a class="btn btn-ghost" href="#editions">تصفح معرض المقالات والأقسام</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3 · REVEAL -->
+    <section id="reveal" data-ambient="#141414" data-glow=".55">
+      <div class="wrap">
+        <div class="grid">
+          <div class="shot fallback-host reveal"><img src="assets/product-cut.png" alt="مصر موتورز" loading="lazy" />
+          </div>
+          <div class="copy">
+            <span class="idx reveal">٠١ — قوة الأداء والتقرير</span>
+            <h2 class="gold-text reveal">الأداء والخبرة الهندسية</h2>
+            <p class="lead reveal">نقدم لك في مصر موتورز أدق تقارير تجارب القيادة، واختبارات الأداء على الحلبات، وأحدث
+              مواصفات السيارات في السوق المصري والعالمي.</p>
+            <ul class="specs">
+              <li class="reveal"><span class="k">قوة المحرك</span><span class="v">اختبارات قوة الأحصنة والتسارع V8 / V6
+                  / Electric</span></li>
+              <li class="reveal"><span class="k">تجارب القيادة</span><span class="v">تقارير قيادة ميدانية على الطرق
+                  والحلبات المصرية</span></li>
+              <li class="reveal"><span class="k">أعضاء النادي</span><span class="v">أكثر من 250,000 عضواً ومشاركاً
+                  نشطاً</span></li>
+              <li class="reveal"><span class="k">المنتدى والمجلات</span><span class="v">أكبر مرجع عربي لصيانة وتعديل
+                  وأخبار السيارات</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4 · RITUAL / MOMENT -->
+    <section id="ritual" data-ambient="#0D0D0D" data-glow=".5">
+      <div class="wrap">
+        <div class="frame fallback-host">
+          <img src="assets/ritual.jpg" alt="لقاءات نادي مصر موتورز على حلبة القيادة" loading="lazy" />
+          <div class="copy reveal">
+            <span class="idx">٠٢ — مجتمع النادي والمضمار</span>
+            <h2 class="gold-text">لقاءات وأيام التراك</h2>
+            <p>نجمع عشاق السيارات في لقاءات دورية، وأيام قيادة حرة على المضمار، وفعاليات تنافسية تجمع شغف المحركات
+              والأجواء العائلية.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5 · CTA (Refined Floating Glassmorphic Container) -->
+    <section id="cta" data-ambient="#0A0A0A" data-glow=".6">
+      <div class="stage fallback-host">
+        <img class="cta-poster" id="ctaPoster" src="assets/product-hero.jpg" alt="" aria-hidden="true" />
+        <div class="dim" id="ctaDim"></div>
+
+        <div class="cta-card" id="ctaCard">
+          <span class="cta-badge">عضوية نادي السيارات الرسمية</span>
+          <h2 class="gold-text">انضم إلى مجتمع مصر موتورز</h2>
+          <p>كن جزءاً من النادي الأول لعشاق السيارات ونوادي القيادة في مصر وشارك في أحدث الفعاليات وتجارب القيادة
+            الحصرية.</p>
+          <div class="btns">
+            <a class="btn btn-primary"
+              href="https://wa.me/201000000000?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C+%D8%A3%D8%B1%D9%8A%D8%AF+%D8%A7%D9%84%D8%A7%D9%86%D8%B6%D9%85%D8%A7%D9%85+%D8%A5%D9%84%D9%89+%D9%86%D8%A7%D8%AF%D9%8A+%D9%85%D8%B5%D8%B1+%D9%85%D9%88%D8%AA%D9%88%D8%B1%D8%B2"
+              target="_blank" rel="noopener">انضم عبر الواتساب الآن</a>
+            <a class="btn btn-ghost" href="#editions">استكشف الأقسام والمجلة</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6 · EDITIONS -->
+    <section id="editions" data-ambient="#141414" data-glow=".5">
+      <div class="wrap">
+        <div class="head"><span class="idx reveal">٠٣ — أقسام ومجلة السيارات</span>
+          <h2 class="gold-text reveal">أقسام مجلة مصر موتورز</h2>
+        </div>
+        <div class="cards">
+          <article class="ed-card reveal">
+            <div class="pic fallback-host"><img src="assets/product-cut.png" alt="قسم الخارقة والسوبركار"
+                loading="lazy" /></div>
+            <div class="body">
+              <h3>قسم السوبركار والخارقة</h3>
+              <p>تغطية حصرية لأحدث السيارات الخارقة وتجارب السرعة</p>
+              <a class="card-cta"
+                href="https://wa.me/201000000000?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C+%D8%A3%D8%B1%D9%8A%D8%AF+%D9%85%D8%B9%D8%B1%D9%81%D8%A9+%D9%85%D8%B9%D9%84%D9%88%D9%85%D8%A7%D8%AA+%D8%B9%D9%8BD+%D9%82%D8%B3%D9%85+%D8%A7%D9%84%D8%B3%D9%88%D9%BE%D8%B1%D9%83%D8%A7%D8%B1"
+                target="_blank" rel="noopener">تصفح القسم ←</a>
+            </div>
+          </article>
+          <article class="ed-card reveal">
+            <div class="pic fallback-host"><img src="assets/edition-1.png" alt="نادي السيارات والمضمار"
+                loading="lazy" /></div>
+            <div class="body">
+              <h3>نادي السيارات والمضمار</h3>
+              <p>فعاليات التراك داي والتجمعات الشهرية لنوادي السيارات</p>
+              <a class="card-cta"
+                href="https://wa.me/201000000000?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C+%D8%A3%D8%B1%D9%8A%D8%AF+%D8%A7%D9%84%D8%A7%D9%86%D8%B6%D9%85%D8%A7%D9%85+%D9%84%D9%81%D8%B9%D8%A7%D9%84%D9%8A%D8%A7%D8%AA+%D8%A7%D9%84%D9%86%D8%A7%D8%AF%D9%8A"
+                target="_blank" rel="noopener">انضم للفعاليات ←</a>
+            </div>
+          </article>
+          <article class="ed-card reveal">
+            <div class="pic fallback-host"><img src="assets/edition-2.png" alt="منتدى الصيانة والتعديل"
+                loading="lazy" /></div>
+            <div class="body">
+              <h3>منتدى الصيانة والتعديل</h3>
+              <p>أكبر مجتمع عربي لاستشارات التعديل والصيانة والقطع</p>
+              <a class="card-cta"
+                href="https://wa.me/201000000000?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C+%D8%A3%D8%B1%D9%8A%D8%AF+%D8%B2%D9%8A%D8%A7%D8%B1%D8%A9+%D9%85%D9%86%D8%AA%D8%AF%D9%89+%D8%A7%D9%84%D8%B5%D9%8A%D8%A7%D9%86%D8%A9"
+                target="_blank" rel="noopener">دخول المنتدى ←</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="wrap">
+        <div class="wm gold-text">مصر موتورز — MasrMotors.com</div>
+        <nav class="links"><a href="#reveal">تجارب القيادة</a><a href="#ritual">مجتمع النادي</a><a
+            href="#editions">المنتدى والمجلات</a><a href="#cta">انضم للنادي</a></nav>
+        <div class="cr">جميع الحقوق محفوظة © 2026 مصر موتورز — MasrMotors.com</div>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    (function () {
+      "use strict";
+      const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const hasGSAP = typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined";
+      if (hasGSAP) gsap.registerPlugin(ScrollTrigger);
+      const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+      const smooth = (e0, e1, x) => { const t = clamp((x - e0) / (e1 - e0), 0, 1); return t * t * (3 - 2 * t); };
+
+      // Creative Luxury Preloader Animation Engine
+      (function initPreloader() {
+        const loader = document.getElementById("loader"),
+          fill = document.getElementById("loaderFill"),
+          num = document.getElementById("loaderNum");
+        if (!loader) return;
+        const total = 527;
+        let p = 0;
+        const interval = setInterval(() => {
+          p += Math.floor(Math.random() * 12) + 6;
+          if (p > 100) p = 100;
+          if (fill) fill.style.strokeDashoffset = (total * (1 - p / 100)).toFixed(1);
+          if (num) num.textContent = p + "%";
+          if (p >= 100) {
+            clearInterval(interval);
+            setTimeout(() => {
+              loader.classList.add("out");
+            }, 300);
+          }
+        }, 45);
+      })();
+
+      // graceful asset fallback
+      document.querySelectorAll("img[src]").forEach(img => img.addEventListener("error", () => {
+        img.style.display = "none"; const h = img.closest(".fallback-host"); if (h) h.classList.add("is-missing");
+      }, { once: true }));
+
+      // Lenis driven by GSAP ticker with touch optimization
+      let lenis = null;
+      if (typeof Lenis !== "undefined" && hasGSAP && !reduce) {
+        lenis = new Lenis({ duration: 1.2, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smoothWheel: true, smoothTouch: true, touchMultiplier: 1.5 });
+        lenis.on("scroll", ScrollTrigger.update);
+        gsap.ticker.add(t => lenis.raf(t * 1000)); gsap.ticker.lagSmoothing(0); window.lenis = lenis;
+        document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener("click", e => {
+          const t = document.querySelector(a.getAttribute("href")); if (t) { e.preventDefault(); lenis.scrollTo(t, { offset: 0 }); }
+        }));
+      }
+
+      // Scroll to Top Button Functionality
+      const scrollTopBtn = document.getElementById("scrollTopBtn");
+      if (scrollTopBtn) {
+        window.addEventListener("scroll", () => {
+          if (window.scrollY > 300) scrollTopBtn.classList.add("visible");
+          else scrollTopBtn.classList.remove("visible");
+        }, { passive: true });
+        scrollTopBtn.addEventListener("click", () => {
+          if (lenis) lenis.scrollTo("#hero", { offset: 0 });
+          else window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+      }
+
+      // Mobile Menu Overlay Drawer
+      const mobileMenuBtn = document.getElementById("mobileMenuBtn"),
+        mobileNavOverlay = document.getElementById("mobileNavOverlay"),
+        iconOpen = document.getElementById("menuIconOpen"),
+        iconClose = document.getElementById("menuIconClose");
+
+      if (mobileMenuBtn && mobileNavOverlay) {
+        mobileMenuBtn.addEventListener("click", () => {
+          const isActive = mobileNavOverlay.classList.toggle("active");
+          iconOpen.style.display = isActive ? "none" : "block";
+          iconClose.style.display = isActive ? "block" : "none";
+        });
+        document.querySelectorAll(".mobile-nav-link, .mobile-wa-btn").forEach(link => {
+          link.addEventListener("click", () => {
+            mobileNavOverlay.classList.remove("active");
+            iconOpen.style.display = "block";
+            iconClose.style.display = "none";
+          });
+        });
+      }
+
+      // header hide/show + progress
+      const header = document.getElementById("header"), progress = document.getElementById("progress");
+      if (hasGSAP) ScrollTrigger.create({
+        start: 0, end: "max", onUpdate: s => {
+          progress.style.transform = "scaleX(" + s.progress + ")";
+          header.classList.toggle("solid", s.scroll() > 40);
+          if (s.scroll() > 140) header.classList.toggle("hidden", s.direction === 1); else header.classList.remove("hidden");
+        }
+      });
+
+      // ambient per section
+      const ambient = document.getElementById("ambient"), glow = document.getElementById("glow");
+      function applyAmbient(c, g) { if (hasGSAP) { gsap.to(ambient, { backgroundColor: c, duration: 1.1, overwrite: "auto", ease: "power2.out" }); gsap.to(glow, { opacity: g, duration: 1.1, overwrite: "auto" }); } else { ambient.style.backgroundColor = c; glow.style.opacity = g; } }
+      document.querySelectorAll("section[data-ambient]").forEach(sec => {
+        const c = sec.getAttribute("data-ambient"), g = parseFloat(sec.getAttribute("data-glow") || ".5");
+        if (hasGSAP) ScrollTrigger.create({ trigger: sec, start: "top 60%", end: "bottom 40%", onEnter: () => applyAmbient(c, g), onEnterBack: () => applyAmbient(c, g) });
+        else if ("IntersectionObserver" in window) new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) applyAmbient(c, g); }), { threshold: .4 }).observe(sec);
+      });
+
+      // reveals
+      const reveals = document.querySelectorAll(".reveal");
+      if (hasGSAP && !reduce) reveals.forEach(el => ScrollTrigger.create({ trigger: el, start: "top 86%", once: true, onEnter: () => el.classList.add("in") }));
+      else if ("IntersectionObserver" in window) { const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .2 }); reveals.forEach(el => io.observe(el)); }
+      else reveals.forEach(el => el.classList.add("in"));
+
+      // HERO entrance + 3D pointer parallax + scroll handoff
+      if (hasGSAP && !reduce) {
+        gsap.timeline({ defaults: { ease: "power3.out" } })
+          .fromTo("#hero .hero-media", { opacity: 0, scale: .82, y: 60, rotateZ: -5 }, { opacity: 1, scale: 1, y: 0, rotateZ: 0, duration: 1.5 }, 0.15)
+          .fromTo("#hero .latin", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: .8 }, 0.55)
+          .fromTo("#hero h1", { opacity: 0, y: 24, clipPath: "inset(0 0 100% 0)" }, { opacity: 1, y: 0, clipPath: "inset(0 0 0% 0)", duration: 1.1 }, 0.7)
+          .fromTo("#hero .sub", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: .8 }, 1.05)
+          .fromTo("#hero .scrollcue", { opacity: 0 }, { opacity: 1, duration: .8 }, 1.3);
+        gsap.to("#hero .hero-inner", { scrollTrigger: { trigger: "#hero", start: "top top", end: "78% top", scrub: true }, y: -50, opacity: 0, ease: "none" });
+        gsap.to("#hero .aura", { scrollTrigger: { trigger: "#hero", start: "top top", end: "bottom top", scrub: true }, scale: 1.5, opacity: 0, ease: "none" });
+        const stage = document.querySelector("#hero .stage"), tilt = document.querySelector("#hero .media-tilt"), aura = document.querySelector("#hero .aura"), motes = document.querySelector("#hero .motes");
+        stage.addEventListener("pointermove", e => {
+          const r = stage.getBoundingClientRect(), nx = (e.clientX - r.left) / r.width - .5, ny = (e.clientY - r.top) / r.height - .5;
+          tilt.style.setProperty("--ty", (nx * 12).toFixed(2) + "deg"); tilt.style.setProperty("--tx", (-ny * 9).toFixed(2) + "deg");
+          aura.style.setProperty("--px", (-nx * 46).toFixed(1) + "px"); aura.style.setProperty("--py", (-ny * 34).toFixed(1) + "px");
+          motes.style.transform = "translate3d(" + (nx * 22).toFixed(1) + "px," + (ny * 16).toFixed(1) + "px,0)";
+        });
+        stage.addEventListener("pointerleave", () => { tilt.style.setProperty("--ty", "0deg"); tilt.style.setProperty("--tx", "0deg"); aura.style.setProperty("--px", "0px"); aura.style.setProperty("--py", "0px"); motes.style.transform = "translate3d(0,0,0)"; });
+      }
+      if (!hasGSAP) document.querySelectorAll("#hero .latin,#hero .hero-media,#hero h1,#hero .sub,#hero .scrollcue,#hero .aura").forEach(e => { e.style.opacity = e.classList.contains("aura") ? .6 : 1; e.style.clipPath = "none"; e.style.transform = "none"; });
+
+      // RITUAL + REVEAL parallax
+      if (hasGSAP && !reduce) {
+        gsap.to("#ritual .frame img", { scrollTrigger: { trigger: "#ritual", start: "top bottom", end: "bottom top", scrub: true }, y: "-7%", ease: "none" });
+      }
+
+      // PULSE — panel-based content section: quartile scroll drives which stat/story panel is active
+      (function initVelocity() {
+        const panels = Array.from(document.querySelectorAll("#vPanels .v-panel")),
+          dots = Array.from(document.querySelectorAll("#vProgress span")),
+          carImgs = Array.from(document.querySelectorAll("#velocity .v-car-img")),
+          sec = document.getElementById("velocity"),
+          gaugeWrap = document.getElementById("vGauge"), fillEl = document.getElementById("vFill"),
+          numEl = document.getElementById("vSpeedNum"), unitEl = document.getElementById("vSpeedUnit"),
+          labelEl = document.getElementById("vSpeedLabel"),
+          hud = document.getElementById("vHudTooltip"),
+          hudName = document.getElementById("vHudName"),
+          hudStats = document.getElementById("vHudStats"),
+          car = document.getElementById("vCar"), flare = document.getElementById("vFlare");
+        const TRACK = 753, N = panels.length;
+        let current = -1, shown = 0; // shown = number currently displayed in the counter
+
+        function formatNum(n) { return Math.round(n).toLocaleString("en-US"); }
+
+        function animateCount(target, suffix) {
+          const from = shown, dur = 1100, t0 = performance.now();
+          function tick(t) {
+            const k = clamp((t - t0) / dur, 0, 1), e = 1 - Math.pow(1 - k, 3); // ease-out cubic
+            const val = from + (target - from) * e;
+            if (numEl) numEl.textContent = formatNum(val) + (k >= 1 ? (suffix || "") : "");
+            if (k < 1) requestAnimationFrame(tick); else shown = target;
+          }
+          requestAnimationFrame(tick);
+        }
+
+        function activate(idx) {
+          if (idx === current) return;
+          current = idx;
+          panels.forEach((p, i) => p.classList.toggle("active", i === idx));
+          dots.forEach((d, i) => d.classList.toggle("on", i === idx));
+          carImgs.forEach((c, i) => c.classList.toggle("active", i === idx));
+
+          const p = panels[idx], target = parseFloat(p.dataset.target) || 0, isJoin = idx === N - 1;
+
+          // gauge: hide for the join panel, otherwise retarget ring + counter + labels
+          gaugeWrap.classList.toggle("on", !isJoin);
+          if (!isJoin) {
+            if (unitEl) unitEl.textContent = p.dataset.unit || "";
+            if (labelEl) labelEl.textContent = p.dataset.label || "";
+            const ringPortion = idx === 0 ? target / 320 : idx === 1 ? 0.62 : 0.86; // varied fill so the ring itself reads as intentional, not literal-scale
+            if (fillEl) fillEl.style.strokeDashoffset = (TRACK * (1 - ringPortion)).toFixed(1);
+            if (reduce) { shown = target; if (numEl) numEl.textContent = formatNum(target) + (p.dataset.suffix || ""); }
+            else animateCount(target, p.dataset.suffix);
+          }
+
+          // celebratory flare only for the final "join" moment
+          flare.classList.toggle("on", isJoin);
+
+          // a quick car flourish marks every transition (skipped for reduced motion)
+          if (!reduce && car) { car.classList.remove("sweep"); void car.offsetWidth; car.classList.add("sweep"); }
+        }
+
+        if (reduce || !hasGSAP) { activate(0); return; }
+
+        ScrollTrigger.create({
+          trigger: sec,
+          start: "top top",
+          end: "+=1800",
+          pin: true,
+          scrub: 0.4,
+          anticipatePin: 1,
+          onUpdate: self => {
+            const p = clamp(self.progress, 0, 0.9999);
+            const targetIdx = clamp(Math.floor(p * N), 0, N - 1);
+            activate(targetIdx);
+          }
+        });
+      })();
+
+      // CTA Refined Scroll Animation
+      (function initCTA() {
+        const sec = document.getElementById("cta"), poster = document.getElementById("ctaPoster"), dim = document.getElementById("ctaDim"), card = document.getElementById("ctaCard");
+        if (hasGSAP && !reduce) {
+          ScrollTrigger.create({
+            trigger: sec, start: "top top", end: "bottom bottom", scrub: true, onUpdate: s => {
+              const p = s.progress;
+              dim.style.opacity = smooth(0.18, 0.55, p);
+              poster.style.transform = "scale(" + (1.08 + 0.10 * p) + ")";
+              card.style.opacity = smooth(0.28, 0.65, p);
+              card.style.transform = "translateY(" + (36 * (1 - smooth(0.28, 0.65, p))) + "px)";
+            }
+          });
+        } else { dim.style.opacity = .94; card.style.opacity = 1; card.style.transform = "none"; }
+      })();
+
+      if (hasGSAP) { window.addEventListener("load", () => ScrollTrigger.refresh()); if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => ScrollTrigger.refresh()); }
+    })();
+  </script>
+</body>
+
+</html>

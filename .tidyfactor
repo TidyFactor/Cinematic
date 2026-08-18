@@ -1,0 +1,21 @@
+{
+  "ecosystem": "tidyfactor",
+  "track": "cinematic",
+  "name": "TidyFactor-Cinematic",
+  "version": "3.3.3",
+  "npmPackage": "@alwkala/create-cinematic-kit",
+  "github": "https://github.com/TidyFactor/Cinematic",
+  "skillFile": "../tidyfactor-cinematic.skill",
+  "category": "marketing",
+  "type": "landing-page",
+  "outputs": ["index.html"],
+  "layouts": ["film", "story", "space", "app", "creator", "product", "store", "auto"],
+  "commands": ["init", "brand", "clone-brand", "media", "film", "hero", "theme", "typeface", "transitions", "i18n", "perf", "a11y", "convert", "audit", "variant", "deploy", "polish"],
+  "dependencies": {
+    "python": ["rembg", "pillow", "opencv-python"],
+    "cdn": ["gsap@3.12.5", "lenis@1.0.42", "tailwindcss"]
+  },
+  "visionRef": "../TidyFactor-VISION.md",
+  "sibling": ["tidyfactor-html", "tidyfactor-php", "tidyfactor-js", "tidyfactor-htmx"],
+  "commercialPartner": "alwkala"
+}

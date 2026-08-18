@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<!-- ============================================================================
+     MINIMAL LAYOUT  (centered product, no long scroll film)
+     Fill the {{PLACEHOLDERS}}, drop assets into assets/.
+     The engine (Lenis+GSAP ticker, hide/show header, per-section ambient,
+     reveals, fallbacks) is already correct.
+     Layout: centered product hero, no canvas film, section-based scroll.
+     Default theme = LIGHT. To go DARK: swap the palette vars + ambient values.
+     ============================================================================ -->
+<html lang="{{LANG|ar}}" dir="{{DIR|rtl}}">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>{{PRODUCT_NAME}}</title>
+<meta name="description" content="{{META_DESCRIPTION}}" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&family=Tajawal:wght@200;300;400;500;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+<!-- Tailwind Play CDN: no SRI possible (content is dynamically generated).
+     For production, replace with a pinned Tailwind CDN build or a bundled build. -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" integrity="sha512-onMTRKJBKz8M1TnqqDuGBlowlH0ohFzMXYRNebz+yOcc5TQr/zAKsthzhuv0hiyUKEiQEQXEynnXCvNTOk50dg==" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js" integrity="sha256-eUny2Hql6qBbqmuoQ60u6ueG2eCZVKQaGygqwCPquug=" crossorigin="anonymous"></script>
+
+<style>
+  /* TOKEN MAPPING — when brand.json is present, override :root variables below:
+     --paper=colors.<theme>.background  --ink=colors.<theme>.text
+     --mist=colors.<theme>.surface      --ink-soft=colors.<theme>.textMuted
+     --cream=colors.<theme>.surface2    --ink-faint=derive(textMuted, 40% opacity)
+     --gold=colors.primary (same both themes)
+     --gold-deep/dark=darken primary 15%  --gold-bright=lighten primary 12%
+     --accent=colors.secondary or colors.accent
+     --line/--line-soft=colors.<theme>.border at 30%/15% opacity
+     --maxw=breakpoints.xl  --ease=motion.easing.emphasized
+     Fonts: h1/h2/.display=typography.families.heading.primary
+            body/.sub/.lead=typography.families.body.primary
+            .latin/.eyebrow=keep Cormorant Gramand unless brand overrides display
+     html[lang]=localization.defaultLocale  html[dir]=localization.rtlLocales
+     Full reference: memory/11-brand-json.md
+     ============================================================================ */
+  :root{
+    --paper:#FBF8F2; --mist:#F7F4EC; --cream:#F3EEE2; --sand:#ECE2CF;
+    --ink:#241812; --ink-soft:#6E5C4B; --ink-faint:#9A8975;
+    --gold:#A97B33; --gold-deep:#8A6128; --gold-bright:#C2974A; --accent:#A8632E;
+    --line:rgba(58,33,20,.16); --line-soft:rgba(58,33,20,.09);
+    --ambient:#FBF8F2; --maxw:1280px; --ease:cubic-bezier(.22,.61,.36,1);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%} html{scroll-behavior:auto}
+  body{background:var(--paper);color:var(--ink);font-family:"Tajawal",system-ui,sans-serif;font-weight:300;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden;line-height:1.8}
+  ::selection{background:var(--gold-bright);color:#fff}
+  h1,h2,h3,.display{font-family:"El Messiri",serif;font-weight:600;line-height:1.1;color:var(--ink)}
+  .latin{font-family:"Cormorant Garamond",serif;letter-spacing:.34em;text-transform:uppercase}
+
+  #ambient{position:fixed;inset:0;z-index:-3;background:var(--ambient)}
+  #glow{position:fixed;inset:0;z-index:-2;pointer-events:none;opacity:.5;
+    background:radial-gradient(120% 90% at 50% 0%,rgba(255,255,255,.8),rgba(244,239,229,0) 60%)}
+  #vignette{position:fixed;inset:0;z-index:-1;pointer-events:none;
+    background:radial-gradient(135% 120% at 50% 42%,transparent 55%,rgba(120,90,50,.06) 100%)}
+  #grain{position:fixed;inset:-50%;z-index:60;pointer-events:none;opacity:.035;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  #progress{position:fixed;top:0;right:0;left:0;height:2px;z-index:70;transform-origin:right;transform:scaleX(0);
+    background:linear-gradient(90deg,var(--gold-deep),var(--gold-bright),var(--accent))}
+
+  header{position:fixed;top:0;right:0;left:0;z-index:50;display:flex;align-items:center;justify-content:space-between;
+    padding:clamp(14px,2.4vw,28px) clamp(18px,4vw,54px);will-change:transform;
+    transition:transform .5s var(--ease),background .5s,backdrop-filter .5s,box-shadow .5s,padding .5s}
+  header.hidden{transform:translateY(-115%)}
+  header.solid{background:rgba(251,248,242,.78);backdrop-filter:blur(12px);box-shadow:0 1px 0 var(--line-soft);
+    padding-top:clamp(10px,1.6vw,16px);padding-bottom:clamp(10px,1.6vw,16px)}
+  .brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+  .brand .wm{font-family:"El Messiri",serif;font-weight:700;font-size:clamp(21px,2.4vw,27px);color:var(--ink)}
+  header nav{display:flex;align-items:center;gap:clamp(16px,2.4vw,36px)}
+  header nav a{color:var(--ink-soft);text-decoration:none;font-size:14px;font-weight:500;transition:color .3s}
+  header nav a:hover{color:var(--gold-deep)}
+  .nav-cta{border:1px solid var(--gold);border-radius:999px;padding:8px 22px;color:var(--gold-deep)!important}
+  .nav-cta:hover{background:var(--gold);color:#fff!important}
+  @media(max-width:680px){header nav a:not(.nav-cta){display:none}}
+  a:focus-visible,.btn:focus-visible,.nav-cta:focus-visible,header nav a:focus-visible,footer .links a:focus-visible{
+    outline:2px solid var(--gold-deep);outline-offset:3px;border-radius:6px}
+
+  section{position:relative}
+  .wrap{max-width:var(--maxw);margin-inline:auto;padding-inline:clamp(20px,5vw,68px)}
+  .eyebrow{font-family:"Cormorant Garamond",serif;letter-spacing:.46em;text-transform:uppercase;font-size:13px;color:var(--gold-deep);font-weight:500}
+  .idx{font-family:"El Messiri",serif;font-size:15px;color:var(--gold);font-weight:600}
+  .gold-text{background:linear-gradient(180deg,var(--gold-bright),var(--gold) 50%,var(--gold-deep));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .multiply{mix-blend-mode:multiply}
+  .fallback-host{position:relative}
+  .fallback-host.is-missing{background-image:linear-gradient(135deg,var(--cream),var(--sand) 78%);background-size:cover}
+  .reveal{opacity:0;transform:translateY(34px);transition:opacity 1.1s var(--ease),transform 1.1s var(--ease)}
+  .reveal.in{opacity:1;transform:none}
+
+  /* 1 · HERO (centered, minimal) */
+  #hero{min-height:100svh;display:flex;align-items:center;justify-content:center;text-align:center;padding:12vh 18px 6vh;position:relative}
+  #hero .stage{display:flex;flex-direction:column;align-items:center;max-width:900px;margin-inline:auto}
+  #hero .latin{font-size:11px;color:var(--gold-deep);margin-bottom:3vh;opacity:0}
+  #hero .media-tilt{transform-style:preserve-3d;transform:rotateX(var(--tx,0deg)) rotateY(var(--ty,0deg));transition:transform .3s ease-out}
+  #hero .hero-media{display:block;height:42vh;width:auto;max-width:80vw;object-fit:contain;opacity:0;filter:drop-shadow(0 28px 40px rgba(90,62,28,.28))}
+  #hero .specular{position:absolute;inset:0;pointer-events:none;mix-blend-mode:screen;opacity:0;
+    -webkit-mask:url(assets/product-cut.png) center/contain no-repeat;mask:url(assets/product-cut.png) center/contain no-repeat;
+    background:linear-gradient(115deg,transparent 40%,rgba(255,251,240,.65) 50%,transparent 60%);background-size:280% 280%;
+    animation:sheen 7.5s ease-in-out 2.2s infinite}
+  @keyframes sheen{0%,16%{background-position:150% 0;opacity:0}24%{opacity:.95}46%,100%{background-position:-50% 0;opacity:0}}
+  #hero h1{font-size:clamp(54px,12.5vw,168px);font-weight:700;line-height:.9;margin-top:3vh;opacity:0;clip-path:inset(0 0 100% 0)}
+  #hero .sub{margin-top:1.8vh;font-size:clamp(15px,2vw,21px);color:var(--ink-soft);max-width:44ch;opacity:0}
+  .scrollcue{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);z-index:3;display:flex;flex-direction:column;align-items:center;gap:8px;
+    color:var(--ink-faint);font-size:11px;letter-spacing:.32em;font-family:"Cormorant Garamond",serif;text-transform:uppercase}
+  .scrollcue .bar{width:1px;height:44px;background:linear-gradient(var(--gold),transparent);animation:cue 2.4s var(--ease) infinite}
+  @keyframes cue{0%{transform:scaleY(.2);opacity:.2;transform-origin:top}50%{transform:scaleY(1);opacity:1}100%{transform:scaleY(.2);opacity:.2;transform-origin:bottom}}
+
+  /* 2 · STATEMENT (large centered type) */
+  #statement{padding:18vh 0;text-align:center}
+  #statement .wrap{max-width:820px}
+  #statement .latin{font-size:11px;color:var(--gold-deep);margin-bottom:2vh;display:block}
+  #statement h2{font-size:clamp(38px,6.8vw,86px);line-height:1.05}
+  #statement p{margin-top:3.4vh;font-size:clamp(15px,1.8vw,19px);color:var(--ink-soft);max-width:52ch;margin-inline:auto}
+
+  /* 3 · HERO IMAGE */
+  #hero-image{padding:0 0 16vh}
+  #hero-image .frame{position:relative;max-width:1280px;margin-inline:auto;padding-inline:clamp(20px,5vw,68px)}
+  #hero-image .frame .fallback-host{aspect-ratio:16/9;overflow:hidden;border-radius:3px;box-shadow:0 50px 110px -50px rgba(80,55,25,.45)}
+  #hero-image .frame img{width:100%;height:100%;object-fit:cover}
+
+  /* 4 · FEATURES (simple two-column grid) */
+  #features{padding:16vh 0}
+  #features .grid{display:grid;grid-template-columns:1fr;gap:clamp(60px,8vw,120px)}
+  @media(min-width:900px){#features .grid{grid-template-columns:1fr 1fr}}
+  .feature-item{text-align:center}
+  .feature-item .idx{display:block;margin-bottom:14px}
+  .feature-item h3{font-size:clamp(26px,3.6vw,42px);margin:8px 0 18px}
+  .feature-item p{color:var(--ink-soft);font-size:clamp(15px,1.7vw,19px);max-width:42ch;margin-inline:auto}
+  .feature-item .divider{width:48px;height:1px;background:var(--gold);margin:28px auto 0;opacity:.5}
+
+  /* 5 · FULL-WIDTH PRODUCT SHOT */
+  #product{padding:12vh 0 20vh;text-align:center}
+  #product .frame{position:relative;aspect-ratio:3/2;max-width:900px;margin-inline:auto;padding-inline:clamp(20px,5vw,68px)}
+  #product .frame .fallback-host{display:grid;place-items:center}
+  #product .frame img{width:100%;height:100%;object-fit:contain}
+  #product .caption{margin-top:4vh;font-family:"Cormorant Garamond",serif;letter-spacing:.3em;text-transform:uppercase;font-size:12px;color:var(--gold-deep)}
+
+  /* 6 · CTA (centered block) */
+  #cta{padding:22vh 0;text-align:center}
+  #cta .wrap{max-width:720px}
+  #cta .latin{font-size:11px;color:var(--gold-deep);margin-bottom:2vh;display:block}
+  #cta h2{font-size:clamp(44px,9vw,118px);line-height:.94}
+  #cta .body{margin:2.6vh auto 0;color:var(--ink-soft);font-size:clamp(15px,1.8vw,20px);max-width:40ch}
+  #cta .btns{margin-top:40px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+  .btn{border-radius:999px;padding:15px 40px;font-family:"El Messiri",serif;font-size:17px;font-weight:600;text-decoration:none;display:inline-block;transition:transform .35s var(--ease),box-shadow .35s,background .35s,color .35s}
+  .btn-primary{background:linear-gradient(180deg,var(--gold-bright),var(--gold));color:#fff;box-shadow:0 16px 40px -14px rgba(169,123,51,.7)}
+  .btn-primary:hover{transform:translateY(-3px)}
+  .btn-ghost{border:1px solid var(--gold);color:var(--gold-deep)} .btn-ghost:hover{background:var(--gold);color:#fff;transform:translateY(-3px)}
+
+  /* 7 · EDITIONS */
+  #editions{padding:10vh 0 16vh;text-align:center}
+  #editions .head{margin-bottom:clamp(40px,6vw,72px)} #editions .idx{display:block;margin-bottom:10px}
+  #editions h2{font-size:clamp(34px,5.4vw,66px);margin-top:6px}
+  #editions .cards{display:grid;grid-template-columns:1fr;gap:26px}
+  @media(min-width:760px){#editions .cards{grid-template-columns:repeat(3,1fr)}}
+  .ed-card{position:relative;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:var(--mist);transition:transform .5s var(--ease),box-shadow .5s,border-color .5s}
+  .ed-card:hover{transform:translateY(-8px);box-shadow:0 34px 70px -36px rgba(80,55,25,.4)}
+  .ed-card .pic{aspect-ratio:4/3;display:grid;place-items:center;overflow:hidden;padding:8%}
+  .ed-card .pic img{width:100%;height:100%;object-fit:contain;mix-blend-mode:multiply;transition:transform .9s var(--ease)}
+  .ed-card:hover .pic img{transform:scale(1.05)}
+  .ed-card .body{padding:6px 22px 28px} .ed-card h3{font-size:23px;color:var(--ink)} .ed-card p{font-size:14px;color:var(--ink-soft);margin-top:8px}
+
+  footer{padding:9vh 0 5vh;text-align:center;border-top:1px solid var(--line)}
+  footer .wm{font-family:"El Messiri",serif;font-size:40px;font-weight:700}
+  footer .links{margin:24px 0;display:flex;gap:30px;justify-content:center;flex-wrap:wrap}
+  footer .links a{color:var(--ink-soft);text-decoration:none;font-size:14px;transition:color .3s} footer .links a:hover{color:var(--gold-deep)}
+  footer .cr{color:var(--ink-faint);font-size:12px}
+
+  @media(prefers-reduced-motion:reduce){
+    #hero .specular,.scrollcue .bar{animation:none}
+    #hero .hero-media,#hero .latin,#hero h1,#hero .sub{opacity:1;clip-path:none}
+    *{scroll-behavior:auto}
+  }
+</style>
+</head>
+<body>
+<div id="ambient"></div><div id="glow"></div><div id="vignette"></div><div id="grain"></div><div id="progress"></div>
+
+<header id="header">
+  <a class="brand" href="#hero"><span class="wm">{{PRODUCT_NAME}}</span></a>
+  <nav>
+    <a href="#statement">{{NAV_1}}</a><a href="#product">{{NAV_2}}</a><a href="#editions">{{NAV_3}}</a>
+    <a class="nav-cta" href="#cta">{{NAV_CTA}}</a>
+  </nav>
+</header>
+
+<main>
+  <!-- 1 · HERO (centered) -->
+  <section id="hero" data-ambient="#FBF8F2" data-glow="0">
+    <div class="stage">
+      <span class="latin">{{LATIN_LABEL}}</span>
+      <div class="media-tilt" style="position:relative">
+        <img class="hero-media" src="assets/product-cut.png" alt="{{PRODUCT_NAME}}" loading="eager" />
+        <span class="specular" aria-hidden="true"></span>
+      </div>
+      <h1>{{PRODUCT_NAME}}</h1>
+      <div class="sub">{{TAGLINE}}</div>
+    </div>
+    <div class="scrollcue"><span>{{SCROLL_WORD}}</span><span class="bar"></span></div>
+  </section>
+
+  <!-- 2 · STATEMENT -->
+  <section id="statement" data-ambient="#F8F5EF" data-glow=".5">
+    <div class="wrap">
+      <span class="latin reveal">{{STATEMENT_LABEL}}</span>
+      <h2 class="gold-text reveal">{{STATEMENT_TITLE}}</h2>
+      <p class="reveal">{{STATEMENT_BODY}}</p>
+    </div>
+  </section>
+
+  <!-- 3 · HERO IMAGE -->
+  <section id="hero-image" data-ambient="#F4EFE4" data-glow=".5">
+    <div class="frame">
+      <div class="fallback-host reveal"><img src="assets/product-hero.jpg" alt="{{PRODUCT_NAME}}" loading="lazy" /></div>
+    </div>
+  </section>
+
+  <!-- 4 · FEATURES (two-column) -->
+  <section id="features" data-ambient="#F2ECE0" data-glow=".4">
+    <div class="wrap"><div class="grid">
+      <article class="feature-item reveal">
+        <span class="idx">٠١ — {{FEATURE_1_LABEL}}</span>
+        <h3 class="gold-text">{{FEATURE_1_TITLE}}</h3>
+        <p>{{FEATURE_1_BODY}}</p>
+        <div class="divider"></div>
+      </article>
+      <article class="feature-item reveal">
+        <span class="idx">٠٢ — {{FEATURE_2_LABEL}}</span>
+        <h3 class="gold-text">{{FEATURE_2_TITLE}}</h3>
+        <p>{{FEATURE_2_BODY}}</p>
+        <div class="divider"></div>
+      </article>
+      <article class="feature-item reveal">
+        <span class="idx">٠٣ — {{FEATURE_3_LABEL}}</span>
+        <h3 class="gold-text">{{FEATURE_3_TITLE}}</h3>
+        <p>{{FEATURE_3_BODY}}</p>
+        <div class="divider"></div>
+      </article>
+      <article class="feature-item reveal">
+        <span class="idx">٠٤ — {{FEATURE_4_LABEL}}</span>
+        <h3 class="gold-text">{{FEATURE_4_TITLE}}</h3>
+        <p>{{FEATURE_4_BODY}}</p>
+        <div class="divider"></div>
+      </article>
+    </div></div>
+  </section>
+
+  <!-- 5 · PRODUCT SHOT -->
+  <section id="product" data-ambient="#F4EFE4" data-glow=".5">
+    <div class="frame">
+      <div class="fallback-host reveal"><img class="multiply" src="assets/product-hero.jpg" alt="{{PRODUCT_NAME}}" loading="lazy" /></div>
+    </div>
+    <div class="caption reveal">{{PRODUCT_LABEL}}</div>
+  </section>
+
+  <!-- 6 · CTA -->
+  <section id="cta" data-ambient="#F6F1E8" data-glow=".5">
+    <div class="wrap reveal">
+      <span class="latin">{{CTA_LABEL}}</span>
+      <h2 class="gold-text">{{CTA_TITLE}}</h2>
+      <p class="body">{{CTA_BODY}}</p>
+      <div class="btns"><a class="btn btn-primary" href="#">{{CTA_PRIMARY}}</a><a class="btn btn-ghost" href="#editions">{{CTA_SECONDARY}}</a></div>
+    </div>
+  </section>
+
+  <!-- 7 · EDITIONS -->
+  <section id="editions" data-ambient="#F2ECE0" data-glow=".5">
+    <div class="wrap">
+      <div class="head"><span class="idx reveal">٠٥ — {{EDITIONS_EYEBROW}}</span><h2 class="gold-text reveal">{{EDITIONS_TITLE}}</h2></div>
+      <div class="cards">
+        <article class="ed-card reveal"><div class="pic fallback-host"><img src="assets/product-hero.jpg" alt="{{ED_1_T}}" loading="lazy" /></div><div class="body"><h3>{{ED_1_T}}</h3><p>{{ED_1_D}}</p></div></article>
+        <article class="ed-card reveal"><div class="pic fallback-host"><img src="assets/edition-1.jpg" alt="{{ED_2_T}}" loading="lazy" /></div><div class="body"><h3>{{ED_2_T}}</h3><p>{{ED_2_D}}</p></div></article>
+        <article class="ed-card reveal"><div class="pic fallback-host"><img src="assets/edition-2.jpg" alt="{{ED_3_T}}" loading="lazy" /></div><div class="body"><h3>{{ED_3_T}}</h3><p>{{ED_3_D}}</p></div></article>
+      </div>
+    </div>
+  </section>
+
+  <footer><div class="wrap">
+    <div class="wm gold-text">{{PRODUCT_NAME}}</div>
+    <nav class="links"><a href="#statement">{{NAV_1}}</a><a href="#product">{{NAV_2}}</a><a href="#editions">{{NAV_3}}</a><a href="#cta">{{NAV_CTA}}</a></nav>
+    <div class="cr">{{FOOTER_COPYRIGHT}}</div>
+  </div></footer>
+</main>
+
+<script>
+(function(){
+  "use strict";
+  const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const hasGSAP=typeof gsap!=="undefined"&&typeof ScrollTrigger!=="undefined";
+  if(hasGSAP) gsap.registerPlugin(ScrollTrigger);
+  const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+
+  document.querySelectorAll("img[src]").forEach(img=>img.addEventListener("error",()=>{
+    img.style.display="none"; const h=img.closest(".fallback-host"); if(h) h.classList.add("is-missing");
+  },{once:true}));
+
+  let lenis=null;
+  if(typeof Lenis!=="undefined"&&hasGSAP&&!reduce){
+    lenis=new Lenis({duration:1.2,easing:t=>Math.min(1,1.001-Math.pow(2,-10*t)),smoothWheel:true});
+    lenis.on("scroll",ScrollTrigger.update);
+    gsap.ticker.add(t=>lenis.raf(t*1000)); gsap.ticker.lagSmoothing(0); window.lenis=lenis;
+    document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener("click",e=>{
+      const t=document.querySelector(a.getAttribute("href")); if(t){e.preventDefault();lenis.scrollTo(t,{offset:0});}}));
+  }
+
+  const header=document.getElementById("header"), progress=document.getElementById("progress");
+  if(hasGSAP) ScrollTrigger.create({start:0,end:"max",onUpdate:s=>{
+    progress.style.transform="scaleX("+s.progress+")";
+    header.classList.toggle("solid",s.scroll()>40);
+    if(s.scroll()>140) header.classList.toggle("hidden",s.direction===1); else header.classList.remove("hidden");
+  }});
+
+  const ambient=document.getElementById("ambient"), glow=document.getElementById("glow");
+  function applyAmbient(c,g){ if(hasGSAP){gsap.to(ambient,{backgroundColor:c,duration:1.1,overwrite:"auto",ease:"power2.out"});gsap.to(glow,{opacity:g,duration:1.1,overwrite:"auto"});}else{ambient.style.backgroundColor=c;glow.style.opacity=g;} }
+  document.querySelectorAll("section[data-ambient]").forEach(sec=>{
+    const c=sec.getAttribute("data-ambient"),g=parseFloat(sec.getAttribute("data-glow")||".5");
+    if(hasGSAP) ScrollTrigger.create({trigger:sec,start:"top 60%",end:"bottom 40%",onEnter:()=>applyAmbient(c,g),onEnterBack:()=>applyAmbient(c,g)});
+    else if("IntersectionObserver" in window) new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)applyAmbient(c,g);}),{threshold:.4}).observe(sec);
+  });
+
+  const reveals=document.querySelectorAll(".reveal");
+  if(hasGSAP&&!reduce) reveals.forEach(el=>ScrollTrigger.create({trigger:el,start:"top 86%",once:true,onEnter:()=>el.classList.add("in")}));
+  else if("IntersectionObserver" in window){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);}}),{threshold:.2});reveals.forEach(el=>io.observe(el));}
+  else reveals.forEach(el=>el.classList.add("in"));
+
+  // HERO entrance
+  if(hasGSAP&&!reduce){
+    gsap.timeline({defaults:{ease:"power3.out"}})
+      .fromTo("#hero .hero-media",{opacity:0,scale:.86,y:50,rotateZ:-4},{opacity:1,scale:1,y:0,rotateZ:0,duration:1.5},0.15)
+      .fromTo("#hero .latin",{opacity:0,y:14},{opacity:1,y:0,duration:.8},0.55)
+      .fromTo("#hero h1",{opacity:0,y:30,clipPath:"inset(0 0 100% 0)"},{opacity:1,y:0,clipPath:"inset(0 0 0% 0)",duration:1.1},0.7)
+      .fromTo("#hero .sub",{opacity:0,y:12},{opacity:1,y:0,duration:.8},1.05)
+      .fromTo("#hero .scrollcue",{opacity:0},{opacity:1,duration:.8},1.3);
+    const stage=document.getElementById("hero"),tilt=document.querySelector("#hero .media-tilt");
+    stage.addEventListener("pointermove",e=>{const r=stage.getBoundingClientRect(),nx=(e.clientX-r.left)/r.width-.5,ny=(e.clientY-r.top)/r.height-.5;
+      tilt.style.setProperty("--ty",(nx*10).toFixed(2)+"deg");tilt.style.setProperty("--tx",(-ny*7).toFixed(2)+"deg");});
+    stage.addEventListener("pointerleave",()=>{tilt.style.setProperty("--ty","0deg");tilt.style.setProperty("--tx","0deg");});
+  }
+  if(!hasGSAP) document.querySelectorAll("#hero .hero-media,#hero .latin,#hero h1,#hero .sub,#hero .scrollcue").forEach(e=>{e.style.opacity=1;e.style.clipPath="none";e.style.transform="none";});
+
+  if(hasGSAP&&!reduce){
+    gsap.to("#hero-image .frame img",{scrollTrigger:{trigger:"#hero-image",start:"top bottom",end:"bottom top",scrub:true},y:"-7%",ease:"none"});
+  }
+
+  if(hasGSAP){window.addEventListener("load",()=>ScrollTrigger.refresh());if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>ScrollTrigger.refresh());}
+})();
+</script>
+</body>
+</html>

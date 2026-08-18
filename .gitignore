@@ -1,0 +1,38 @@
+# Generated frame sequences
+assets/seq/
+assets/seq-src/
+
+# Mock video files (regeneratable from stills)
+*.mp4
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor / IDE
+.vscode/
+.kilo/
+.kilo
+.idea/
+*.swp
+*.swo
+
+# Node
+node_modules/
+package-lock.json
+*.tgz
+
+# Environment
+.env
+.env.local

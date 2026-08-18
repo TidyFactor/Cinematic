@@ -1,0 +1,65 @@
+{
+  "name": "@alwkala/tidyfactor-cinematic",
+  "version": "3.3.3",
+  "description": "CLI generator and Agent Skill installer for TidyFactor Cinematic (Apple x Cartier aesthetic scroll-driven landing pages)",
+  "main": "bin/create-kit.js",
+  "bin": {
+    "tidyfactor-cinematic": "bin/create-kit.js",
+    "create-cinematic-kit": "bin/create-kit.js",
+    "cinematic-kit": "bin/create-kit.js",
+    "add-skill": "bin/add-skill.js",
+    "add-cinematic-skill": "bin/add-skill.js"
+  },
+  "scripts": {
+    "test": "node ./bin/create-kit.js --help",
+    "validate": "node tools/validate-skill.js --sync",
+    "validate:skill": "node tools/validate-skill.js --sync",
+    "build:claude": "node tools/build-skill.js",
+    "build:antigravity": "node tools/build-antigravity.js",
+    "build:all": "npm run validate && node tools/build-skill.js && node tools/build-antigravity.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TidyFactor/Cinematic.git"
+  },
+  "keywords": [
+    "create-cinematic-kit",
+    "cinematic-landing-kit",
+    "agent-skill",
+    "landing-page",
+    "gsap",
+    "lenis",
+    "scroll-film",
+    "cli",
+    "npx"
+  ],
+  "author": "alwkala",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TidyFactor/Cinematic/issues"
+  },
+  "homepage": "https://github.com/TidyFactor/Cinematic#readme",
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "ora": "^5.4.1",
+    "prompts": "^2.4.2"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "files": [
+    "SKILL.md",
+    "bin",
+    "templates",
+    "memory",
+    "scripts",
+    "assets",
+    "brand.json",
+    "AGENTS.md",
+    "README.md",
+    "README.ar.md",
+    "LICENSE",
+    ".agents",
+    ".claude-skill"
+  ]
+}

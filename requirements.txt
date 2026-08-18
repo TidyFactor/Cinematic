@@ -1,0 +1,17 @@
+# Cinematic Landing Kit — Python dependencies
+# Install:  pip install -r requirements.txt
+
+# Asset pipeline (image conversion, resizing, background removal)
+Pillow>=9.0
+rembg>=2.0
+
+# Frame extraction (replaces ffmpeg; used by Wan video → JPG sequence)
+opencv-python>=4.7
+
+# Optional: Qwen Image + Wan API for generating stills and video clips
+# Uncomment or install separately if you need the AI-generation pipeline:
+# dashscope>=1.10
+
+# Optional: Higgsfield CLI for image and video generation
+# Install separately: see https://higgsfield.ai/docs
+# higgsfield CLI (auth via `higgsfield auth login`)

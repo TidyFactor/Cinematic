@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<!-- ============================================================================
+     CINEMATIC LANDING-PAGE — INTERFACE LAYOUT  (single file, dark theme)
+     SaaS / app launches. Hero = device mockup. Film = UI flow canvas sequence.
+     Fill the {{PLACEHOLDERS}}, drop assets into assets/, set FRAME_COUNT.
+     The engine (Lenis+GSAP ticker, hide/show header, per-section ambient,
+     canvas frame-sequence film, CTA reveal, fallbacks) is already correct.
+     Default theme = DARK (tech / SaaS aesthetic).
+     ============================================================================ -->
+<html lang="{{LANG|en}}" dir="{{DIR|ltr}}">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>{{PRODUCT_NAME}}</title>
+<meta name="description" content="{{META_DESCRIPTION}}" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&family=Tajawal:wght@200;300;400;500;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" integrity="sha512-onMTRKJBKz8M1TnqqDuGBlowlH0ohFzMXYRNebz+yOcc5TQr/zAKsthzhuv0hiyUKEiQEQXEynnXCvNTOk50dg==" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js" integrity="sha256-eUny2Hql6qBbqmuoQ60u6ueG2eCZVKQaGygqwCPquug=" crossorigin="anonymous"></script>
+
+<style>
+  /* TOKEN MAPPING — when brand.json is present, override :root variables below:
+     --paper=colors.<theme>.background  --ink=colors.<theme>.text
+     --mist=colors.<theme>.surface      --ink-soft=colors.<theme>.textMuted
+     --cream=colors.<theme>.surface2    --ink-faint=derive(textMuted, 40% opacity)
+     --gold=colors.primary (same both themes)
+     --gold-deep/dark=darken primary 15%  --gold-bright=lighten primary 12%
+     --accent=colors.secondary or colors.accent
+     --line/--line-soft=colors.<theme>.border at 30%/15% opacity
+     --maxw=breakpoints.xl  --ease=motion.easing.emphasized
+     Fonts: h1/h2/.display=typography.families.heading.primary
+            body/.sub/.lead=typography.families.body.primary
+            .latin/.eyebrow=keep Cormorant Garamond unless brand overrides display
+     html[lang]=localization.defaultLocale  html[dir]=localization.rtlLocales
+     This layout defaults to DARK theme (--paper:#0F172A) — pick colors.dark block.
+     Full reference: memory/11-brand-json.md
+     ============================================================================ */
+  :root{
+    --paper:#0F172A; --mist:#1E293B; --cream:#2D3B4E; --sand:#3D4D63;
+    --ink:#F8FAFC; --ink-soft:#CBD5E1; --ink-faint:#94A3B8;
+    --gold:#3B82F6; --gold-deep:#2563EB; --gold-bright:#60A5FA; --accent:#818CF8;
+    --line:rgba(148,163,184,.2); --line-soft:rgba(148,163,184,.12);
+    --ambient:#0F172A; --maxw:1280px; --ease:cubic-bezier(.22,.61,.36,1);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%} html{scroll-behavior:auto}
+  body{
+    background:var(--paper);color:var(--ink);font-family:"Tajawal",system-ui,sans-serif;font-weight:300;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden;line-height:1.8;
+  }
+  ::selection{background:var(--gold-bright);color:#fff}
+  h1,h2,h3,.display{font-family:"El Messiri",serif;font-weight:600;line-height:1.1;color:var(--ink)}
+  .latin{font-family:"Cormorant Garamond",serif;letter-spacing:.34em;text-transform:uppercase}
+
+  /* fixed cinematic layers */
+  #ambient{position:fixed;inset:0;z-index:-3;background:var(--ambient)}
+  #glow{position:fixed;inset:0;z-index:-2;pointer-events:none;opacity:.5;
+    background:radial-gradient(120% 90% at 50% 0%,rgba(59,130,246,.12),rgba(15,23,42,0) 60%)}
+  #vignette{position:fixed;inset:0;z-index:-1;pointer-events:none;
+    background:radial-gradient(135% 120% at 50% 42%,transparent 55%,rgba(0,0,0,.18) 100%)}
+  #grain{position:fixed;inset:-50%;z-index:60;pointer-events:none;opacity:.06;mix-blend-mode:screen;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  #progress{position:fixed;top:0;right:0;left:0;height:2px;z-index:70;transform-origin:right;transform:scaleX(0);
+    background:linear-gradient(90deg,var(--gold-deep),var(--gold-bright),var(--accent))}
+
+  /* header */
+  header{
+    position:fixed;top:0;right:0;left:0;z-index:50;display:flex;align-items:center;justify-content:space-between;
+    padding:clamp(14px,2.4vw,28px) clamp(18px,4vw,54px);will-change:transform;
+    transition:transform .5s var(--ease),background .5s,backdrop-filter .5s,box-shadow .5s,padding .5s;
+  }
+  header.hidden{transform:translateY(-115%)}
+  header.solid{
+    background:rgba(15,23,42,.82);backdrop-filter:blur(12px);
+    box-shadow:0 1px 0 var(--line-soft);
+    padding-top:clamp(10px,1.6vw,16px);padding-bottom:clamp(10px,1.6vw,16px);
+  }
+  .brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+  .brand .wm{font-family:"El Messiri",serif;font-weight:700;font-size:clamp(21px,2.4vw,27px);color:var(--ink)}
+  header nav{display:flex;align-items:center;gap:clamp(16px,2.4vw,36px)}
+  header nav a{color:var(--ink-soft);text-decoration:none;font-size:14px;font-weight:500;transition:color .3s}
+  header nav a:hover{color:var(--gold-bright)}
+  .nav-cta{border:1px solid var(--gold);border-radius:999px;padding:8px 22px;color:var(--gold)!important}
+  .nav-cta:hover{background:var(--gold);color:#fff!important}
+  @media(max-width:680px){header nav a:not(.nav-cta){display:none}}
+  a:focus-visible,.btn:focus-visible,.nav-cta:focus-visible,header nav a:focus-visible,footer .links a:focus-visible{
+    outline:2px solid var(--gold-bright);outline-offset:3px;border-radius:6px}
+
+  /* layout helpers */
+  section{position:relative}
+  .wrap{max-width:var(--maxw);margin-inline:auto;padding-inline:clamp(20px,5vw,68px)}
+  .eyebrow{font-family:"Cormorant Garamond",serif;letter-spacing:.46em;text-transform:uppercase;
+    font-size:13px;color:var(--gold-bright);font-weight:500}
+  .idx{font-family:"El Messiri",serif;font-size:15px;color:var(--gold);font-weight:600}
+  .gradient-text{
+    background:linear-gradient(180deg,var(--gold-bright),var(--gold) 50%,var(--gold-deep));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .fallback-host{position:relative}
+  .fallback-host.is-missing{background-image:linear-gradient(135deg,var(--cream),var(--sand) 78%);background-size:cover}
+  .reveal{opacity:0;transform:translateY(34px);transition:opacity 1.1s var(--ease),transform 1.1s var(--ease)}
+  .reveal.in{opacity:1;transform:none}
+
+  /* 1 · HERO (device mockup) */
+  #hero{height:135vh}
+  #hero .stage{
+    position:sticky;top:0;height:100svh;overflow:hidden;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;text-align:center;padding:6vh 18px 0;
+  }
+  #hero .hero-inner{
+    position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;
+    will-change:transform,opacity;
+  }
+  #hero .latin{font-size:13px;color:var(--gold-bright);margin-bottom:1.8vh;opacity:0}
+  #hero h1{
+    font-size:clamp(42px,8.5vw,120px);font-weight:700;line-height:.94;
+    margin-bottom:1.4vh;opacity:0;clip-path:inset(0 0 100% 0);
+  }
+  #hero .tagline{
+    margin-bottom:4.2vh;font-size:clamp(15px,2vw,21px);
+    color:var(--ink-soft);max-width:52ch;opacity:0;
+  }
+  .device-frame{
+    max-width:720px;width:min(88vw,720px);border-radius:12px;
+    border:2px solid rgba(148,163,184,.25);overflow:hidden;
+    box-shadow:0 40px 80px -20px rgba(0,0,0,.6),0 0 60px -10px rgba(59,130,246,.15);
+    opacity:0;will-change:transform,opacity;
+  }
+  .device-frame img{display:block;width:100%;height:auto}
+  .phone-frame{max-width:320px;width:min(72vw,320px);border-radius:28px;border-width:3px}
+  .device-float{animation:deviceFloat 8s var(--ease) infinite}
+  @keyframes deviceFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+  .scrollcue{
+    position:absolute;bottom:26px;left:50%;transform:translateX(-50%);z-index:3;
+    display:flex;flex-direction:column;align-items:center;gap:8px;
+    color:var(--ink-faint);font-size:11px;letter-spacing:.32em;
+    font-family:"Cormorant Garamond",serif;text-transform:uppercase;
+  }
+  .scrollcue .bar{width:1px;height:44px;background:linear-gradient(var(--gold),transparent);animation:cue 2.4s var(--ease) infinite}
+  @keyframes cue{
+    0%{transform:scaleY(.2);opacity:.2;transform-origin:top}
+    50%{transform:scaleY(1);opacity:1}
+    100%{transform:scaleY(.2);opacity:.2;transform-origin:bottom}
+  }
+
+  /* 2 · FILM (canvas frame-sequence) */
+  #film{height:420vh}
+  #film .stage{position:sticky;top:0;height:100svh;overflow:hidden;background:var(--paper)}
+  #film canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+  #film .film-fallback{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:none}
+  #film .caps{
+    position:absolute;right:clamp(20px,6vw,98px);bottom:clamp(74px,13vh,140px);
+    z-index:4;width:min(80vw,440px);text-align:right;pointer-events:none;
+  }
+  #film .cap{
+    position:absolute;right:0;bottom:0;opacity:0;transform:translateY(14px);
+    font-family:"El Messiri",serif;font-size:clamp(22px,3.6vw,42px);line-height:1.28;color:var(--ink);
+  }
+  #film .loader{
+    position:absolute;left:clamp(18px,5vw,42px);bottom:clamp(24px,5vh,40px);
+    z-index:5;font-family:"Cormorant Garamond",serif;letter-spacing:.28em;
+    font-size:12px;color:var(--ink-faint);transition:opacity .6s;
+  }
+
+  /* 3 · FEATURES */
+  #features{padding:22vh 0 18vh;text-align:center}
+  #features .head{margin-bottom:clamp(40px,6vw,72px)}
+  #features .head h2{font-size:clamp(34px,5.4vw,66px);margin-top:6px}
+  #features .cards{display:grid;grid-template-columns:1fr;gap:24px;text-align:left}
+  @media(min-width:680px){#features .cards{grid-template-columns:repeat(2,1fr)}}
+  @media(min-width:960px){#features .cards{grid-template-columns:repeat(3,1fr)}}
+  .feat-card{
+    border:1px solid var(--line);border-radius:12px;padding:clamp(28px,3vw,42px);
+    background:var(--mist);transition:transform .5s var(--ease),box-shadow .5s,border-color .5s;
+  }
+  .feat-card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 28px 60px -24px rgba(0,0,0,.5);
+    border-color:rgba(59,130,246,.3);
+  }
+  .feat-card .icon{
+    width:48px;height:48px;border-radius:10px;display:grid;place-items:center;
+    font-size:22px;margin-bottom:18px;background:rgba(59,130,246,.12);color:var(--gold-bright);
+  }
+  .feat-card h3{font-size:20px;margin-bottom:8px;color:var(--ink)}
+  .feat-card p{font-size:14px;color:var(--ink-soft);line-height:1.7}
+
+  /* 4 · WORKFLOW */
+  #workflow{padding:20vh 0}
+  #workflow .head{text-align:center;margin-bottom:clamp(60px,8vw,100px)}
+  #workflow .head h2{font-size:clamp(34px,5.4vw,66px);margin-top:6px}
+  .wf-row{
+    display:grid;grid-template-columns:1fr;
+    gap:clamp(32px,5vw,64px);align-items:center;
+    margin-bottom:clamp(80px,10vh,120px);
+  }
+  @media(min-width:880px){.wf-row{grid-template-columns:1fr 1fr}}
+  .wf-row.flip .wf-media{order:2}
+  .wf-row.flip .wf-copy{order:1}
+  .wf-media{
+    border-radius:10px;overflow:hidden;border:1px solid var(--line-soft);
+    box-shadow:0 24px 60px -20px rgba(0,0,0,.5);
+  }
+  .wf-media img{display:block;width:100%;height:auto}
+  .wf-copy .step{
+    font-family:"Cormorant Garamond",serif;letter-spacing:.36em;
+    text-transform:uppercase;font-size:13px;color:var(--gold-bright);display:block;margin-bottom:12px;
+  }
+  .wf-copy h3{font-size:clamp(28px,3.8vw,44px);margin-bottom:14px}
+  .wf-copy p{color:var(--ink-soft);font-size:clamp(15px,1.7vw,18px);max-width:48ch}
+
+  /* 5 · CTA */
+  #cta{height:260vh}
+  #cta .stage{position:sticky;top:0;height:100svh;overflow:hidden;display:grid;place-items:center;background:var(--paper)}
+  #cta video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  #cta .dim{
+    position:absolute;inset:0;opacity:0;backdrop-filter:blur(2px);
+    background:radial-gradient(120% 100% at 50% 50%,rgba(15,23,42,.7),rgba(15,23,42,.92));
+  }
+  #cta .content{position:relative;z-index:3;text-align:center;opacity:0;transform:translateY(28px);padding-inline:20px}
+  #cta .content .latin{display:block;font-size:12px;color:var(--gold-bright);margin-bottom:18px}
+  #cta h2{font-size:clamp(44px,9vw,118px);line-height:.94}
+  #cta .content p{margin:18px auto 0;color:var(--ink-soft);font-size:clamp(15px,1.8vw,20px);max-width:40ch}
+  #cta .btns{margin-top:40px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+  .btn{
+    border-radius:999px;padding:15px 40px;font-family:"El Messiri",serif;font-size:17px;
+    font-weight:600;text-decoration:none;display:inline-block;
+    transition:transform .35s var(--ease),box-shadow .35s,background .35s,color .35s;
+  }
+  .btn-primary{
+    background:linear-gradient(180deg,var(--gold-bright),var(--gold-deep));color:#fff;
+    box-shadow:0 16px 40px -14px rgba(37,99,235,.5);
+  }
+  .btn-primary:hover{transform:translateY(-3px)}
+  .btn-ghost{border:1px solid var(--gold);color:var(--gold-bright)}
+  .btn-ghost:hover{background:var(--gold);color:#fff;transform:translateY(-3px)}
+
+  /* 6 · PROOF */
+  #proof{padding:18vh 0 12vh;text-align:center}
+  #proof .head{margin-bottom:clamp(40px,6vw,72px)}
+  #proof .head h2{font-size:clamp(34px,5.4vw,66px);margin-top:6px}
+  .proof-row{display:grid;grid-template-columns:1fr;gap:24px}
+  @media(min-width:760px){.proof-row{grid-template-columns:repeat(3,1fr)}}
+  .proof-card{
+    border:1px solid var(--line);border-radius:12px;padding:clamp(28px,3vw,40px);
+    background:var(--mist);text-align:left;
+  }
+  .proof-card blockquote{font-size:clamp(15px,1.6vw,17px);color:var(--ink-soft);line-height:1.7;font-style:italic}
+  .proof-card cite{
+    display:block;margin-top:18px;font-size:13px;font-style:normal;
+    color:var(--gold-bright);font-weight:500;
+  }
+
+  /* footer */
+  footer{padding:9vh 0 5vh;text-align:center;border-top:1px solid var(--line)}
+  footer .wm{font-family:"El Messiri",serif;font-size:40px;font-weight:700}
+  footer .links{margin:24px 0;display:flex;gap:30px;justify-content:center;flex-wrap:wrap}
+  footer .links a{color:var(--ink-soft);text-decoration:none;font-size:14px;transition:color .3s}
+  footer .links a:hover{color:var(--gold-bright)}
+  footer .cr{color:var(--ink-faint);font-size:12px}
+
+  @media(prefers-reduced-motion:reduce){
+    .device-float,.scrollcue .bar{animation:none}
+    #hero .latin,#hero .device-frame,#hero h1,#hero .tagline,.scrollcue{opacity:1;clip-path:none}
+    *{scroll-behavior:auto}
+  }
+</style>
+</head>
+<body>
+<div id="ambient"></div>
+<div id="glow"></div>
+<div id="vignette"></div>
+<div id="grain"></div>
+<div id="progress"></div>
+
+<header id="header">
+  <a class="brand" href="#hero"><span class="wm">{{PRODUCT_NAME}}</span></a>
+  <nav>
+    <a href="#features">{{NAV_1}}</a>
+    <a href="#workflow">{{NAV_2}}</a>
+    <a href="#proof">{{NAV_3}}</a>
+    <a class="nav-cta" href="#cta">{{NAV_CTA}}</a>
+  </nav>
+</header>
+
+<main>
+  <!-- 1 · HERO -->
+  <section id="hero" data-ambient="#0F172A" data-glow="0">
+    <div class="stage fallback-host">
+      <div class="hero-inner">
+        <span class="latin">{{LATIN_LABEL}}</span>
+        <h1>{{APP_TITLE}}</h1>
+        <p class="tagline">{{TAGLINE}}</p>
+        <div class="device-float">
+          <div class="device-frame fallback-host">
+            <img src="assets/device-hero.png" alt="{{APP_TITLE}}" loading="eager" />
+          </div>
+        </div>
+      </div>
+      <div class="scrollcue"><span>{{SCROLL_WORD}}</span><span class="bar"></span></div>
+    </div>
+  </section>
+
+  <!-- 2 · FILM -->
+  <section id="film" data-ambient="#0C1425" data-glow=".6">
+    <div class="stage fallback-host">
+      <canvas id="filmCanvas"></canvas>
+      <img class="film-fallback" src="assets/device-hero.png" alt="{{PRODUCT_NAME}}" />
+      <div class="caps" id="filmCaps">
+        <div class="cap" data-a="0.02" data-b="0.24">{{FILM_CAP_1}}</div>
+        <div class="cap" data-a="0.28" data-b="0.50">{{FILM_CAP_2}}</div>
+        <div class="cap" data-a="0.54" data-b="0.76">{{FILM_CAP_3}}</div>
+        <div class="cap" data-a="0.80" data-b="0.99">{{FILM_CAP_4}}</div>
+      </div>
+      <div class="loader" id="filmLoader">…</div>
+    </div>
+  </section>
+
+  <!-- 3 · FEATURES -->
+  <section id="features" data-ambient="#101C32" data-glow=".5">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow reveal">{{FEATURES_EYEBROW}}</span>
+        <h2 class="gradient-text reveal">{{FEATURES_TITLE}}</h2>
+      </div>
+      <div class="cards">
+        <div class="feat-card reveal">
+          <div class="icon">{{FEAT_1_ICON}}</div>
+          <h3>{{FEAT_1_T}}</h3>
+          <p>{{FEAT_1_D}}</p>
+        </div>
+        <div class="feat-card reveal">
+          <div class="icon">{{FEAT_2_ICON}}</div>
+          <h3>{{FEAT_2_T}}</h3>
+          <p>{{FEAT_2_D}}</p>
+        </div>
+        <div class="feat-card reveal">
+          <div class="icon">{{FEAT_3_ICON}}</div>
+          <h3>{{FEAT_3_T}}</h3>
+          <p>{{FEAT_3_D}}</p>
+        </div>
+        <div class="feat-card reveal">
+          <div class="icon">{{FEAT_4_ICON}}</div>
+          <h3>{{FEAT_4_T}}</h3>
+          <p>{{FEAT_4_D}}</p>
+        </div>
+        <div class="feat-card reveal">
+          <div class="icon">{{FEAT_5_ICON}}</div>
+          <h3>{{FEAT_5_T}}</h3>
+          <p>{{FEAT_5_D}}</p>
+        </div>
+        <div class="feat-card reveal">
+          <div class="icon">{{FEAT_6_ICON}}</div>
+          <h3>{{FEAT_6_T}}</h3>
+          <p>{{FEAT_6_D}}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · WORKFLOW -->
+  <section id="workflow" data-ambient="#0E1A2E" data-glow=".5">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow reveal">{{WF_EYEBROW}}</span>
+        <h2 class="gradient-text reveal">{{WF_TITLE}}</h2>
+      </div>
+      <div class="wf-row reveal">
+        <div class="wf-media fallback-host">
+          <img src="assets/workflow-1.jpg" alt="{{WF_1_T}}" loading="lazy" />
+        </div>
+        <div class="wf-copy">
+          <span class="step">{{WF_1_STEP}}</span>
+          <h3>{{WF_1_T}}</h3>
+          <p>{{WF_1_D}}</p>
+        </div>
+      </div>
+      <div class="wf-row flip reveal">
+        <div class="wf-media fallback-host">
+          <img src="assets/workflow-2.jpg" alt="{{WF_2_T}}" loading="lazy" />
+        </div>
+        <div class="wf-copy">
+          <span class="step">{{WF_2_STEP}}</span>
+          <h3>{{WF_2_T}}</h3>
+          <p>{{WF_2_D}}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 · CTA -->
+  <section id="cta" data-ambient="#0B1222" data-glow=".4">
+    <div class="stage fallback-host">
+      <video id="ctaVideo" muted playsinline preload="none" aria-hidden="true"></video>
+      <div class="dim" id="ctaDim"></div>
+      <div class="content" id="ctaContent">
+        <span class="latin">{{CTA_LABEL}}</span>
+        <h2 class="gradient-text">{{CTA_TITLE}}</h2>
+        <p>{{CTA_BODY}}</p>
+        <div class="btns">
+          <a class="btn btn-primary" href="#">{{CTA_PRIMARY}}</a>
+          <a class="btn btn-ghost" href="#">{{CTA_SECONDARY}}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 · PROOF -->
+  <section id="proof" data-ambient="#101C32" data-glow=".5">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow reveal">{{PROOF_EYEBROW}}</span>
+        <h2 class="gradient-text reveal">{{PROOF_TITLE}}</h2>
+      </div>
+      <div class="proof-row">
+        <div class="proof-card reveal">
+          <blockquote>"{{PROOF_1}}"</blockquote>
+          <cite>{{PROOF_1_ATTR}}</cite>
+        </div>
+        <div class="proof-card reveal">
+          <blockquote>"{{PROOF_2}}"</blockquote>
+          <cite>{{PROOF_2_ATTR}}</cite>
+        </div>
+        <div class="proof-card reveal">
+          <blockquote>"{{PROOF_3}}"</blockquote>
+          <cite>{{PROOF_3_ATTR}}</cite>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div class="wm gradient-text">{{PRODUCT_NAME}}</div>
+      <nav class="links">
+        <a href="#features">{{NAV_1}}</a>
+        <a href="#workflow">{{NAV_2}}</a>
+        <a href="#proof">{{NAV_3}}</a>
+        <a href="#cta">{{NAV_CTA}}</a>
+      </nav>
+      <div class="cr">{{FOOTER_COPYRIGHT}}</div>
+    </div>
+  </footer>
+</main>
+
+<script>
+(function(){
+  "use strict";
+  const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const hasGSAP=typeof gsap!=="undefined"&&typeof ScrollTrigger!=="undefined";
+  if(hasGSAP) gsap.registerPlugin(ScrollTrigger);
+  const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+  const smooth=(e0,e1,x)=>{const t=clamp((x-e0)/(e1-e0),0,1);return t*t*(3-2*t);};
+
+  document.querySelectorAll("img[src]").forEach(img=>img.addEventListener("error",()=>{
+    img.style.display="none"; const h=img.closest(".fallback-host"); if(h) h.classList.add("is-missing");
+  },{once:true}));
+
+  let lenis=null;
+  if(typeof Lenis!=="undefined"&&hasGSAP&&!reduce){
+    lenis=new Lenis({duration:1.2,easing:t=>Math.min(1,1.001-Math.pow(2,-10*t)),smoothWheel:true});
+    lenis.on("scroll",ScrollTrigger.update);
+    gsap.ticker.add(t=>lenis.raf(t*1000));
+    gsap.ticker.lagSmoothing(0);
+    window.lenis=lenis;
+    document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener("click",e=>{
+      const t=document.querySelector(a.getAttribute("href"));
+      if(t){e.preventDefault();lenis.scrollTo(t,{offset:0});}
+    }));
+  }
+
+  const header=document.getElementById("header"), progress=document.getElementById("progress");
+  if(hasGSAP) ScrollTrigger.create({start:0,end:"max",onUpdate:s=>{
+    progress.style.transform="scaleX("+s.progress+")";
+    header.classList.toggle("solid",s.scroll()>40);
+    if(s.scroll()>140) header.classList.toggle("hidden",s.direction===1);
+    else header.classList.remove("hidden");
+  }});
+
+  const ambient=document.getElementById("ambient"), glow=document.getElementById("glow");
+  function applyAmbient(c,g){
+    if(hasGSAP){
+      gsap.to(ambient,{backgroundColor:c,duration:1.1,overwrite:"auto",ease:"power2.out"});
+      gsap.to(glow,{opacity:g,duration:1.1,overwrite:"auto"});
+    } else {
+      ambient.style.backgroundColor=c;glow.style.opacity=g;
+    }
+  }
+  document.querySelectorAll("section[data-ambient]").forEach(sec=>{
+    const c=sec.getAttribute("data-ambient"),g=parseFloat(sec.getAttribute("data-glow")||".5");
+    if(hasGSAP) ScrollTrigger.create({
+      trigger:sec,start:"top 60%",end:"bottom 40%",
+      onEnter:()=>applyAmbient(c,g),onEnterBack:()=>applyAmbient(c,g)
+    });
+    else if("IntersectionObserver" in window)
+      new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)applyAmbient(c,g);}),{threshold:.4}).observe(sec);
+  });
+
+  const reveals=document.querySelectorAll(".reveal");
+  if(hasGSAP&&!reduce)
+    reveals.forEach(el=>ScrollTrigger.create({trigger:el,start:"top 86%",once:true,onEnter:()=>el.classList.add("in")}));
+  else if("IntersectionObserver" in window){
+    const io=new IntersectionObserver(es=>es.forEach(e=>{
+      if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);}
+    }),{threshold:.2});
+    reveals.forEach(el=>io.observe(el));
+  }
+  else reveals.forEach(el=>el.classList.add("in"));
+
+  /* hero entrance + scroll handoff */
+  if(hasGSAP&&!reduce){
+    gsap.timeline({defaults:{ease:"power3.out"}})
+      .fromTo("#hero .latin",{opacity:0,y:14},{opacity:1,y:0,duration:.8},0.1)
+      .fromTo("#hero h1",{opacity:0,y:24,clipPath:"inset(0 0 100% 0)"},{opacity:1,y:0,clipPath:"inset(0 0 0% 0)",duration:1.1},0.25)
+      .fromTo("#hero .tagline",{opacity:0,y:12},{opacity:1,y:0,duration:.8},0.6)
+      .fromTo("#hero .device-frame",{opacity:0,scale:.94,y:40},{opacity:1,scale:1,y:0,duration:1.4},0.7)
+      .fromTo("#hero .scrollcue",{opacity:0},{opacity:1,duration:.8},1.4);
+    gsap.to("#hero .hero-inner",{
+      scrollTrigger:{trigger:"#hero",start:"top top",end:"78% top",scrub:true},
+      y:-50,opacity:0,ease:"none"
+    });
+  }
+  if(!hasGSAP)
+    document.querySelectorAll("#hero .latin,#hero .device-frame,#hero h1,#hero .tagline,.scrollcue")
+      .forEach(e=>{e.style.opacity=1;e.style.clipPath="none";e.style.transform="none";});
+
+  /* FILM — canvas frame sequence (NEVER video.currentTime) */
+  (function initFilm(){
+    const FRAME_COUNT={{FRAME_COUNT|93}};
+    const url=i=>"assets/seq/f"+String(i).padStart(3,"0")+".jpg";
+    const canvas=document.getElementById("filmCanvas"),
+      stage=canvas.closest(".stage"),
+      fallback=document.querySelector("#film .film-fallback"),
+      loaderEl=document.getElementById("filmLoader"),
+      caps=Array.from(document.querySelectorAll("#filmCaps .cap")),
+      ctx=canvas.getContext("2d",{alpha:false}),
+      frames=new Array(FRAME_COUNT);
+    let loaded=0,errored=0,ready=false,useFallback=false,cur=-1,lastIdx=0,filmST=null;
+    const progIdx=()=>filmST?Math.round(clamp(filmST.progress,0,1)*(FRAME_COUNT-1)):0;
+    function showFallback(){
+      useFallback=true;ready=true;canvas.style.display="none";
+      if(fallback&&fallback.complete&&fallback.naturalWidth>0)fallback.style.display="block";
+      else if(fallback)fallback.style.display="none";
+      if(loaderEl)loaderEl.style.opacity=0;
+    }
+    function maybeReady(){
+      if(ready)return;
+      if(loaded+errored>=FRAME_COUNT||loaded>=Math.ceil(FRAME_COUNT*0.6)){
+        if(loaded===0){showFallback();return;}
+        ready=true;
+        if(loaderEl)loaderEl.style.opacity=0;
+        resize();draw(progIdx());
+      }
+      if(loaderEl&&!ready)loaderEl.textContent="… "+Math.round(loaded/FRAME_COUNT*100)+"%";
+    }
+    if(reduce||!hasGSAP){showFallback();return;}
+    for(let i=0;i<FRAME_COUNT;i++){
+      const im=new Image();im.decoding="async";
+      im.onload=()=>{frames[i]=im;loaded++;maybeReady();};
+      im.onerror=()=>{errored++;maybeReady();};
+      im.src=url(i);
+    }
+    setTimeout(()=>{
+      if(!ready){
+        if(loaded>0){ready=true;if(loaderEl)loaderEl.style.opacity=0;resize();draw(progIdx());}
+        else showFallback();
+      }
+    },9000);
+    function resize(){
+      const dpr=Math.min(2,window.devicePixelRatio||1),w=stage.clientWidth,h=stage.clientHeight;
+      canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);
+      canvas.style.width=w+"px";canvas.style.height=h+"px";
+      cur=-1;if(ready&&!useFallback)draw(lastIdx);
+    }
+    function draw(i){
+      if(useFallback)return;
+      i=clamp(i,0,FRAME_COUNT-1);
+      let im=frames[i];
+      if(!im){
+        for(let d=1;d<FRAME_COUNT;d++){
+          if(frames[i-d]){im=frames[i-d];break;}
+          if(frames[i+d]){im=frames[i+d];break;}
+        }
+        if(!im)return;
+      }
+      if(i===cur)return;
+      cur=i;lastIdx=i;
+      const cw=canvas.width,ch=canvas.height,iw=im.naturalWidth,ih=im.naturalHeight,
+        s=Math.max(cw/iw,ch/ih),dw=iw*s,dh=ih*s;
+      ctx.fillStyle="#0F172A";ctx.fillRect(0,0,cw,ch);
+      ctx.drawImage(im,(cw-dw)/2,(ch-dh)/2,dw,dh);
+    }
+    window.addEventListener("resize",resize,{passive:true});
+    filmST=ScrollTrigger.create({trigger:"#film",start:"top top",end:"bottom bottom",scrub:true,onUpdate:self=>{
+      const p=self.progress;
+      if(ready&&!useFallback)draw(Math.round(p*(FRAME_COUNT-1)));
+      for(const c of caps){
+        const a=parseFloat(c.dataset.a),b=parseFloat(c.dataset.b),
+          mid=(a+b)/2,o=Math.min(smooth(a,a+(mid-a)*0.6,p),1-smooth(mid+(b-mid)*0.4,b,p));
+        c.style.opacity=Math.max(0,o);
+        c.style.transform="translateY("+(12*(1-Math.max(0,o)))+"px)";
+      }
+    }});
+  })();
+
+  /* CTA — video alone first, then dim/wash + content reveal */
+  (function initCTA(){
+    const sec=document.getElementById("cta"),
+      video=document.getElementById("ctaVideo"),
+      dim=document.getElementById("ctaDim"),
+      content=document.getElementById("ctaContent");
+    const playlist=["assets/cta.mp4","assets/life1.mp4"];
+    let pi=0,attempts=0;
+    function load(i){
+      pi=((i%playlist.length)+playlist.length)%playlist.length;
+      video.src=playlist[pi];
+      const pr=video.play();if(pr&&pr.catch)pr.catch(()=>{});
+    }
+    video.addEventListener("loadeddata",()=>{attempts=0;});
+    video.addEventListener("ended",()=>load(pi+1));
+    video.addEventListener("error",()=>{if(++attempts<playlist.length)load(pi+1);});
+    let started=false;
+    const start=()=>{if(started)return;started=true;load(0);};
+    ["pointerdown","keydown","wheel","touchstart"].forEach(ev=>
+      window.addEventListener(ev,start,{once:true,passive:true}));
+    if(hasGSAP&&!reduce){
+      ScrollTrigger.create({trigger:sec,start:"top center",onEnter:start,onEnterBack:start});
+      ScrollTrigger.create({trigger:sec,start:"top top",end:"bottom bottom",scrub:true,onUpdate:s=>{
+        const p=s.progress;
+        dim.style.opacity=smooth(0.34,0.66,p);
+        content.style.opacity=smooth(0.40,0.72,p);
+        content.style.transform="translateY("+(28*(1-smooth(0.40,0.72,p)))+"px)";
+      }});
+    } else {dim.style.opacity=.94;content.style.opacity=1;content.style.transform="none";}
+  })();
+
+  if(hasGSAP){
+    window.addEventListener("load",()=>ScrollTrigger.refresh());
+    if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>ScrollTrigger.refresh());
+  }
+})();
+</script>
+</body>
+</html>

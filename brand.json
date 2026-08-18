@@ -1,0 +1,187 @@
+{
+  "$schema": "brand-core-v1",
+  "meta": {
+    "product": "[Product Name]",
+    "tagline": "[One-line positioning statement]",
+    "description": "[1-2 sentence description used in <meta name=description> across all surfaces]",
+    "owner": "[Company / individual]",
+    "website": "https://example.com",
+    "repo": "https://github.com/[org]/[repo]",
+    "version": "1.0.0",
+    "lastUpdated": "2026-07-02"
+  },
+
+  "voice": {
+    "tone": "confident, plain, teacher-not-salesperson",
+    "personality": ["direct", "practical", "warm", "no-fluff"],
+    "readingLevel": "plain language, avoid jargon unless the audience is technical",
+    "doNotUse": ["synergy", "leverage (as a verb)", "revolutionary", "game-changing", "simply/just/easily"],
+    "preferredPerson": "second person (you)",
+    "examplePhrase": "[A real sentence in-voice, used as a calibration reference for AI agents/writers]"
+  },
+
+  "identity": {
+    "logo": {
+      "full": "/assets/logo.svg",
+      "fullDark": "/assets/logo-dark.svg",
+      "mark": "/assets/logo-mark.svg",
+      "markDark": "/assets/logo-mark-dark.svg",
+      "favicon": "/assets/favicon.svg",
+      "minClearSpace": "1x logo-mark height on all sides",
+      "minSizePx": 24
+    },
+    "socialPreview": {
+      "ogImage": "/assets/og-default.png",
+      "ogDimensions": "1200x630"
+    }
+  },
+
+  "colors": {
+    "light": {
+      "background": "#FFFFFF",
+      "surface": "#F6F7F8",
+      "surface2": "#EEF0F2",
+      "border": "#E2E5E9",
+      "text": "#14171C",
+      "textMuted": "#5B6270",
+      "primary": "#0F62FE",
+      "primaryForeground": "#FFFFFF",
+      "secondary": "#7C3AED",
+      "secondaryForeground": "#FFFFFF",
+      "accent": "#00B8D9",
+      "success": "#12B76A",
+      "warning": "#F79009",
+      "danger": "#F04438",
+      "info": "#0F62FE",
+      "codeBackground": "#F6F7F8"
+    },
+    "dark": {
+      "background": "#0B0D10",
+      "surface": "#14171C",
+      "surface2": "#1B1F26",
+      "border": "#242830",
+      "text": "#E6E8EB",
+      "textMuted": "#9AA1AC",
+      "primary": "#3D8BFF",
+      "primaryForeground": "#0B0D10",
+      "secondary": "#A78BFA",
+      "secondaryForeground": "#0B0D10",
+      "accent": "#22D3EE",
+      "success": "#12B76A",
+      "warning": "#F79009",
+      "danger": "#F04438",
+      "info": "#3D8BFF",
+      "codeBackground": "#0D1117"
+    },
+    "chartPalette": ["#0F62FE", "#7C3AED", "#00B8D9", "#12B76A", "#F79009", "#F04438"],
+    "contrastPolicy": "WCAG AA minimum (4.5:1 body text, 3:1 large text/UI) in both light and dark themes"
+  },
+
+  "typography": {
+    "families": {
+      "heading": { "primary": "El Messiri", "fallback": "Georgia, serif" },
+      "body": { "primary": "Tajawal", "fallback": "Inter, system-ui, sans-serif" },
+      "mono": { "primary": "JetBrains Mono", "fallback": "Menlo, monospace" },
+      "arabicHeading": "El Messiri",
+      "arabicBody": "Tajawal"
+    },
+    "weights": { "regular": 400, "medium": 500, "semibold": 600, "bold": 700 },
+    "scale": {
+      "xs": "12px", "sm": "14px", "base": "16px", "lg": "18px",
+      "xl": "20px", "2xl": "24px", "3xl": "30px", "4xl": "36px",
+      "5xl": "48px", "6xl": "60px"
+    },
+    "lineHeight": { "tight": 1.2, "normal": 1.5, "relaxed": 1.75 },
+    "letterSpacing": { "tight": "-0.02em", "normal": "0", "wide": "0.02em" }
+  },
+
+  "spacing": {
+    "baseUnit": "4px",
+    "scale": { "0": "0px", "1": "4px", "2": "8px", "3": "12px", "4": "16px",
+               "6": "24px", "8": "32px", "12": "48px", "16": "64px", "24": "96px" }
+  },
+
+  "radius": {
+    "none": "0px", "sm": "6px", "md": "12px", "lg": "16px", "xl": "24px", "full": "9999px",
+    "default": "12px"
+  },
+
+  "shadows": {
+    "sm": "0 1px 2px rgba(0,0,0,0.06)",
+    "md": "0 4px 12px rgba(0,0,0,0.10)",
+    "lg": "0 12px 32px rgba(0,0,0,0.16)",
+    "focusRing": "0 0 0 3px color-mix(in srgb, var(--primary) 40%, transparent)"
+  },
+
+  "motion": {
+    "duration": { "fast": "120ms", "base": "200ms", "slow": "400ms" },
+    "easing": { "standard": "cubic-bezier(0.4,0,0.2,1)", "emphasized": "cubic-bezier(0.2,0,0,1)" },
+    "reducedMotion": "honor prefers-reduced-motion: disable scroll-driven and parallax effects, keep only opacity/color transitions",
+    "scope": "cinematic/scroll-driven motion is reserved for marketing surfaces only — never in docs, dashboard, or transactional UI"
+  },
+
+  "breakpoints": {
+    "sm": "640px", "md": "768px", "lg": "1024px", "xl": "1280px", "2xl": "1536px"
+  },
+
+  "iconography": {
+    "set": "lucide",
+    "strokeWidth": 1.75,
+    "sizes": { "sm": "16px", "md": "20px", "lg": "24px" },
+    "rule": "never mix icon sets on the same surface"
+  },
+
+  "components": {
+    "button": {
+      "radius": "radius.md",
+      "paddingX": "spacing.4",
+      "paddingY": "spacing.2",
+      "primaryBg": "colors.primary",
+      "primaryFg": "colors.primaryForeground",
+      "hoverOpacity": 0.9,
+      "disabledOpacity": 0.5
+    },
+    "input": {
+      "radius": "radius.sm",
+      "border": "colors.border",
+      "focusRing": "shadows.focusRing",
+      "background": "colors.surface"
+    },
+    "card": {
+      "radius": "radius.lg",
+      "border": "colors.border",
+      "background": "colors.surface",
+      "shadow": "shadows.sm"
+    },
+    "codeBlock": {
+      "background": "colors.codeBackground",
+      "radius": "radius.md",
+      "fontFamily": "typography.families.mono"
+    }
+  },
+
+  "localization": {
+    "defaultLocale": "en",
+    "supportedLocales": ["en", "ar"],
+    "rtl": true,
+    "rtlLocales": ["ar"],
+    "mirrorOnRtl": ["sidebar", "breadcrumb", "tableOfContents", "iconsWithDirection"],
+    "dateFormat": { "en": "MMM D, YYYY", "ar": "D MMMM YYYY" }
+  },
+
+  "accessibility": {
+    "minTouchTarget": "44px",
+    "focusVisible": "always visible, never suppressed with outline:none without a replacement",
+    "altTextPolicy": "required on every meaningful image; decorative images use alt=''"
+  },
+
+  "usage": {
+    "sharedBy": ["Cinematic Landing Kit", "Documentation Kit", "future kits (Dashboard, Admin, LMS, Commerce)"],
+    "rules": [
+      "Every surface reads tokens from this file — never hardcode a hex value or font name inline.",
+      "Brand colors (primary, logo) do not change between light/dark modes — only surface, background, border, and text tokens do.",
+      "If this file changes, regenerate dependent surfaces rather than manually patching colors.",
+      "Extend by adding new tokens, not by overriding existing ones per-surface."
+    ]
+  }
+}

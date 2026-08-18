@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<!-- ============================================================================
+     STORE LAYOUT  (multi-product WhatsApp catalog + floating CTA)
+     Fill the {{PLACEHOLDERS}}, drop assets into assets/.
+     No canvas film — performance-optimized product grid catalog.
+     Each product card has its own wa.me deep-link with pre-filled message.
+     Floating WhatsApp bubble is always visible. Category filter by JS.
+     Default theme = LIGHT. To go DARK: swap the palette vars.
+     WhatsApp: set WHATSAPP_NUMBER (with country code, no +).
+     ============================================================================ -->
+<html lang="{{LANG|ar}}" dir="{{DIR|rtl}}">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>{{BRAND_NAME}} — {{STORE_TAGLINE|متجرنا}}</title>
+<meta name="description" content="{{META_DESCRIPTION}}" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&family=Tajawal:wght@200;300;400;500;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" integrity="sha512-onMTRKJBKz8M1TnqqDuGBlowlH0ohFzMXYRNebz+yOcc5TQr/zAKsthzhuv0hiyUKEiQEQXEynnXCvNTOk50dg==" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js" integrity="sha256-eUny2Hql6qBbqmuoQ60u6ueG2eCZVKQaGygqwCPquug=" crossorigin="anonymous"></script>
+
+<style>
+  /* TOKEN MAPPING — when brand.json is present, override :root variables below:
+     --paper=colors.<theme>.background  --ink=colors.<theme>.text
+     --mist=colors.<theme>.surface      --ink-soft=colors.<theme>.textMuted
+     --cream=colors.<theme>.surface2    --ink-faint=derive(textMuted, 40% opacity)
+     --gold=colors.primary              --accent=colors.secondary or colors.accent
+     --wa-green=#25D366 (WhatsApp brand — do not override)
+     Full reference: memory/11-brand-json.md
+     ============================================================================ */
+  :root{
+    --paper:#FBF8F2; --mist:#F7F4EC; --cream:#F3EEE2; --sand:#ECE2CF;
+    --ink:#241812; --ink-soft:#6E5C4B; --ink-faint:#9A8975;
+    --gold:#A97B33; --gold-deep:#8A6128; --gold-bright:#C2974A; --accent:#A8632E;
+    --line:rgba(58,33,20,.16); --line-soft:rgba(58,33,20,.09);
+    --ambient:#FBF8F2; --maxw:1360px; --ease:cubic-bezier(.22,.61,.36,1);
+    --wa-green:#25D366; --wa-dark:#128C7E;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%} html{scroll-behavior:auto}
+  body{background:var(--paper);color:var(--ink);font-family:"Tajawal",system-ui,sans-serif;font-weight:300;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden;line-height:1.7}
+  ::selection{background:var(--gold-bright);color:#fff}
+  h1,h2,h3,.display{font-family:"El Messiri",serif;font-weight:600;line-height:1.15;color:var(--ink)}
+  .latin{font-family:"Cormorant Garamond",serif;letter-spacing:.34em;text-transform:uppercase}
+
+  #ambient{position:fixed;inset:0;z-index:-3;background:var(--ambient)}
+  #grain{position:fixed;inset:-50%;z-index:60;pointer-events:none;opacity:.028;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  #progress{position:fixed;top:0;right:0;left:0;height:2px;z-index:70;transform-origin:right;transform:scaleX(0);
+    background:linear-gradient(90deg,var(--gold-deep),var(--gold-bright),var(--accent))}
+
+  /* HEADER */
+  header{position:fixed;top:0;right:0;left:0;z-index:50;display:flex;align-items:center;justify-content:space-between;
+    padding:clamp(12px,2vw,20px) clamp(18px,4vw,54px);will-change:transform;
+    background:rgba(251,248,242,.92);backdrop-filter:blur(12px);
+    box-shadow:0 1px 0 var(--line-soft);transition:transform .5s var(--ease)}
+  header.hidden{transform:translateY(-115%)}
+  .brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+  .brand-logo{height:36px;width:auto;object-fit:contain}
+  .brand .wm{font-family:"El Messiri",serif;font-weight:700;font-size:clamp(20px,2.2vw,26px);color:var(--ink)}
+  header nav{display:flex;align-items:center;gap:clamp(12px,2vw,24px)}
+  header nav a{color:var(--ink-soft);text-decoration:none;font-size:14px;font-weight:500;transition:color .3s}
+  header nav a:hover{color:var(--gold-deep)}
+  .nav-wa{display:flex;align-items:center;gap:7px;background:var(--wa-green);color:#fff!important;
+    border-radius:999px;padding:8px 20px;font-weight:600;font-size:14px;transition:background .3s,transform .2s}
+  .nav-wa:hover{background:var(--wa-dark);transform:scale(1.04)}
+  @media(max-width:680px){header nav a:not(.nav-wa){display:none}}
+  a:focus-visible,.btn:focus-visible{outline:2px solid var(--gold-deep);outline-offset:3px;border-radius:6px}
+
+  /* LAYOUT */
+  section{position:relative}
+  .wrap{max-width:var(--maxw);margin-inline:auto;padding-inline:clamp(16px,4vw,60px)}
+  .eyebrow{font-family:"Cormorant Garamond",serif;letter-spacing:.46em;text-transform:uppercase;font-size:13px;color:var(--gold-deep);font-weight:500}
+  .gold-text{background:linear-gradient(180deg,var(--gold-bright),var(--gold) 50%,var(--gold-deep));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+  .reveal.in{opacity:1;transform:none}
+  .fallback-host.is-missing{background:linear-gradient(135deg,var(--cream),var(--sand) 78%)}
+
+  /* HERO BANNER */
+  #hero{min-height:clamp(320px,50vh,520px);display:flex;align-items:center;
+    padding:clamp(100px,16vh,160px) clamp(20px,5vw,68px) clamp(48px,8vh,80px);
+    position:relative;overflow:hidden}
+  #hero-bg{position:absolute;inset:0;background-size:cover;background-position:center;z-index:0;
+    background-image:linear-gradient(135deg,var(--cream) 0%,var(--sand) 60%,var(--mist) 100%)}
+  #hero-bg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  #hero-overlay{position:absolute;inset:0;z-index:1;
+    background:linear-gradient(to inline-end,rgba(36,24,18,.72) 0%,rgba(36,24,18,.3) 60%,transparent 100%)}
+  #hero-content{position:relative;z-index:2;max-width:600px}
+  #hero-content .eyebrow{color:rgba(255,255,255,.75)}
+  #hero-content h1{font-size:clamp(28px,5vw,64px);color:#fff;margin-top:10px;margin-bottom:16px}
+  #hero-content p{color:rgba(255,255,255,.8);font-size:clamp(15px,1.4vw,18px);margin-bottom:clamp(20px,3vh,36px)}
+  .btn-wa-hero{display:inline-flex;align-items:center;gap:10px;
+    background:var(--wa-green);color:#fff;border-radius:14px;
+    padding:clamp(13px,1.8vh,18px) clamp(24px,3vw,40px);font-family:"El Messiri",serif;
+    font-size:clamp(15px,1.4vw,18px);font-weight:600;text-decoration:none;
+    transition:background .3s,transform .2s,box-shadow .3s;
+    box-shadow:0 8px 28px rgba(37,211,102,.4)}
+  .btn-wa-hero:hover{background:var(--wa-dark);transform:translateY(-2px)}
+  .btn-wa-hero svg{width:20px;height:20px;fill:#fff;flex-shrink:0}
+
+  /* CATEGORY FILTER */
+  #categories{position:sticky;top:clamp(56px,8vw,72px);z-index:40;background:rgba(251,248,242,.92);
+    backdrop-filter:blur(8px);border-bottom:1px solid var(--line-soft);padding:0}
+  .cat-scroll{display:flex;gap:8px;padding:12px clamp(16px,4vw,60px);overflow-x:auto;
+    scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+    scrollbar-width:none;-ms-overflow-style:none}
+  .cat-scroll::-webkit-scrollbar{display:none}
+  .cat-btn{flex-shrink:0;scroll-snap-align:start;border:1.5px solid var(--line);border-radius:999px;
+    padding:7px 20px;font-family:"El Messiri",serif;font-size:14px;font-weight:500;color:var(--ink-soft);
+    background:none;cursor:pointer;white-space:nowrap;transition:background .25s,border-color .25s,color .25s}
+  .cat-btn:hover{border-color:var(--gold-deep);color:var(--gold-deep)}
+  .cat-btn.active{background:var(--ink);border-color:var(--ink);color:#fff}
+
+  /* PRODUCT GRID */
+  #products{padding:clamp(40px,6vh,80px) 0 clamp(60px,10vh,120px)}
+  .products-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;
+    gap:12px;margin-bottom:clamp(24px,4vh,40px)}
+  .products-header h2{font-size:clamp(22px,3vw,38px)}
+  .products-count{font-size:14px;color:var(--ink-soft)}
+  .products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));
+    gap:clamp(16px,2.4vw,28px)}
+
+  /* PRODUCT CARD */
+  .product-card{border-radius:20px;background:var(--mist);border:1px solid var(--line-soft);
+    overflow:hidden;display:flex;flex-direction:column;
+    transition:transform .3s var(--ease),box-shadow .3s;will-change:transform}
+  .product-card:hover{transform:translateY(-8px);box-shadow:0 24px 52px rgba(58,33,20,.12)}
+  .product-card[data-hidden]{display:none}
+  .product-img-wrap{aspect-ratio:4/3;overflow:hidden;position:relative;background:var(--cream)}
+  .product-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease)}
+  .product-card:hover .product-img-wrap img{transform:scale(1.06)}
+  .product-badge{position:absolute;top:12px;inset-inline-start:12px;background:var(--accent);
+    color:#fff;border-radius:8px;padding:4px 12px;font-size:12px;font-weight:600}
+  .product-body{padding:clamp(14px,2vh,20px);display:flex;flex-direction:column;gap:8px;flex:1}
+  .product-cat{font-size:12px;color:var(--gold-deep);font-weight:500;text-transform:uppercase;letter-spacing:.06em}
+  .product-name{font-family:"El Messiri",serif;font-size:clamp(16px,1.4vw,19px);font-weight:600;
+    color:var(--ink);line-height:1.3}
+  .product-desc{font-size:14px;color:var(--ink-soft);line-height:1.7;flex:1}
+  .product-footer{display:flex;align-items:center;justify-content:space-between;gap:8px;
+    padding-top:10px;border-top:1px solid var(--line-soft);margin-top:auto}
+  .product-price{display:flex;align-items:baseline;gap:6px}
+  .price-val{font-family:"El Messiri",serif;font-size:clamp(18px,1.6vw,22px);font-weight:700;color:var(--ink)}
+  .price-cur{font-size:13px;color:var(--ink-soft)}
+  .price-old{font-size:13px;color:var(--ink-faint);text-decoration:line-through}
+  .btn-card-wa{display:flex;align-items:center;gap:6px;background:var(--wa-green);color:#fff;
+    border:none;border-radius:10px;padding:9px 16px;font-family:"El Messiri",serif;font-size:14px;
+    font-weight:600;cursor:pointer;text-decoration:none;white-space:nowrap;
+    transition:background .25s,transform .2s}
+  .btn-card-wa:hover{background:var(--wa-dark);transform:scale(1.04)}
+  .btn-card-wa svg{width:16px;height:16px;fill:#fff;flex-shrink:0}
+
+  /* FEATURED SPOTLIGHT */
+  #spotlight{padding:clamp(60px,10vh,120px) 0;background:var(--ink);color:#fff;overflow:hidden;position:relative}
+  #spotlight-bg{position:absolute;inset:0;background-size:cover;background-position:center;
+    opacity:.25;pointer-events:none}
+  #spotlight-bg img{width:100%;height:100%;object-fit:cover}
+  #spotlight .wrap{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;
+    align-items:center;gap:clamp(24px,4vw,72px)}
+  @media(max-width:840px){#spotlight .wrap{grid-template-columns:1fr}}
+  #spotlight .eyebrow{color:rgba(255,255,255,.6)}
+  #spotlight h2{font-size:clamp(28px,4vw,54px);color:#fff;margin-top:10px}
+  #spotlight p{color:rgba(255,255,255,.72);font-size:clamp(15px,1.3vw,17px);margin-top:12px;margin-bottom:28px}
+  #spotlight .price-val{color:#fff}#spotlight .price-cur{color:rgba(255,255,255,.6)}#spotlight .price-old{color:rgba(255,255,255,.4)}
+  #spotlight .product-img-wrap{border-radius:20px;overflow:hidden;aspect-ratio:4/3;background:rgba(255,255,255,.1)}
+
+  /* TRUST / BRAND STORY STRIP */
+  #trust{padding:clamp(48px,8vh,96px) 0}
+  .trust-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:clamp(20px,3vw,40px);
+    margin-top:clamp(28px,4vh,48px);text-align:center}
+  .trust-col .icon{font-size:32px;margin-bottom:12px}
+  .trust-col h3{font-size:clamp(16px,1.4vw,19px);margin-bottom:6px}
+  .trust-col p{font-size:14px;color:var(--ink-soft);line-height:1.7}
+
+  /* STORE FOOTER */
+  footer{background:var(--ink);color:rgba(255,255,255,.7);padding:clamp(36px,5vh,60px) clamp(20px,5vw,68px)}
+  .footer-inner{max-width:var(--maxw);margin-inline:auto;display:flex;flex-wrap:wrap;
+    align-items:center;justify-content:space-between;gap:24px}
+  .footer-brand{display:flex;flex-direction:column;gap:8px}
+  .footer-wm{font-family:"El Messiri",serif;font-size:22px;font-weight:700;color:#fff}
+  .footer-tagline{font-size:14px;color:rgba(255,255,255,.5)}
+  .footer-links{display:flex;gap:clamp(16px,3vw,32px);flex-wrap:wrap;align-items:center}
+  .footer-links a{color:rgba(255,255,255,.6);text-decoration:none;font-size:14px;transition:color .3s}
+  .footer-links a:hover{color:#fff}
+  .footer-wa-big{display:flex;align-items:center;gap:10px;background:var(--wa-green);color:#fff;
+    border-radius:14px;padding:12px 24px;font-family:"El Messiri",serif;font-size:16px;font-weight:600;
+    text-decoration:none;transition:background .3s,transform .2s}
+  .footer-wa-big:hover{background:var(--wa-dark);transform:scale(1.03)}
+  .footer-wa-big svg{width:22px;height:22px;fill:#fff}
+  .footer-copy{width:100%;text-align:center;font-size:12px;color:rgba(255,255,255,.3);padding-top:24px;border-top:1px solid rgba(255,255,255,.08)}
+  @media(max-width:680px){footer .footer-inner{flex-direction:column;text-align:center}}
+
+  /* FLOATING WA BUTTON */
+  #wa-float{position:fixed;bottom:clamp(24px,4vw,36px);inset-inline-end:clamp(16px,3vw,28px);z-index:49;
+    display:flex;flex-direction:column;align-items:center;gap:8px}
+  .wa-bubble{width:62px;height:62px;border-radius:50%;background:var(--wa-green);
+    display:flex;align-items:center;justify-content:center;cursor:pointer;text-decoration:none;position:relative;
+    box-shadow:0 8px 28px rgba(37,211,102,.5);transition:transform .3s,box-shadow .3s}
+  .wa-bubble:hover{transform:scale(1.1);box-shadow:0 12px 40px rgba(37,211,102,.6)}
+  .wa-bubble svg{width:32px;height:32px;fill:#fff}
+  .wa-pulse-ring{position:absolute;inset:-6px;border-radius:50%;border:2px solid rgba(37,211,102,.45);
+    animation:wa-ring 2.4s cubic-bezier(.4,0,.6,1) infinite}
+  @keyframes wa-ring{0%{transform:scale(1);opacity:.8}100%{transform:scale(1.5);opacity:0}}
+  .wa-label{background:var(--ink);color:#fff;border-radius:10px;padding:6px 14px;font-size:12px;font-weight:600;
+    white-space:nowrap;pointer-events:none;display:none}
+  @media(min-width:768px){.wa-label{display:block}}
+
+  /* REDUCED MOTION */
+  @media(prefers-reduced-motion:reduce){
+    .reveal{opacity:1;transform:none!important;transition:none}
+    .product-card,.product-img-wrap img,.btn-card-wa,.btn-wa-hero{transition:none}
+    .wa-pulse-ring{animation:none}
+  }
+</style>
+</head>
+<body>
+
+<div id="ambient" aria-hidden="true"></div>
+<div id="grain" aria-hidden="true"></div>
+<div id="progress" role="progressbar" aria-label="{{PROGRESS_LABEL|تقدم التمرير}}"></div>
+
+<!-- HEADER -->
+<header id="site-header" role="banner">
+  <a href="#" class="brand" aria-label="{{BRAND_NAME}}">
+    <img src="assets/logo.png" alt="{{BRAND_NAME}}" class="brand-logo" onerror="this.style.display='none'" />
+    <span class="wm">{{BRAND_NAME}}</span>
+  </a>
+  <nav aria-label="{{NAV_LABEL|التنقل الرئيسي}}">
+    <a href="#products">{{NAV_PRODUCTS|المنتجات}}</a>
+    <a href="#spotlight">{{NAV_FEATURED|المميز}}</a>
+    <a href="https://wa.me/{{WHATSAPP_NUMBER}}" class="nav-wa" target="_blank" rel="noopener noreferrer" id="header-wa-btn">
+      <svg viewBox="0 0 24 24" width="15" height="15" fill="#fff" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.115.553 4.1 1.518 5.837L0 24l6.335-1.5A11.935 11.935 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.6a9.6 9.6 0 01-4.894-1.339l-.35-.207-3.635.861.875-3.534-.228-.363A9.6 9.6 0 012.4 12c0-5.302 4.298-9.6 9.6-9.6s9.6 4.298 9.6 9.6-4.298 9.6-9.6 9.6z"/></svg>
+      {{NAV_WHATSAPP|واتساب}}
+    </a>
+  </nav>
+</header>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     SECTION 1 · HERO BANNER
+     ═══════════════════════════════════════════════════════════════════ -->
+<section id="hero" aria-label="{{HERO_LABEL|بانر المتجر}}">
+  <div id="hero-bg">
+    <img src="assets/hero-banner.jpg" alt="" aria-hidden="true" onerror="this.style.display='none'" />
+  </div>
+  <div id="hero-overlay" aria-hidden="true"></div>
+  <div id="hero-content">
+    <p class="eyebrow reveal">{{EYEBROW|متجرنا}}</p>
+    <h1 class="reveal">{{STORE_HEADLINE|اكتشف منتجاتنا المميزة}}</h1>
+    <p class="reveal">{{STORE_SUBHEADLINE|جودة لا تُضاهى · شحن سريع · دفع آمن عبر واتساب}}</p>
+    <a href="#products" class="btn-wa-hero reveal" id="hero-shop-btn">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4h-2a1 1 0 00-1 1v14a1 1 0 001 1h2m10-16h2a1 1 0 011 1v14a1 1 0 01-1 1h-2M7 4l2 8-2 4h10l-2-4 2-8"/></svg>
+      {{HERO_BTN|تسوق الآن}}
+    </a>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     SECTION 2 · CATEGORY FILTER
+     ═══════════════════════════════════════════════════════════════════ -->
+<nav id="categories" aria-label="{{CATEGORIES_LABEL|تصفية المنتجات}}">
+  <div class="cat-scroll" role="list">
+    <button class="cat-btn active" data-cat="all" role="listitem">{{CAT_ALL|الكل}}</button>
+    <button class="cat-btn" data-cat="cat1" role="listitem">{{CAT_1|الفئة الأولى}}</button>
+    <button class="cat-btn" data-cat="cat2" role="listitem">{{CAT_2|الفئة الثانية}}</button>
+    <button class="cat-btn" data-cat="cat3" role="listitem">{{CAT_3|الفئة الثالثة}}</button>
+    <button class="cat-btn" data-cat="cat4" role="listitem">{{CAT_4|الفئة الرابعة}}</button>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     SECTION 3 · PRODUCTS GRID
+     Each card: set data-cat="catX" to match a category button.
+     href=wa.me link: phone + pre-filled product order message.
+     ═══════════════════════════════════════════════════════════════════ -->
+<section id="products">
+  <div class="wrap">
+    <div class="products-header reveal">
+      <h2>{{PRODUCTS_TITLE|منتجاتنا}}</h2>
+      <span class="products-count" id="products-count" aria-live="polite"></span>
+    </div>
+    <div class="products-grid" id="products-grid">
+
+      <!-- ── CARD 1 ── (duplicate & customize) -->
+      <article class="product-card reveal" data-cat="cat1">
+        <div class="product-img-wrap fallback-host">
+          <img src="assets/products/product-1.jpg" alt="{{PRODUCT_1_NAME|المنتج الأول}}" loading="lazy"
+            onerror="this.parentElement.classList.add('is-missing');this.style.display='none'" />
+          <span class="product-badge">{{BADGE_1|جديد}}</span>
+        </div>
+        <div class="product-body">
+          <span class="product-cat">{{CAT_1|الفئة الأولى}}</span>
+          <h3 class="product-name">{{PRODUCT_1_NAME|اسم المنتج الأول}}</h3>
+          <p class="product-desc">{{PRODUCT_1_DESC|وصف موجز وجذاب للمنتج الأول يوضح الفائدة الرئيسية}}</p>
+          <div class="product-footer">
+            <div class="product-price">
+              <span class="price-cur">{{CURRENCY|ر.س}}</span>
+              <span class="price-val">{{PRODUCT_1_PRICE|٢٩٩}}</span>
+              <span class="price-old">{{PRODUCT_1_PRICE_OLD|٣٩٩}}</span>
+            </div>
+            <a href="https://wa.me/{{WHATSAPP_NUMBER}}?text={{PRODUCT_1_MSG_ENCODED|أريد+أن+أطلب+المنتج+الأول}}"
+              class="btn-card-wa" target="_blank" rel="noopener noreferrer" id="card-wa-1">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.115.553 4.1 1.518 5.837L0 24l6.335-1.5A11.935 11.935 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.6a9.6 9.6 0 01-4.894-1.339l-.35-.207-3.635.861.875-3.534-.228-.363A9.6 9.6 0 012.4 12c0-5.302 4.298-9.6 9.6-9.6s9.6 4.298 9.6 9.6-4.298 9.6-9.6 9.6z"/></svg>
+              {{CARD_ORDER_BTN|اطلب}}
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- ── CARD 2 ── -->
+      <article class="product-card reveal" data-cat="cat2" style="transition-delay:.07s">
+        <div class="product-img-wrap fallback-host">
+          <img src="assets/products/product-2.jpg" alt="{{PRODUCT_2_NAME|المنتج الثاني}}" loading="lazy"
+            onerror="this.parentElement.classList.add('is-missing');this.style.display='none'" />
+          <span class="product-badge" style="background:var(--gold-deep)">{{BADGE_2|الأكثر مبيعاً}}</span>
+        </div>
+        <div class="product-body">
+          <span class="product-cat">{{CAT_2|الفئة الثانية}}</span>
+          <h3 class="product-name">{{PRODUCT_2_NAME|اسم المنتج الثاني}}</h3>
+          <p class="product-desc">{{PRODUCT_2_DESC|وصف موجز وجذاب للمنتج الثاني يوضح الفائدة الرئيسية}}</p>
+          <div class="product-footer">
+            <div class="product-price">
+              <span class="price-cur">{{CURRENCY|ر.س}}</span>
+              <span class="price-val">{{PRODUCT_2_PRICE|١٩٩}}</span>
+            </div>
+            <a href="https://wa.me/{{WHATSAPP_NUMBER}}?text={{PRODUCT_2_MSG_ENCODED|أريد+أن+أطلب+المنتج+الثاني}}"
+              class="btn-card-wa" target="_blank" rel="noopener noreferrer" id="card-wa-2">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.115.553 4.1 1.518 5.837L0 24l6.335-1.5A11.935 11.935 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.6a9.6 9.6 0 01-4.894-1.339l-.35-.207-3.635.861.875-3.534-.228-.363A9.6 9.6 0 012.4 12c0-5.302 4.298-9.6 9.6-9.6s9.6 4.298 9.6 9.6-4.298 9.6-9.6 9.6z"/></svg>
+              {{CARD_ORDER_BTN|اطلب}}
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- ── CARD 3 ── -->
+      <article class="product-card reveal" data-cat="cat1" style="transition-delay:.14s">
+        <div class="product-img-wrap fallback-host">
+          <img src="assets/products/product-3.jpg" alt="{{PRODUCT_3_NAME|المنتج الثالث}}" loading="lazy"
+            onerror="this.parentElement.classList.add('is-missing');this.style.display='none'" />
+        </div>
+        <div class="product-body">
+          <span class="product-cat">{{CAT_1|الفئة الأولى}}</span>
+          <h3 class="product-name">{{PRODUCT_3_NAME|اسم المنتج الثالث}}</h3>
+          <p class="product-desc">{{PRODUCT_3_DESC|وصف موجز وجذاب للمنتج الثالث يوضح الفائدة الرئيسية}}</p>
+          <div class="product-footer">
+            <div class="product-price">
+              <span class="price-cur">{{CURRENCY|ر.س}}</span>
+              <span class="price-val">{{PRODUCT_3_PRICE|٣٤٩}}</span>
+              <span class="price-old">{{PRODUCT_3_PRICE_OLD|٤٤٩}}</span>
+            </div>
+            <a href="https://wa.me/{{WHATSAPP_NUMBER}}?text={{PRODUCT_3_MSG_ENCODED|أريد+أن+أطلب+المنتج+الثالث}}"
+              class="btn-card-wa" target="_blank" rel="noopener noreferrer" id="card-wa-3">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.115.553 4.1 1.518 5.837L0 24l6.335-1.5A11.935 11.935 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.6a9.6 9.6 0 01-4.894-1.339l-.35-.207-3.635.861.875-3.534-.228-.363A9.6 9.6 0 012.4 12c0-5.302 4.298-9.6 9.6-9.6s9.6 4.298 9.6 9.6-4.298 9.6-9.6 9.6z"/></svg>
+              {{CARD_ORDER_BTN|اطلب}}
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- ── CARD 4 ── -->
+      <article class="product-card reveal" data-cat="cat3" style="transition-delay:.21s">
+        <div class="product-img-wrap fallback-host">
+          <img src="assets/products/product-4.jpg" alt="{{PRODUCT_4_NAME|المنتج الرابع}}" loading="lazy"
+            onerror="this.parentElement.classList.add('is-missing');this.style.display='none'" />
+          <span class="product-badge" style="background:var(--wa-dark)">{{BADGE_4|عرض محدود}}</span>
+        </div>
+        <div class="product-body">
+          <span class="product-cat">{{CAT_3|الفئة الثالثة}}</span>
+          <h3 class="product-name">{{PRODUCT_4_NAME|اسم المنتج الرابع}}</h3>
+          <p class="product-desc">{{PRODUCT_4_DESC|وصف موجز وجذاب للمنتج الرابع يوضح الفائدة الرئيسية}}</p>
+          <div class="product-footer">
+            <div class="product-price">
+              <span class="price-cur">{{CURRENCY|ر.س}}</span>
+              <span class="price-val">{{PRODUCT_4_PRICE|٤٩٩}}</span>
+              <span class="price-old">{{PRODUCT_4_PRICE_OLD|٦٩٩}}</span>
+            </div>
+            <a href="https://wa.me/{{WHATSAPP_NUMBER}}?text={{PRODUCT_4_MSG_ENCODED|أريد+أن+أطلب+المنتج+الرابع}}"
+              class="btn-card-wa" target="_blank" rel="noopener noreferrer" id="card-wa-4">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.115.553 4.1 1.518 5.837L0 24l6.335-1.5A11.935 11.935 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.6a9.6 9.6 0 01-4.894-1.339l-.35-.207-3.635.861.875-3.534-.228-.363A9.6 9.6 0 012.4 12c0-5.302 4.298-9.6 9.6-9.6s9.6 4.298 9.6 9.6-4.298 9.6-9.6 9.6z"/></svg>
+              {{CARD_ORDER_BTN|اطلب}}
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Add more cards following the same pattern (data-cat="catX") -->
+
+    </div><!-- /.products-grid -->
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     SECTION 4 · FEATURED PRODUCT SPOTLIGHT
+     ═══════════════════════════════════════════════════════════════════ -->
+<section id="spotlight" aria-label="{{SPOTLIGHT_LABEL|المنتج المميز}}">
+  <div id="spotlight-bg" aria-hidden="true">
+    <img src="assets/spotlight-bg.jpg" alt="" aria-hidden="true" onerror="this.style.display='none'" />
+  </div>
+  <div class="wrap">
+    <div class="product-img-wrap reveal">
+      <img src="assets/products/spotlight-product.jpg" alt="{{SPOTLIGHT_PRODUCT_NAME|المنتج المميز}}" loading="lazy"
+        onerror="this.parentElement.classList.add('is-missing');this.style.display='none'" />
+    </div>
+    <div>
+      <p class="eyebrow reveal">{{SPOTLIGHT_EYEBROW|الأكثر مبيعاً}}</p>
+      <h2 class="reveal">{{SPOTLIGHT_PRODUCT_NAME|المنتج المميز لهذا الموسم}}</h2>
+      <p class="reveal">{{SPOTLIGHT_DESC|وصف مقنع ومفصّل للمنتج المميز يشرح سبب تميزه وفائدته الرئيسية للعميل}}</p>
+      <div class="product-price reveal" style="margin-bottom:20px">
+        <span class="price-cur">{{CURRENCY|ر.س}}</span>
+        <span class="price-val">{{SPOTLIGHT_PRICE|٥٩٩}}</span>
+        <span class="price-old">{{SPOTLIGHT_PRICE_OLD|٧٩٩}}</span>
+      </div>
+      <a href="https://wa.me/{{WHATSAPP_NUMBER}}?text={{SPOTLIGHT_MSG_ENCODED|أريد+أن+أطلب+المنتج+المميز}}"
+        class="btn-wa-hero reveal" target="_blank" rel="noopener noreferrer" id="spotlight-wa-btn">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.115.553 4.1 1.518 5.837L0 24l6.335-1.5A11.935 11.935 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.6a9.6 9.6 0 01-4.894-1.339l-.35-.207-3.635.861.875-3.534-.228-.363A9.6 9.6 0 012.4 12c0-5.302 4.298-9.6 9.6-9.6s9.6 4.298 9.6 9.6-4.298 9.6-9.6 9.6z"/></svg>
+        {{SPOTLIGHT_BTN|اطلب الآن عبر واتساب}}
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     SECTION 5 · TRUST STRIP
+     ═══════════════════════════════════════════════════════════════════ -->
+<section id="trust">
+  <div class="wrap">
+    <div class="section-header reveal" style="text-align:center">
+      <p class="eyebrow">{{TRUST_EYEBROW|لماذا نحن}}</p>
+      <h2 style="font-size:clamp(24px,3.4vw,44px);margin-top:10px">{{TRUST_TITLE|ثقة تبنى على الجودة}}</h2>
+    </div>
+    <div class="trust-grid">
+      <div class="trust-col reveal"><div class="icon" aria-hidden="true">🚚</div><h3>{{TRUST_1_TITLE|شحن سريع}}</h3><p>{{TRUST_1_DESC|توصيل سريع لجميع مناطق المملكة خلال ٢–٤ أيام عمل}}</p></div>
+      <div class="trust-col reveal" style="transition-delay:.1s"><div class="icon" aria-hidden="true">🔒</div><h3>{{TRUST_2_TITLE|دفع آمن}}</h3><p>{{TRUST_2_DESC|ندعم الدفع عند الاستلام والتحويل البنكي وبطاقات الائتمان}}</p></div>
+      <div class="trust-col reveal" style="transition-delay:.2s"><div class="icon" aria-hidden="true">✅</div><h3>{{TRUST_3_TITLE|ضمان الجودة}}</h3><p>{{TRUST_3_DESC|ضمان استرداد كامل خلال ٣٠ يوماً في حال عدم الرضا}}</p></div>
+      <div class="trust-col reveal" style="transition-delay:.3s"><div class="icon" aria-hidden="true">💬</div><h3>{{TRUST_4_TITLE|دعم فوري}}</h3><p>{{TRUST_4_DESC|فريقنا متاح على واتساب ٧ أيام في الأسبوع للرد على استفساراتك}}</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FLOATING WHATSAPP BUTTON (always visible) -->
+<div id="wa-float" aria-label="{{WA_FLOAT_LABEL|تواصل عبر واتساب}}">
+  <span class="wa-label" aria-hidden="true">{{WA_FLOAT_LABEL_TEXT|اطلب الآن}}</span>
+  <a href="https://wa.me/{{WHATSAPP_NUMBER}}"
+    class="wa-bubble" target="_blank" rel="noopener noreferrer"
+    id="wa-float-btn"
+    aria-label="{{WA_FLOAT_ARIA|فتح محادثة واتساب}}">
+    <div class="wa-pulse-ring" aria-hidden="true"></div>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.115.553 4.1 1.518 5.837L0 24l6.335-1.5A11.935 11.935 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.6a9.6 9.6 0 01-4.894-1.339l-.35-.207-3.635.861.875-3.534-.228-.363A9.6 9.6 0 012.4 12c0-5.302 4.298-9.6 9.6-9.6s9.6 4.298 9.6 9.6-4.298 9.6-9.6 9.6z"/></svg>
+  </a>
+</div>
+
+<!-- FOOTER -->
+<footer role="contentinfo">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="footer-wm">{{BRAND_NAME}}</span>
+      <span class="footer-tagline">{{STORE_TAGLINE|متجرك المفضل}}</span>
+    </div>
+    <div class="footer-links">
+      <a href="#products">{{NAV_PRODUCTS|المنتجات}}</a>
+      <a href="#trust">{{NAV_ABOUT|من نحن}}</a>
+      <a href="https://wa.me/{{WHATSAPP_NUMBER}}" target="_blank" rel="noopener noreferrer">{{NAV_CONTACT|اتصل بنا}}</a>
+    </div>
+    <a href="https://wa.me/{{WHATSAPP_NUMBER}}" class="footer-wa-big" target="_blank" rel="noopener noreferrer" id="footer-wa-btn">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.115.553 4.1 1.518 5.837L0 24l6.335-1.5A11.935 11.935 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.6a9.6 9.6 0 01-4.894-1.339l-.35-.207-3.635.861.875-3.534-.228-.363A9.6 9.6 0 012.4 12c0-5.302 4.298-9.6 9.6-9.6s9.6 4.298 9.6 9.6-4.298 9.6-9.6 9.6z"/></svg>
+      {{FOOTER_WA_BTN|تواصل عبر واتساب}}
+    </a>
+    <p class="footer-copy">{{FOOTER_COPY|© ٢٠٢٥ {{BRAND_NAME}}. جميع الحقوق محفوظة.}}</p>
+  </div>
+</footer>
+
+<script>
+/* ─── Engine ─────────────────────────────────────────────────────── */
+const lenis = new Lenis({ lerp: 0.09, wheelMultiplier: 0.9 });
+gsap.ticker.add(t => lenis.raf(t * 1000));
+gsap.ticker.lagSmoothing(0);
+
+/* ─── Scroll Progress ─────────────────────────────────────────────── */
+const progressBar = document.getElementById('progress');
+lenis.on('scroll', ({ progress }) => gsap.set(progressBar, { scaleX: 1 - progress }));
+
+/* ─── Header Hide/Show ───────────────────────────────────────────── */
+const header = document.getElementById('site-header');
+let lastY = 0, headerVisible = true;
+lenis.on('scroll', ({ scroll }) => {
+  const delta = scroll - lastY; lastY = scroll;
+  if (delta > 4 && scroll > 120) { if (headerVisible) { header.classList.add('hidden'); headerVisible = false; } }
+  else if (delta < -4) { if (!headerVisible) { header.classList.remove('hidden'); headerVisible = true; } }
+});
+
+/* ─── Scroll Reveals ─────────────────────────────────────────────── */
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+/* ─── Category Filter ─────────────────────────────────────────────── */
+const catBtns = document.querySelectorAll('.cat-btn');
+const allCards = document.querySelectorAll('.product-card');
+const countEl = document.getElementById('products-count');
+
+function updateCount() {
+  const visible = document.querySelectorAll('.product-card:not([data-hidden])').length;
+  if (countEl) countEl.textContent = visible + ' {{COUNT_SUFFIX|منتج}}';
+}
+
+catBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    catBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const cat = btn.dataset.cat;
+    allCards.forEach(card => {
+      if (cat === 'all' || card.dataset.cat === cat) {
+        delete card.dataset.hidden;
+        card.removeAttribute('data-hidden');
+      } else {
+        card.dataset.hidden = '1';
+      }
+    });
+    updateCount();
+  });
+});
+updateCount();
+
+/* ─── Ambient Color Shifts ─────────────────────────────────────────── */
+const ambientMap = [
+  { id: 'hero', color: '#F3EEE2' },
+  { id: 'products', color: '#FBF8F2' },
+  { id: 'spotlight', color: '#241812' },
+  { id: 'trust', color: '#F7F4EC' }
+];
+ambientMap.forEach(({ id, color }) => {
+  const el = document.getElementById(id);
+  if (!el) return;
+  ScrollTrigger.create({
+    trigger: el, start: 'top 60%', end: 'bottom 60%',
+    onEnter: () => gsap.to('#ambient', { backgroundColor: color, duration: 1, ease: 'power2.out' }),
+    onEnterBack: () => gsap.to('#ambient', { backgroundColor: color, duration: 1, ease: 'power2.out' })
+  });
+});
+</script>
+</body>
+</html>
