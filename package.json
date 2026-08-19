@@ -1,7 +1,7 @@
 {
   "name": "@alwkala/tidyfactor-cinematic",
   "version": "3.3.3",
-  "description": "CLI generator and Agent Skill installer for TidyFactor Cinematic (Apple x Cartier aesthetic scroll-driven landing pages)",
+  "description": "TidyFactor Cinematic \u2014 Scroll-Driven Luxury Experience Engine \u2014 Apple \u00d7 Cartier Aesthetic for AI Agents",
   "main": "bin/create-kit.js",
   "bin": {
     "tidyfactor-cinematic": "bin/create-kit.js",
@@ -33,12 +33,12 @@
     "cli",
     "npx"
   ],
-  "author": "alwkala",
-  "license": "MIT",
+  "author": "TidyFactor & Alwkala <hello@tidyfactor.com> (https://alwkala.com)",
+  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/TidyFactor/Cinematic/issues"
   },
-  "homepage": "https://github.com/TidyFactor/Cinematic#readme",
+  "homepage": "https://tidyfactor.com",
   "dependencies": {
     "chalk": "^4.1.2",
     "ora": "^5.4.1",

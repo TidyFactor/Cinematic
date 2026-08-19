@@ -198,6 +198,9 @@ The generated output is a **pure single `index.html` file** requiring no build t
 
 ---
 
+
+---
+
 ## 🏛️ TidyFactor Ecosystem Architecture
 
 **TidyFactor** is a modular web architecture and AI coding agent skill ecosystem built on clear separation of concerns across the product lifecycle:
@@ -205,30 +208,65 @@ The generated output is a **pure single `index.html` file** requiring no build t
 ```
 TidyFactor Organization (github.com/TidyFactor)
 │
-├── Cinematic       → Experience / "Wow"      (Apple × Cartier Scroll-Driven Landing Pages)
-├── Design          → Prototype / "Build"     (Code-Native UI Design Engine & Figma Alternative)
-├── Styler          → Production / "Ship"     (Framework Styler & RTL Polish Engine)
+├── Design Skills
+│   ├── Cinematic    → Experience / "Wow"     (Apple × Cartier Scroll-Driven Landing Pages)
+│   ├── Design       → Prototype / "Build"    (Code-Native UI Design Engine & Figma Alternative)
+│   └── Styler       → Production / "Ship"    (Framework Styler & RTL Polish Engine)
 │
-├── Marketing       → Growth / Revenue        (Direct Response, Pillar SEO & Content Lifecycles)
-├── Next            → Multi-Tenant SaaS       (Next.js 16, React 19, Supabase RLS & Dev-Perf)
-├── HTML            → Content & Static        (Semantic SEO & Static Platform Starter)
-├── JS              → Vanilla SPA             (Framework-Free Reactive ES Modules)
-├── PHP             → Server-Rendered         (Modern PHP 8.x Component UI & Architecture)
-└── HTMX            → Hypermedia              (Server-Driven Micro-Interactions)
+├── Development Skills
+│   ├── HTML         → Content & Static       (Semantic SEO & Static Platform Starter)
+│   ├── HTMX         → Hypermedia             (Server-Driven Micro-Interactions)
+│   ├── JS           → Vanilla SPA            (Framework-Free Reactive ES Modules)
+│   ├── PHP          → Server-Rendered        (Modern PHP 8.x Component UI & Architecture)
+│   └── Next         → Multi-Tenant SaaS      (Next.js 16, React 19, Supabase RLS & Dev-Perf)
+│
+└── Growth Skills
+    └── Marketing    → Growth / Revenue       (Direct Response, Pillar SEO & Content Lifecycles)
+```
+
+### 💎 Frontend Triad
+
+```
+                TidyFactor
+                    │
+          ┌─────────┼─────────┐
+          │         │         │
+      Cinematic   Design    Styler
+          │         │         │
+      Experience Prototype Production
+          │         │         │
+       "Wow"      "Build"   "Ship"
 ```
 
 ### 📦 Community Package & Skill Parity
 
-| Track | Stage / Value | GitHub Repository | Agent Skill | NPM Package |
+| Track | Category | GitHub Repository | Agent Skill | NPM Package |
 | :--- | :--- | :--- | :--- | :--- |
-| **Cinematic** | **Experience ("Wow")** | [`TidyFactor/Cinematic`](https://github.com/TidyFactor/Cinematic) | `tidyfactor-cinematic` | [`@alwkala/tidyfactor-cinematic`](https://www.npmjs.com/package/@alwkala/tidyfactor-cinematic) |
-| **Design** | **Prototype ("Build")** | [`TidyFactor/Design`](https://github.com/TidyFactor/Design) | `tidyfactor-design` | [`@alwkala/tidyfactor-design`](https://www.npmjs.com/package/@alwkala/tidyfactor-design) |
-| **Styler** | **Production ("Ship")** | [`TidyFactor/Styler`](https://github.com/TidyFactor/Styler) | `tidyfactor-styler` | [`@alwkala/tidyfactor-styler`](https://www.npmjs.com/package/@alwkala/tidyfactor-styler) |
-| **Marketing** | Growth / Strategy | [`TidyFactor/Marketing`](https://github.com/TidyFactor/Marketing) | `tidyfactor-marketing` | [`@alwkala/tidyfactor-marketing`](https://www.npmjs.com/package/@alwkala/tidyfactor-marketing) |
-| **Next** | Multi-Tenant SaaS | [`TidyFactor/Next`](https://github.com/TidyFactor/Next) | `tidyfactor-next` | [`@alwkala/tidyfactor-next`](https://www.npmjs.com/package/@alwkala/tidyfactor-next) |
+| **Cinematic** | Design | [`TidyFactor/Cinematic`](https://github.com/TidyFactor/Cinematic) | `tidyfactor-cinematic` | [`@alwkala/tidyfactor-cinematic`](https://www.npmjs.com/package/@alwkala/tidyfactor-cinematic) |
+| **Design** | Design | [`TidyFactor/Design`](https://github.com/TidyFactor/Design) | `tidyfactor-design` | [`@alwkala/tidyfactor-design`](https://www.npmjs.com/package/@alwkala/tidyfactor-design) |
+| **Styler** | Design | [`TidyFactor/Styler`](https://github.com/TidyFactor/Styler) | `tidyfactor-styler` | [`@alwkala/tidyfactor-styler`](https://www.npmjs.com/package/@alwkala/tidyfactor-styler) |
+| **Next** | Development | [`TidyFactor/Next`](https://github.com/TidyFactor/Next) | `tidyfactor-next` | [`@alwkala/tidyfactor-next`](https://www.npmjs.com/package/@alwkala/tidyfactor-next) |
+| **HTML** | Development | [`TidyFactor/HTML`](https://github.com/TidyFactor/HTML) | `tidyfactor-html` | [`@alwkala/tidyfactor-html`](https://www.npmjs.com/package/@alwkala/tidyfactor-html) |
+| **HTMX** | Development | [`TidyFactor/HTMX`](https://github.com/TidyFactor/HTMX) | `tidyfactor-htmx` | [`@alwkala/tidyfactor-htmx`](https://www.npmjs.com/package/@alwkala/tidyfactor-htmx) |
+| **JS** | Development | [`TidyFactor/JS`](https://github.com/TidyFactor/JS) | `tidyfactor-js` | [`@alwkala/tidyfactor-js`](https://www.npmjs.com/package/@alwkala/tidyfactor-js) |
+| **PHP** | Development | [`TidyFactor/PHP`](https://github.com/TidyFactor/PHP) | `tidyfactor-php` | [`@alwkala/tidyfactor-php`](https://www.npmjs.com/package/@alwkala/tidyfactor-php) |
+| **Marketing** | Growth | [`TidyFactor/Marketing`](https://github.com/TidyFactor/Marketing) | `tidyfactor-marketing` | [`@alwkala/tidyfactor-marketing`](https://www.npmjs.com/package/@alwkala/tidyfactor-marketing) |
 
 ---
 
-## 📄 License & Ecosystem
+## 👨‍💻 Organization & Support
 
-Licensed under the [MIT License](LICENSE). Built with architectural precision by [Alwkala Digital Agency](https://alwkala.com) for the [TidyFactor Ecosystem](https://tidyfactor.com).
+- 🌐 **Official Website:** [https://tidyfactor.com/](https://tidyfactor.com/)
+- 📚 **Official Documentation:** [https://tidyfactor.com/documentation](https://tidyfactor.com/documentation)
+- 🤝 **Official Partner Website:** [Alwkala Digital Agency](https://alwkala.com/)
+- 🐙 **GitHub Organization:** [github.com/TidyFactor](https://github.com/TidyFactor)
+- 📧 **Business Inquiries:** [hello@tidyfactor.com](mailto:hello@tidyfactor.com)
+- 📱 **WhatsApp:** [+20 101 665 6899](https://wa.me/201016656899)
+- 📞 **Phone:** +20 101 665 6899
+- 📍 **Location:** Cairo, Egypt
+
+---
+
+## 📜 License
+
+Licensed under the **Apache License 2.0**. Copyright (c) 2026 [TidyFactor](https://tidyfactor.com) & [Alwkala](https://alwkala.com).

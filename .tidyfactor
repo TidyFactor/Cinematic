@@ -8,14 +8,59 @@
   "skillFile": "../tidyfactor-cinematic.skill",
   "category": "marketing",
   "type": "landing-page",
-  "outputs": ["index.html"],
-  "layouts": ["film", "story", "space", "app", "creator", "product", "store", "auto"],
-  "commands": ["init", "brand", "clone-brand", "media", "film", "hero", "theme", "typeface", "transitions", "i18n", "perf", "a11y", "convert", "audit", "variant", "deploy", "polish"],
+  "outputs": [
+    "index.html"
+  ],
+  "layouts": [
+    "film",
+    "story",
+    "space",
+    "app",
+    "creator",
+    "product",
+    "store",
+    "auto"
+  ],
+  "commands": [
+    "init",
+    "brand",
+    "clone-brand",
+    "media",
+    "film",
+    "hero",
+    "theme",
+    "typeface",
+    "transitions",
+    "i18n",
+    "perf",
+    "a11y",
+    "convert",
+    "audit",
+    "variant",
+    "deploy",
+    "polish"
+  ],
   "dependencies": {
-    "python": ["rembg", "pillow", "opencv-python"],
-    "cdn": ["gsap@3.12.5", "lenis@1.0.42", "tailwindcss"]
+    "python": [
+      "rembg",
+      "pillow",
+      "opencv-python"
+    ],
+    "cdn": [
+      "gsap@3.12.5",
+      "lenis@1.0.42",
+      "tailwindcss"
+    ]
   },
   "visionRef": "../TidyFactor-VISION.md",
-  "sibling": ["tidyfactor-html", "tidyfactor-php", "tidyfactor-js", "tidyfactor-htmx"],
-  "commercialPartner": "alwkala"
+  "sibling": [
+    "tidyfactor-html",
+    "tidyfactor-php",
+    "tidyfactor-js",
+    "tidyfactor-htmx"
+  ],
+  "commercialPartner": "alwkala",
+  "website": "https://tidyfactor.com",
+  "docs": "https://tidyfactor.com/documentation",
+  "license": "Apache-2.0"
 }
