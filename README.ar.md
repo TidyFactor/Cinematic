@@ -1,17 +1,32 @@
 <div dir="rtl" align="right">
 
-# 🎬 حزمة الصفحات السينمائية — Cinematic Landing Kit `v3.3.3`
+# 🎬 حزمة الصفحات السينمائية — TidyFactor Cinematic `v3.3.3`
+### محرك التجارب الفاخرة التفاعلية بالتمرير — جماليات Apple × Cartier لوكلاء الذكاء الاصطناعي
 
-**تجربة سينمائية بأسلوب Apple × Cartier — صفحات هبوط تفاعلية فاخرة تُعرض بالتمرير لأي وكيل ذكاء اصطناعي**
+**المسار الرسمي للتجارب البصرية الفاخرة ضمن منظومة TidyFactor المعمارية.**
 
-[![npm version](https://img.shields.io/npm/v/@alwkala/create-cinematic-kit.svg?color=gold&style=for-the-badge&logo=npm)](https://www.npmjs.com/package/@alwkala/create-cinematic-kit)
-[![npm downloads](https://img.shields.io/npm/dm/@alwkala/create-cinematic-kit.svg?style=for-the-badge&logo=npm)](https://www.npmjs.com/package/@alwkala/create-cinematic-kit)
-[![license](https://img.shields.io/badge/license-MIT-blue.svg?style=for-the-badge)](LICENSE)
+```text
+                TidyFactor
+                    │
+          ┌─────────┼─────────┐
+          │         │         │
+      Cinematic   Design    Styler
+          │         │         │
+       Experience Prototype Production
+          │         │         │
+       "Wow"      "Build"   "Ship"
+```
+
+[![npm version](https://img.shields.io/npm/v/@alwkala/tidyfactor-cinematic.svg?color=gold&style=for-the-badge&logo=npm)](https://www.npmjs.com/package/@alwkala/tidyfactor-cinematic)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
+[![GitHub](https://img.shields.io/badge/GitHub-TidyFactor%2FCinematic-181717.svg?style=for-the-badge&logo=github)](https://github.com/TidyFactor/Cinematic)
 [![Universal AI Agents](https://img.shields.io/badge/AI%20Agents-Universal%20Compatibility-4285F4.svg?style=for-the-badge)](README.ar.md)
 [![English Docs](https://img.shields.io/badge/Docs-English-blue.svg?style=for-the-badge)](README.md)
 [![Zero Build](https://img.shields.io/badge/Build-Zero%20Step-purple.svg?style=for-the-badge)](#-المكدس-التقني)
 
-[✨ المعاينة الحية (Live Demo)](https://alwkala.com/design-system-kit/) • [🚀 طريقة الاستخدام](#-طريقة-الاستخدام-والبداية-السريعة) • [⚡ قائمة الأوامر المتاحة](#-قائمة-الأوامر-الـ-١٧-كاملة) • [📖 التوثيق باللغة الإنجليزية](README.md)
+[✨ المعاينة الحية (Live Demo)](https://alwkala.com/design-system-kit/) • [🚀 طريقة الاستخدام](#-طريقة-الاستخدام-والبداية-السريعة) • [⚡ قائمة الأوامر المتاحة](#-قائمة-الأوامر-الـ-١٧-كاملة) • [🏛️ معمارية المنظومة](#-معمارية-منظومة-tidyfactor) • [📖 التوثيق باللغة الإنجليزية](README.md)
+
+</div>
 
 ---
 
@@ -172,8 +187,41 @@ npx @alwkala/create-cinematic-kit add-skill --force
 
 ---
 
+---
+
+## 🏛️ معمارية منظومة TidyFactor
+
+**منظومة TidyFactor** هي بيئة معمارية برمجية مفتوحة وحزم مهارات لوكلاء الذكاء الاصطناعي قائمة على الفصل التام للمسؤوليات عبر دورة حياة المنتجات:
+
+```text
+منظمة TidyFactor الرسمية (github.com/TidyFactor)
+│
+├── Cinematic       ← تجربة الإبهار البصري / Experience ("Wow")     (صفحات سينمائية تفاعلية)
+├── Design          ← بناء النماذج الأولية / Prototype ("Build")   (محرك تصميم كودي وبديل Figma)
+├── Styler          ← الجاهزية للإنتاج والتنسيق / Production ("Ship")  (محرك التنسيق ودعم RTL)
+│
+├── Marketing       ← استراتيجيات النمو والمبيعات / Growth & SEO    (تسويق الاستجابة المباشرة)
+├── Next            ← منصات الساس متعددة المستأجرين / Multi-Tenant (Next.js 16 + Postgres RLS)
+├── HTML            ← المواقع الثابتة وسيو المحتوى / Static & SEO   (هياكل خفيفة وسريعة)
+├── JS              ← تطبيقات الصفحة الواحدة بدون أطر / Vanilla SPA  (نماذج تفاعلية بـ ES Modules)
+├── PHP             ← المنظومات المخدمية الحديثة / Server-Rendered  (مكونات حديثة وتطبيقات PHP 8)
+└── HTMX            ← الواجهات التفاعلية الخفيفة / Hypermedia        (تفاعلات بدون جافاسكريبت معقدة)
+```
+
+### 📦 حزم المجتمع والتكامل المباشر
+
+| المسار البرمجي | المرحلة والقيمة | مستودع GitHub | مهارة الوكيل | حزمة NPM |
+| :--- | :--- | :--- | :--- | :--- |
+| **Cinematic** | **تجربة الإبهار (Wow)** | [`TidyFactor/Cinematic`](https://github.com/TidyFactor/Cinematic) | `tidyfactor-cinematic` | [`@alwkala/tidyfactor-cinematic`](https://www.npmjs.com/package/@alwkala/tidyfactor-cinematic) |
+| **Design** | **بناء النماذج (Build)** | [`TidyFactor/Design`](https://github.com/TidyFactor/Design) | `tidyfactor-design` | [`@alwkala/tidyfactor-design`](https://www.npmjs.com/package/@alwkala/tidyfactor-design) |
+| **Styler** | **الإنتاج والتحسين (Ship)**| [`TidyFactor/Styler`](https://github.com/TidyFactor/Styler) | `tidyfactor-styler` | [`@alwkala/tidyfactor-styler`](https://www.npmjs.com/package/@alwkala/tidyfactor-styler) |
+| **Marketing** | التسويق والنمو | [`TidyFactor/Marketing`](https://github.com/TidyFactor/Marketing) | `tidyfactor-marketing` | [`@alwkala/tidyfactor-marketing`](https://www.npmjs.com/package/@alwkala/tidyfactor-marketing) |
+| **Next** | الساس متعدد المستأجرين | [`TidyFactor/Next`](https://github.com/TidyFactor/Next) | `tidyfactor-next` | [`@alwkala/tidyfactor-next`](https://www.npmjs.com/package/@alwkala/tidyfactor-next) |
+
+---
+
 ## 📄 الترخيص والمجتمع
 
-مرخصة تحت رخصة [MIT License](LICENSE). بُنيت بحب بواسطة فريق [الوكالة Alwkala](https://alwkala.com).
+مرخصة تحت رخصة [MIT License](LICENSE). بُنيت بدقة معمارية بواسطة فريق [الوكالة الرقمية Alwkala](https://alwkala.com) لصالح [منظومة TidyFactor](https://tidyfactor.com).
 
 </div>

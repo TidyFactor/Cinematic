@@ -1,25 +1,30 @@
 <div align="center">
 
-# 🎬 Cinematic Landing Kit `v3.3.3`
-## We are building the open ecosystem for AI-ready business websites.
+# 🎬 TidyFactor Cinematic `v3.3.3`
+### Scroll-Driven Luxury Experience Engine — Apple × Cartier Aesthetic for AI Agents
 
-**The official marketing website starter for the TidyFactor Ecosystem.**
-TidyFactor (Open Web Development Ecosystem)
-├── Design System
-├──── Cinematic Landing Kit   ← You are here
-├── CMS
-└── other products 
+**The official luxury experience track within the TidyFactor Community Architecture Ecosystem.**
 
-**Apple × Cartier Aesthetic — Scroll-Driven Luxury Product Landing Pages for Any AI Agent**
+```
+                TidyFactor
+                    │
+          ┌─────────┼─────────┐
+          │         │         │
+      Cinematic   Design    Styler
+          │         │         │
+      Experience Prototype Production
+          │         │         │
+       "Wow"      "Build"   "Ship"
+```
 
-[![npm version](https://img.shields.io/npm/v/@alwkala/create-cinematic-kit.svg?color=gold&style=for-the-badge&logo=npm)](https://www.npmjs.com/package/@alwkala/create-cinematic-kit)
-[![npm downloads](https://img.shields.io/npm/dm/@alwkala/create-cinematic-kit.svg?style=for-the-badge&logo=npm)](https://www.npmjs.com/package/@alwkala/create-cinematic-kit)
-[![license](https://img.shields.io/badge/license-MIT-blue.svg?style=for-the-badge)](LICENSE)
+[![npm version](https://img.shields.io/npm/v/@alwkala/tidyfactor-cinematic.svg?color=gold&style=for-the-badge&logo=npm)](https://www.npmjs.com/package/@alwkala/tidyfactor-cinematic)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
+[![GitHub](https://img.shields.io/badge/GitHub-TidyFactor%2FCinematic-181717.svg?style=for-the-badge&logo=github)](https://github.com/TidyFactor/Cinematic)
 [![Universal AI Agents](https://img.shields.io/badge/AI%20Agents-Universal%20Compatibility-4285F4.svg?style=for-the-badge)](README.md)
 [![RTL Ready](https://img.shields.io/badge/RTL-Native%20Arabic-emerald.svg?style=for-the-badge)](README.ar.md)
 [![Zero Build](https://img.shields.io/badge/Build-Zero%20Step-purple.svg?style=for-the-badge)](#-stack--zero-build-architecture)
 
-[✨ Live Demo](https://alwkala.com/design-system-kit/) • [🚀 Quick Start](#-quick-start--usage-guide) • [⚡ Slash Commands](#-universal-17-slash-commands) • [📖 Read in Arabic (بالعربية)](README.ar.md)
+[✨ Live Demo](https://alwkala.com/design-system-kit/) • [🚀 Quick Start](#-quick-start--usage-guide) • [⚡ Slash Commands](#-universal-17-slash-commands) • [🏛️ Ecosystem Matrix](#-tidyfactor-ecosystem-architecture) • [📖 Read in Arabic (بالعربية)](README.ar.md)
 
 </div>
 
@@ -191,6 +196,39 @@ The generated output is a **pure single `index.html` file** requiring no build t
 
 ---
 
+---
+
+## 🏛️ TidyFactor Ecosystem Architecture
+
+**TidyFactor** is a modular web architecture and AI coding agent skill ecosystem built on clear separation of concerns across the product lifecycle:
+
+```
+TidyFactor Organization (github.com/TidyFactor)
+│
+├── Cinematic       → Experience / "Wow"      (Apple × Cartier Scroll-Driven Landing Pages)
+├── Design          → Prototype / "Build"     (Code-Native UI Design Engine & Figma Alternative)
+├── Styler          → Production / "Ship"     (Framework Styler & RTL Polish Engine)
+│
+├── Marketing       → Growth / Revenue        (Direct Response, Pillar SEO & Content Lifecycles)
+├── Next            → Multi-Tenant SaaS       (Next.js 16, React 19, Supabase RLS & Dev-Perf)
+├── HTML            → Content & Static        (Semantic SEO & Static Platform Starter)
+├── JS              → Vanilla SPA             (Framework-Free Reactive ES Modules)
+├── PHP             → Server-Rendered         (Modern PHP 8.x Component UI & Architecture)
+└── HTMX            → Hypermedia              (Server-Driven Micro-Interactions)
+```
+
+### 📦 Community Package & Skill Parity
+
+| Track | Stage / Value | GitHub Repository | Agent Skill | NPM Package |
+| :--- | :--- | :--- | :--- | :--- |
+| **Cinematic** | **Experience ("Wow")** | [`TidyFactor/Cinematic`](https://github.com/TidyFactor/Cinematic) | `tidyfactor-cinematic` | [`@alwkala/tidyfactor-cinematic`](https://www.npmjs.com/package/@alwkala/tidyfactor-cinematic) |
+| **Design** | **Prototype ("Build")** | [`TidyFactor/Design`](https://github.com/TidyFactor/Design) | `tidyfactor-design` | [`@alwkala/tidyfactor-design`](https://www.npmjs.com/package/@alwkala/tidyfactor-design) |
+| **Styler** | **Production ("Ship")** | [`TidyFactor/Styler`](https://github.com/TidyFactor/Styler) | `tidyfactor-styler` | [`@alwkala/tidyfactor-styler`](https://www.npmjs.com/package/@alwkala/tidyfactor-styler) |
+| **Marketing** | Growth / Strategy | [`TidyFactor/Marketing`](https://github.com/TidyFactor/Marketing) | `tidyfactor-marketing` | [`@alwkala/tidyfactor-marketing`](https://www.npmjs.com/package/@alwkala/tidyfactor-marketing) |
+| **Next** | Multi-Tenant SaaS | [`TidyFactor/Next`](https://github.com/TidyFactor/Next) | `tidyfactor-next` | [`@alwkala/tidyfactor-next`](https://www.npmjs.com/package/@alwkala/tidyfactor-next) |
+
+---
+
 ## 📄 License & Ecosystem
 
-Licensed under the [MIT License](LICENSE). Built with ❤️ by [Alwkala](https://alwkala.com).
+Licensed under the [MIT License](LICENSE). Built with architectural precision by [Alwkala Digital Agency](https://alwkala.com) for the [TidyFactor Ecosystem](https://tidyfactor.com).
