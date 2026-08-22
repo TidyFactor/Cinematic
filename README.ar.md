@@ -1,6 +1,6 @@
 <div dir="rtl" align="right">
 
-# 🎬 حزمة الصفحات السينمائية — TidyFactor Cinematic `v3.3.3`
+# 🎬 حزمة الصفحات السينمائية — TidyFactor Cinematic `v3.4.0`
 ### محرك التجارب الفاخرة التفاعلية بالتمرير — جماليات Apple × Cartier لوكلاء الذكاء الاصطناعي
 
 **المسار الرسمي للتجارب البصرية الفاخرة ضمن منظومة TidyFactor المعمارية.**
@@ -17,8 +17,8 @@
        "Wow"      "Build"   "Ship"
 ```
 
-[![npm version](https://img.shields.io/npm/v/@alwkala/create-cinematic-kit.svg?color=gold&style=for-the-badge&logo=npm)](https://www.npmjs.com/package/@alwkala/create-cinematic-kit)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
+[![npm version](https://img.shields.io/npm/v/@alwkala/tidyfactor-cinematic.svg?color=gold&style=for-the-badge&logo=npm)](https://www.npmjs.com/package/@alwkala/tidyfactor-cinematic)
+[![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-blue.svg?style=for-the-badge)](LICENSE)
 [![GitHub](https://img.shields.io/badge/GitHub-TidyFactor%2FCinematic-181717.svg?style=for-the-badge&logo=github)](https://github.com/TidyFactor/Cinematic)
 [![Universal AI Agents](https://img.shields.io/badge/AI%20Agents-Universal%20Compatibility-4285F4.svg?style=for-the-badge)](README.ar.md)
 [![English Docs](https://img.shields.io/badge/Docs-English-blue.svg?style=for-the-badge)](README.md)

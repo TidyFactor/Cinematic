@@ -1,7 +1,7 @@
 {
   "name": "@alwkala/tidyfactor-cinematic",
-  "version": "3.3.3",
-  "description": "TidyFactor Cinematic \u2014 Scroll-Driven Luxury Experience Engine \u2014 Apple \u00d7 Cartier Aesthetic for AI Agents",
+  "version": "3.4.0",
+  "description": "TidyFactor Cinematic — Scroll-Driven Luxury Experience Engine — Apple × Cartier Aesthetic for AI Agents",
   "main": "bin/create-kit.js",
   "bin": {
     "tidyfactor-cinematic": "bin/create-kit.js",

@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🎬 TidyFactor Cinematic `v3.3.3`
+# 🎬 TidyFactor Cinematic `v3.4.0`
 ### Scroll-Driven Luxury Experience Engine — Apple × Cartier Aesthetic for AI Agents
 
 **The official luxury experience track within the TidyFactor Community Architecture Ecosystem.**
@@ -17,8 +17,8 @@
        "Wow"      "Build"   "Ship"
 ```
 
-[![npm version](https://img.shields.io/npm/v/@alwkala/create-cinematic-kit.svg?color=gold&style=for-the-badge&logo=npm)](https://www.npmjs.com/package/@alwkala/create-cinematic-kit)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
+[![npm version](https://img.shields.io/npm/v/@alwkala/tidyfactor-cinematic.svg?color=gold&style=for-the-badge&logo=npm)](https://www.npmjs.com/package/@alwkala/tidyfactor-cinematic)
+[![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-blue.svg?style=for-the-badge)](LICENSE)
 [![GitHub](https://img.shields.io/badge/GitHub-TidyFactor%2FCinematic-181717.svg?style=for-the-badge&logo=github)](https://github.com/TidyFactor/Cinematic)
 [![Universal AI Agents](https://img.shields.io/badge/AI%20Agents-Universal%20Compatibility-4285F4.svg?style=for-the-badge)](README.md)
 [![RTL Ready](https://img.shields.io/badge/RTL-Native%20Arabic-emerald.svg?style=for-the-badge)](README.ar.md)

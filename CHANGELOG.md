@@ -5,6 +5,24 @@ All notable changes to the **[@alwkala/create-cinematic-kit](https://www.npmjs.c
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.4.0] - 2026-08-23
+
+### 📜 License & Ecosystem Parity Synchronization
+- **Apache-2.0 License Standardization**: Synchronized license badge in `README.md` and `README.ar.md` to `Apache-2.0`, aligning with `package.json`, `.tidyfactor`, and `LICENSE`.
+- **Ecosystem Package Parity**: Standardized canonical NPM package name as `@alwkala/tidyfactor-cinematic` (with `@alwkala/create-cinematic-kit` compatibility).
+
+### Added & Enhanced from Test Learnings (`arome-royal-landing`)
+- **AI Background Removal & Cutout Refinement Tool (`scripts/refine_assets.py`)**:
+  - Integrated Python AI background removal script using `rembg` to remove square background box artifacts across product cutouts and build 93-frame canvas scroll sequences with ambient luxury color shifts.
+- **New Skill Command (`polish`)**:
+  - Registered command 17 (`polish`) and specification `references/commands/polish.md` for UI conversion polish.
+  - Glassmorphic mobile navigation drawer overlay (`#mobileNavOverlay`) with blur backdrop (`backdrop-filter: blur(24px)`) and auto-dismiss link handlers.
+  - Floating WhatsApp pulse button (`#waBubble` / `#wa-float`) with pre-filled deep links (`wa.me/<NUMBER>?text=...`).
+  - Floating scroll-to-top button (`#scrollTopBtn`) appearing past 300px scroll depth with Lenis smooth ticker scroll.
+  - Touch momentum physics configured in Lenis (`smoothTouch: true`, `touchMultiplier: 1.5`).
+
+---
+
 ## [3.3.3] - 2026-07-28
 
 ### 🌟 Added New Automotive Layout & Skill Memory Enhancements
@@ -14,15 +32,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Skill Memory & Routing Hardening**:
   - Updated `memory/10-use-cases.md`, `memory/12-arabic-typography.md`, `AGENTS.md`, `SKILL.md` to support 8 layout options (`film`, `story`, `space`, `app`, `creator`, `product`, `store`, `auto`).
   - Standardized interactive AI Agent prompts to present all 8 layout options consistently with clear Arabic & English descriptions.
-
-## [3.4.0] - 2026-07-28
-
-### Added & Enhanced from Test Learnings (`arome-royal-landing`)
-- **AI Background Removal & Cutout Refinement Tool (`scripts/refine_assets.py`)**:
-  - Integrated Python AI background removal script using `rembg` to remove square background box artifacts across product cutouts and build 93-frame canvas scroll sequences with ambient luxury color shifts.
-- **New Skill Command (`polish`)**:
-  - Registered command 17 (`polish`) and specification `references/commands/polish.md` for UI conversion polish.
-  - Glassmorphic mobile navigation drawer overlay (`#mobileNavOverlay`) with blur backdrop (`backdrop-filter: blur(24px)`) and auto-dismiss link handlers.
   - Floating WhatsApp pulse button (`#waBubble` / `#wa-float`) with pre-filled deep links (`wa.me/<NUMBER>?text=...`).
   - Floating scroll-to-top button (`#scrollTopBtn`) appearing past 300px scroll depth with Lenis smooth ticker scroll.
   - Touch momentum physics configured in Lenis (`smoothTouch: true`, `touchMultiplier: 1.5`).
