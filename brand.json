@@ -1,7 +1,7 @@
 {
   "name": "TidyFactor Cinematic",
   "version": "3.5.0",
-  "$schema": "brand-core-v1",
+  "schemaVersion": "brand-core-v2",
   "meta": {
     "product": "TidyFactor Cinematic",
     "tagline": "Scroll-Driven Luxury Experience Engine — Apple × Cartier Aesthetic",
