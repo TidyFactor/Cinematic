@@ -1,6 +1,6 @@
 {
   "name": "@alwkala/tidyfactor-cinematic",
-  "version": "3.4.0",
+  "version": "3.5.0",
   "description": "TidyFactor Cinematic — Scroll-Driven Luxury Experience Engine — Apple × Cartier Aesthetic for AI Agents",
   "main": "bin/create-kit.js",
   "bin": {
@@ -12,11 +12,10 @@
   },
   "scripts": {
     "test": "node ./bin/create-kit.js --help",
-    "validate": "node tools/validate-skill.js --sync",
-    "validate:skill": "node tools/validate-skill.js --sync",
-    "build:claude": "node tools/build-skill.js",
-    "build:antigravity": "node tools/build-antigravity.js",
-    "build:all": "npm run validate && node tools/build-skill.js && node tools/build-antigravity.js"
+    "validate": "python tools/validate_skill.py",
+    "validate:skill": "python tools/validate_skill.py",
+    "build": "node tools/build-skill.js",
+    "release": "python ../tools/release_skill.py ."
   },
   "repository": {
     "type": "git",
@@ -49,6 +48,7 @@
   },
   "files": [
     "SKILL.md",
+    "references",
     "memory",
     "templates",
     "scripts",

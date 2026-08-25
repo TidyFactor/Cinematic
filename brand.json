@@ -1,14 +1,16 @@
 {
+  "name": "TidyFactor Cinematic",
+  "version": "3.5.0",
   "$schema": "brand-core-v1",
   "meta": {
-    "product": "[Product Name]",
-    "tagline": "[One-line positioning statement]",
-    "description": "[1-2 sentence description used in <meta name=description> across all surfaces]",
-    "owner": "[Company / individual]",
-    "website": "https://example.com",
-    "repo": "https://github.com/[org]/[repo]",
-    "version": "1.0.0",
-    "lastUpdated": "2026-07-02"
+    "product": "TidyFactor Cinematic",
+    "tagline": "Scroll-Driven Luxury Experience Engine — Apple × Cartier Aesthetic",
+    "description": "Luxury scroll-driven landing pages as a single index.html with GSAP, Lenis, and canvas frame sequences.",
+    "owner": "TidyFactor Ecosystem",
+    "website": "https://tidyfactor.com",
+    "repo": "https://github.com/TidyFactor/Cinematic",
+    "version": "3.5.0",
+    "lastUpdated": "2026-08-25"
   },
 
   "voice": {

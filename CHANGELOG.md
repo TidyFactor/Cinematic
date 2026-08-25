@@ -5,6 +5,17 @@ All notable changes to the **[@alwkala/create-cinematic-kit](https://www.npmjs.c
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.5.0] - 2026-08-25
+
+### Added
+- **Contextual Decision Layer (CDL v1.0)**: Added `references/memory/decision-points.md` with thin arbitration protocol (C1–C5: Media Provider, Layout Architecture, Arabic Typography Pairing, Mood Theme, Output Scope).
+- **Brief Command (`/brief`)**: Added `references/commands/brief.md` and `references/workflows/brief.md` for pre-flight luxury design discovery.
+- **7-Axis Luxury Quality Gate (`P/H/E/S/R/V/D`)**: Added `references/memory/quality-bar.md` enforcing Apple x Cartier aesthetic, frame sequence scrubbing, and anti-slop typography.
+- **Structured References & Workflows Architecture**: Migrated memory into `references/memory/`, created `references/workflows/` (init, convert, polish, audit, variant), and scaffolded all command references in `references/commands/`.
+- **Validation & Release Suite**: Created `tools/validate_skill.py`, updated `package.json` `"bin"` map, and synchronized `brand.json` version.
+
+---
+
 ## [3.4.0] - 2026-08-23
 
 ### 📜 License & Ecosystem Parity Synchronization
