@@ -26,6 +26,12 @@
 
 [✨ المعاينة الحية (Live Demo)](https://alwkala.com/design-system-kit/) • [🚀 طريقة الاستخدام](#-طريقة-الاستخدام-والبداية-السريعة) • [⚡ قائمة الأوامر المتاحة](#-قائمة-الأوامر-الـ-١٧-كاملة) • [🏛️ معمارية المنظومة](#-معمارية-منظومة-tidyfactor) • [📖 التوثيق باللغة الإنجليزية](README.md)
 
+<br/><br/>
+
+<p align="center">
+  <img src="assets/hero-banner.png" alt="TidyFactor Cinematic Hero Banner" width="100%" />
+</p>
+
 </div>
 
 ---

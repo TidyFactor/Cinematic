@@ -1,8 +1,7 @@
 ---
 name: tidyfactor-cinematic
-description: "TidyFactor Cinematic track — builds single-file, scroll-driven luxury landing pages (Apple x Cartier aesthetic) as one index.html with CDN-only libraries (GSAP, Lenis, Tailwind) and Contextual Decision Layer (CDL). Features JPG frame-sequence canvas scrubbing and luxury Arabic typography. Trigger on commands 'brief', 'init', 'brand', 'clone-brand', 'media', 'film', 'hero', 'theme', 'typeface', 'transitions', 'i18n', 'perf', 'a11y', 'convert', 'audit', 'variant', 'deploy', 'polish', or requests like 'build a cinematic landing page', 'scroll-driven product page', 'luxury Apple-style landing page', 'صفحة هبوط سينمائية'. Anti-triggers: Do NOT use for multi-page complex web apps or backend engines."
+description: "Universal AI Agent Skill for building single-file, scroll-driven luxury landing pages (Apple x Cartier aesthetic) with zero build step, GSAP, Lenis, and scrubbed canvas frame sequence films. Trigger on commands 'brief', 'init', 'brand', 'media', 'film', 'hero', 'theme', 'typeface', 'transitions', 'i18n', 'perf', 'a11y', 'deploy', or requests for cinematic product launch pages."
 ---
-
 # TidyFactor Cinematic (Scroll-Driven Luxury Landing Pages)
 
 A command dispatcher for luxury scroll-driven landing pages (Apple × Cartier aesthetic). This router declares commands and workflows without performing execution directly.

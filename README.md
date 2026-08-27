@@ -26,6 +26,12 @@
 
 [✨ Live Demo](https://alwkala.com/design-system-kit/) • [🚀 Quick Start](#-quick-start--usage-guide) • [⚡ Slash Commands](#-universal-17-slash-commands) • [🏛️ Ecosystem Matrix](#-tidyfactor-ecosystem-architecture) • [📖 Read in Arabic (بالعربية)](README.ar.md)
 
+<br/><br/>
+
+<p align="center">
+  <img src="assets/hero-banner.png" alt="TidyFactor Cinematic Hero Banner" width="100%" />
+</p>
+
 </div>
 
 ---
