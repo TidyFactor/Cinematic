@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🎬 TidyFactor Cinematic `v3.4.0`
+# 🎬 TidyFactor Cinematic `v3.6.0`
 ### Scroll-Driven Luxury Experience Engine — Apple × Cartier Aesthetic for AI Agents
 
 **The official luxury experience track within the TidyFactor Community Architecture Ecosystem.**

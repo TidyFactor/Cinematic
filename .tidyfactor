@@ -2,7 +2,7 @@
   "ecosystem": "tidyfactor",
   "track": "cinematic",
   "name": "TidyFactor-Cinematic",
-  "version": "3.5.0",
+  "version": "3.6.0",
   "npmPackage": "@alwkala/tidyfactor-cinematic",
   "github": "https://github.com/TidyFactor/Cinematic",
   "skillFile": "../tidyfactor-cinematic-v3.5.0.skill",
