@@ -40,7 +40,7 @@
   "homepage": "https://tidyfactor.com",
   "dependencies": {
     "chalk": "^4.1.2",
-    "ora": "^5.4.1",
+    "ora": "^9.4.1",
     "prompts": "^2.4.2"
   },
   "engines": {
