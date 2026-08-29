@@ -24,7 +24,9 @@
 [![English Docs](https://img.shields.io/badge/Docs-English-blue.svg?style=for-the-badge)](README.md)
 [![Zero Build](https://img.shields.io/badge/Build-Zero%20Step-purple.svg?style=for-the-badge)](#-المكدس-التقني)
 
-[✨ المعاينة الحية (Live Demo)](https://alwkala.com/design-system-kit/) • [🚀 طريقة الاستخدام](#-طريقة-الاستخدام-والبداية-السريعة) • [⚡ قائمة الأوامر المتاحة](#-قائمة-الأوامر-الـ-١٧-كاملة) • [🏛️ معمارية المنظومة](#-معمارية-منظومة-tidyfactor) • [📖 التوثيق باللغة الإنجليزية](README.md)
+[ English ](README.md) • [ العربية ](README.ar.md) • [ فارسی ](README.fa.md) • [ Español ](README.es.md) • [ Português ](README.pt.md) • [ 简体中文 ](README.zh.md) • [ Deutsch ](README.de.md) • [ Français ](README.fr.md)
+
+[✨ المعاينة الحية (Live Demo)](https://alwkala.com/design-system-kit/) • [🚀 طريقة الاستخدام](#-طريقة-الاستخدام-والبداية-السريعة) • [⚡ قائمة الأوامر المتاحة](#-قائمة-الأوامر-الـ-١٧-كاملة) • [🏛️ معمارية المنظومة](#-معمارية-منظومة-tidyfactor)
 
 <br/><br/>
 
