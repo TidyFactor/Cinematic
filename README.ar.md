@@ -17,7 +17,7 @@
        "Wow"      "Build"   "Ship"
 ```
 
-[![npm version](https://img.shields.io/npm/v/@alwkala/tidyfactor-cinematic.svg?color=gold&style=for-the-badge&logo=npm)](https://www.npmjs.com/package/@alwkala/tidyfactor-cinematic)
+[![npm version](https://img.shields.io/npm/v/@tidyfactor/cinematic.svg?color=gold&style=for-the-badge&logo=npm)](https://www.npmjs.com/package/@tidyfactor/cinematic)
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-blue.svg?style=for-the-badge)](LICENSE)
 [![GitHub](https://img.shields.io/badge/GitHub-TidyFactor%2FCinematic-181717.svg?style=for-the-badge&logo=github)](https://github.com/TidyFactor/Cinematic)
 [![Universal AI Agents](https://img.shields.io/badge/AI%20Agents-Universal%20Compatibility-4285F4.svg?style=for-the-badge)](README.ar.md)
@@ -75,35 +75,35 @@
 
 ## 🚀 طريقة الاستخدام والبداية السريعة
 
-متاحة رسمياً على منصة NPM باسم [**`@alwkala/create-cinematic-kit`**](https://www.npmjs.com/package/@alwkala/create-cinematic-kit).
+متاحة رسمياً على منصة NPM باسم [**`@tidyfactor/cinematic`**](https://www.npmjs.com/package/@tidyfactor/cinematic).
 
 ### 1. إنشاء مشروع جديد جاهز (Scaffold)
 يولّد مجلد مشروع كامل يحتوي على قوالب HTML جاهزة (7 تصاميم فاخرة: `film`, `story`, `space`, `app`, `creator`, `product`, `store`):
 
 ```bash
 # التشغيل التفاعلي (قائمة لاختيار التصاميم والألوان)
-npx @alwkala/create-cinematic-kit
+npx @tidyfactor/cinematic
 
 # إنشاء صفحة هبوط لمنتج واحد عالية التحويل مع تحويل واتساب مباشرة
-npx @alwkala/create-cinematic-kit my-watch-shop --layout=product
+npx @tidyfactor/cinematic my-watch-shop --layout=product
 
 # إنشاء متجر كالوج المنتجات المتعددة مع تحويل الواتساب
-npx @alwkala/create-cinematic-kit my-boutique-store --layout=store
+npx @tidyfactor/cinematic my-boutique-store --layout=store
 
 # قالب مجلة السيارات والأداء العالي والتجمعات
-npx @alwkala/create-cinematic-kit my-car-hub --layout=auto
+npx @tidyfactor/cinematic my-car-hub --layout=auto
 
 # العرض السينمائي الكامل (عطور، ساعات، سيارات)
-npx @alwkala/create-cinematic-kit my-perfume-brand --layout=film
+npx @tidyfactor/cinematic my-perfume-brand --layout=film
 
 # إنشاء صفحة تطبيق أو منصة SaaS مع محاكاة جهاز متجاوب
-npx @alwkala/create-cinematic-kit my-saas-app --layout=app
+npx @tidyfactor/cinematic my-saas-app --layout=app
 
 # التشغيل التلقائي/لأدوات الذكاء الاصطناعي (بدون أسئلة أو توقف)
-npx @alwkala/create-cinematic-kit my-luxury-landing --yes
+npx @tidyfactor/cinematic my-luxury-landing --yes
 
 # أو التثبيت العام على جهازك وتشغيله في أي وقت
-npm install -g @alwkala/create-cinematic-kit
+npm install -g @tidyfactor/cinematic
 create-cinematic-kit my-luxury-landing --layout=store
 ```
 
@@ -111,10 +111,10 @@ create-cinematic-kit my-luxury-landing --layout=store
 قم بحقن ذاكرة وقواعد المهارة في بيئة عملك الحالية ليتمكن وكيل الذكاء الاصطناعي من بنائها وتطويرها:
 
 ```bash
-npx @alwkala/create-cinematic-kit add-skill
+npx @tidyfactor/cinematic add-skill
 
 # تحديث وتحديث الملفات القائمة إلى أحدث إصدار
-npx @alwkala/create-cinematic-kit add-skill --force
+npx @tidyfactor/cinematic add-skill --force
 ```
 
 يضيف ملف `AGENTS.md` والمهارات والملفات المرجعية (`memory/`) والتوكنز المعتمدة في `brand.json` كمصدر وحيد للهوية.
@@ -241,15 +241,15 @@ npx @alwkala/create-cinematic-kit add-skill --force
 
 | المسار البرمجي | الفئة | مستودع GitHub | مهارة الوكيل | حزمة NPM |
 | :--- | :--- | :--- | :--- | :--- |
-| **Cinematic** | التصميم | [`TidyFactor/Cinematic`](https://github.com/TidyFactor/Cinematic) | `tidyfactor-cinematic` | [`@alwkala/create-cinematic-kit`](https://www.npmjs.com/package/@alwkala/create-cinematic-kit) |
-| **Design** | التصميم | [`TidyFactor/Design`](https://github.com/TidyFactor/Design) | `tidyfactor-design` | [`@alwkala/tidyfactor-design`](https://www.npmjs.com/package/@alwkala/tidyfactor-design) |
-| **Styler** | التصميم | [`TidyFactor/Styler`](https://github.com/TidyFactor/Styler) | `tidyfactor-styler` | [`@alwkala/tidyfactor-styler`](https://www.npmjs.com/package/@alwkala/tidyfactor-styler) |
-| **Next** | التطوير | [`TidyFactor/Next`](https://github.com/TidyFactor/Next) | `tidyfactor-next` | [`@alwkala/tidyfactor-next`](https://www.npmjs.com/package/@alwkala/tidyfactor-next) |
-| **HTML** | التطوير | [`TidyFactor/HTML`](https://github.com/TidyFactor/HTML) | `tidyfactor-html` | [`@alwkala/tidyfactor-html`](https://www.npmjs.com/package/@alwkala/tidyfactor-html) |
-| **HTMX** | التطوير | [`TidyFactor/HTMX`](https://github.com/TidyFactor/HTMX) | `tidyfactor-htmx` | [`@alwkala/tidyfactor-htmx`](https://www.npmjs.com/package/@alwkala/tidyfactor-htmx) |
-| **JS** | التطوير | [`TidyFactor/JS`](https://github.com/TidyFactor/JS) | `tidyfactor-js` | [`@alwkala/tidyfactor-js`](https://www.npmjs.com/package/@alwkala/tidyfactor-js) |
-| **PHP** | التطوير | [`TidyFactor/PHP`](https://github.com/TidyFactor/PHP) | `tidyfactor-php` | [`@alwkala/tidyfactor-php`](https://www.npmjs.com/package/@alwkala/tidyfactor-php) |
-| **Marketing** | النمو | [`TidyFactor/Marketing`](https://github.com/TidyFactor/Marketing) | `tidyfactor-marketing` | [`@alwkala/tidyfactor-marketing`](https://www.npmjs.com/package/@alwkala/tidyfactor-marketing) |
+| **Cinematic** | التصميم | [`TidyFactor/Cinematic`](https://github.com/TidyFactor/Cinematic) | `tidyfactor-cinematic` | [`@tidyfactor/cinematic`](https://www.npmjs.com/package/@tidyfactor/cinematic) |
+| **Design** | التصميم | [`TidyFactor/Design`](https://github.com/TidyFactor/Design) | `tidyfactor-design` | [`@tidyfactor/design`](https://www.npmjs.com/package/@tidyfactor/design) |
+| **Styler** | التصميم | [`TidyFactor/Styler`](https://github.com/TidyFactor/Styler) | `tidyfactor-styler` | [`@tidyfactor/styler`](https://www.npmjs.com/package/@tidyfactor/styler) |
+| **Next** | التطوير | [`TidyFactor/Next`](https://github.com/TidyFactor/Next) | `tidyfactor-next` | [`@tidyfactor/next`](https://www.npmjs.com/package/@tidyfactor/next) |
+| **HTML** | التطوير | [`TidyFactor/HTML`](https://github.com/TidyFactor/HTML) | `tidyfactor-html` | [`@tidyfactor/html`](https://www.npmjs.com/package/@tidyfactor/html) |
+| **HTMX** | التطوير | [`TidyFactor/HTMX`](https://github.com/TidyFactor/HTMX) | `tidyfactor-htmx` | [`@tidyfactor/htmx`](https://www.npmjs.com/package/@tidyfactor/htmx) |
+| **JS** | التطوير | [`TidyFactor/JS`](https://github.com/TidyFactor/JS) | `tidyfactor-js` | [`@tidyfactor/js`](https://www.npmjs.com/package/@tidyfactor/js) |
+| **PHP** | التطوير | [`TidyFactor/PHP`](https://github.com/TidyFactor/PHP) | `tidyfactor-php` | [`@tidyfactor/php`](https://www.npmjs.com/package/@tidyfactor/php) |
+| **Marketing** | النمو | [`TidyFactor/Marketing`](https://github.com/TidyFactor/Marketing) | `tidyfactor-marketing` | [`@tidyfactor/marketing`](https://www.npmjs.com/package/@tidyfactor/marketing) |
 
 ---
 

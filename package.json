@@ -1,5 +1,5 @@
 {
-  "name": "@alwkala/tidyfactor-cinematic",
+  "name": "@tidyfactor/cinematic",
   "version": "3.6.0",
   "description": "TidyFactor Cinematic — Scroll-Driven Luxury Experience Engine — Apple × Cartier Aesthetic for AI Agents",
   "main": "bin/create-kit.js",
@@ -32,7 +32,7 @@
     "cli",
     "npx"
   ],
-  "author": "TidyFactor & Alwkala <hello@tidyfactor.com> (https://alwkala.com)",
+  "author": "TidyFactor <hello@tidyfactor.com> (https://tidyfactor.com)",
   "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/TidyFactor/Cinematic/issues"

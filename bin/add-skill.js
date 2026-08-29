@@ -45,7 +45,7 @@ function printBanner() {
 function printHelp() {
   printBanner();
   console.log(`  ${chalk.bold('Usage:')}`);
-  console.log(`    $ npx @alwkala/create-cinematic-kit add-skill [options]\n`);
+  console.log(`    $ npx @tidyfactor/cinematic add-skill [options]\n`);
   console.log(`  ${chalk.bold('Options:')}`);
   console.log(`    ${chalk.cyan('-f, --force')}       Overwrite existing skill files with latest v${pkg.version}`);
   console.log(`    ${chalk.cyan('-y, --yes')}         Accept all installation steps non-interactively`);

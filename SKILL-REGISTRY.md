@@ -14,7 +14,7 @@
 | **Version** | `3.3.3` |
 | **Category** | Marketing / Landing Pages |
 | **Output** | Single `index.html` file |
-| **NPM Package** | [`@alwkala/create-cinematic-kit`](https://www.npmjs.com/package/@alwkala/create-cinematic-kit) |
+| **NPM Package** | [`@tidyfactor/cinematic`](https://www.npmjs.com/package/@tidyfactor/cinematic) |
 | **GitHub** | [TidyFactor/Cinematic](https://github.com/TidyFactor/Cinematic) |
 | **Commercial Partner** | [Alwkala](https://alwkala.com) |
 

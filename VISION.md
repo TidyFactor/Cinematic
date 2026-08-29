@@ -38,5 +38,5 @@ TidyFactor Ecosystem
 ```
 
 **Commercial partner:** [Alwkala](https://alwkala.com) — provides expertise, implementation, consulting, and long-term support.  
-**NPM package:** [`@alwkala/create-cinematic-kit`](https://www.npmjs.com/package/@alwkala/create-cinematic-kit)  
+**NPM package:** [`@tidyfactor/cinematic`](https://www.npmjs.com/package/@tidyfactor/cinematic)  
 **GitHub:** [TidyFactor/Cinematic](https://github.com/TidyFactor/Cinematic)
