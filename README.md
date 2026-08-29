@@ -245,11 +245,12 @@ TidyFactor Organization (github.com/TidyFactor)
         "Wow"      "Build"   "Ship"
 ```
 
-### 📦 Community Package & Skill Parity (The 11 Official Skills)
+### 📦 Community Package & Skill Parity (The 12 Official Skills)
 
 | Track | Category | GitHub Repository | Agent Skill | NPM Package |
 | :--- | :--- | :--- | :--- | :--- |
 | **Skill-Architect** | Governance | [`TidyFactor/Skill-Architect`](https://github.com/TidyFactor/Skill-Architect) | `tidyfactor-skill-architect` | [`@alwkala/tidyfactor-skill-architect`](https://www.npmjs.com/package/@alwkala/tidyfactor-skill-architect) |
+| **GitHub** | Platform Operations | [`TidyFactor/GitHub`](https://github.com/TidyFactor/GitHub) | `tidyfactor-github` | [`@alwkala/tidyfactor-github`](https://www.npmjs.com/package/@alwkala/tidyfactor-github) |
 | **Cinematic** | Design | [`TidyFactor/Cinematic`](https://github.com/TidyFactor/Cinematic) | `tidyfactor-cinematic` | [`@alwkala/create-cinematic-kit`](https://www.npmjs.com/package/@alwkala/create-cinematic-kit) |
 | **Design** | Design | [`TidyFactor/Design`](https://github.com/TidyFactor/Design) | `tidyfactor-design` | [`@alwkala/tidyfactor-design`](https://www.npmjs.com/package/@alwkala/tidyfactor-design) |
 | **Styler** | Design | [`TidyFactor/Styler`](https://github.com/TidyFactor/Styler) | `tidyfactor-styler` | [`@alwkala/tidyfactor-styler`](https://www.npmjs.com/package/@alwkala/tidyfactor-styler) |
