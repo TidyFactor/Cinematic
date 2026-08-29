@@ -17,7 +17,7 @@
        "Wow"      "Build"   "Ship"
 ```
 
-[![npm version](https://img.shields.io/npm/v/@alwkala/tidyfactor-cinematic.svg?color=gold&style=for-the-badge&logo=npm)](https://www.npmjs.com/package/@alwkala/tidyfactor-cinematic)
+[![npm version](https://img.shields.io/npm/v/@tidyfactor/cinematic.svg?color=gold&style=for-the-badge&logo=npm)](https://www.npmjs.com/package/@tidyfactor/cinematic)
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-blue.svg?style=for-the-badge)](LICENSE)
 [![GitHub](https://img.shields.io/badge/GitHub-TidyFactor%2FCinematic-181717.svg?style=for-the-badge&logo=github)](https://github.com/TidyFactor/Cinematic)
 [![Universal AI Agents](https://img.shields.io/badge/AI%20Agents-Universal%20Compatibility-4285F4.svg?style=for-the-badge)](README.md)
@@ -86,35 +86,35 @@ AI Agent reads AGENTS.md  →  Loads memory/ & SKILL.md  →  Generates index.ht
 
 ## 🚀 Quick Start & Usage Guide
 
-Published on NPM as [**`@alwkala/create-cinematic-kit`**](https://www.npmjs.com/package/@alwkala/create-cinematic-kit).
+Published on NPM as [**`@tidyfactor/cinematic`**](https://www.npmjs.com/package/@tidyfactor/cinematic).
 
 ### Option 1: Create a Brand New Project (Scaffold)
 Scaffold a complete, ready-to-build luxury landing page project with all layout templates:
 
 ```bash
 # Interactive execution (Real terminal TTY with menu picker)
-npx @alwkala/create-cinematic-kit
+npx @tidyfactor/cinematic
 
 # Single product high-conversion e-commerce + WhatsApp layout
-npx @alwkala/create-cinematic-kit my-watch-shop --layout=product
+npx @tidyfactor/cinematic my-watch-shop --layout=product
 
 # Multi-product WhatsApp catalog store layout
-npx @alwkala/create-cinematic-kit my-boutique-store --layout=store
+npx @tidyfactor/cinematic my-boutique-store --layout=store
 
 # Automotive & Performance magazine layout (Cars, Racing, Community)
-npx @alwkala/create-cinematic-kit my-car-hub --layout=auto
+npx @tidyfactor/cinematic my-car-hub --layout=auto
 
 # Luxury film scroll layout (Perfume, Watches, Automotive)
-npx @alwkala/create-cinematic-kit my-perfume-brand --layout=film
+npx @tidyfactor/cinematic my-perfume-brand --layout=film
 
 # SaaS App / Platform device mockup layout
-npx @alwkala/create-cinematic-kit my-saas-app --layout=app
+npx @tidyfactor/cinematic my-saas-app --layout=app
 
 # Non-interactive / AI Agent / CI mode (automated defaults, zero prompts)
-npx @alwkala/create-cinematic-kit my-luxury-landing --yes
+npx @tidyfactor/cinematic my-luxury-landing --yes
 
 # Or install globally and run anytime
-npm install -g @alwkala/create-cinematic-kit
+npm install -g @tidyfactor/cinematic
 create-cinematic-kit my-luxury-landing --layout=store
 ```
 
@@ -122,10 +122,10 @@ create-cinematic-kit my-luxury-landing --layout=store
 Inject the Agent Skill, rules, memory, and references into an existing workspace:
 
 ```bash
-npx @alwkala/create-cinematic-kit add-skill
+npx @tidyfactor/cinematic add-skill
 
 # Force update existing workspace rules to latest version
-npx @alwkala/create-cinematic-kit add-skill --force
+npx @tidyfactor/cinematic add-skill --force
 ```
 
 This installs `.agents/skills/cinematic-landing-kit/` and `AGENTS.md`, enabling your AI coding agent to construct and maintain the page using `brand.json` as the single source of truth for design tokens.
@@ -251,18 +251,18 @@ TidyFactor Organization (github.com/TidyFactor)
 
 | Track | Category | GitHub Repository | Agent Skill | NPM Package |
 | :--- | :--- | :--- | :--- | :--- |
-| **Skill-Architect** | Governance | [`TidyFactor/Skill-Architect`](https://github.com/TidyFactor/Skill-Architect) | `tidyfactor-skill-architect` | [`@alwkala/tidyfactor-skill-architect`](https://www.npmjs.com/package/@alwkala/tidyfactor-skill-architect) |
-| **GitHub** | Platform Operations | [`TidyFactor/GitHub`](https://github.com/TidyFactor/GitHub) | `tidyfactor-github` | [`@alwkala/tidyfactor-github`](https://www.npmjs.com/package/@alwkala/tidyfactor-github) |
-| **Cinematic** | Design | [`TidyFactor/Cinematic`](https://github.com/TidyFactor/Cinematic) | `tidyfactor-cinematic` | [`@alwkala/create-cinematic-kit`](https://www.npmjs.com/package/@alwkala/create-cinematic-kit) |
-| **Design** | Design | [`TidyFactor/Design`](https://github.com/TidyFactor/Design) | `tidyfactor-design` | [`@alwkala/tidyfactor-design`](https://www.npmjs.com/package/@alwkala/tidyfactor-design) |
-| **Styler** | Design | [`TidyFactor/Styler`](https://github.com/TidyFactor/Styler) | `tidyfactor-styler` | [`@alwkala/tidyfactor-styler`](https://www.npmjs.com/package/@alwkala/tidyfactor-styler) |
-| **Doc** | Documentation | [`TidyFactor/Doc`](https://github.com/TidyFactor/Doc) | `tidyfactor-doc` | [`@alwkala/tidyfactor-doc`](https://www.npmjs.com/package/@alwkala/tidyfactor-doc) |
-| **Next** | Development | [`TidyFactor/Next`](https://github.com/TidyFactor/Next) | `tidyfactor-next` | [`@alwkala/tidyfactor-next`](https://www.npmjs.com/package/@alwkala/tidyfactor-next) |
-| **HTML** | Development | [`TidyFactor/HTML`](https://github.com/TidyFactor/HTML) | `tidyfactor-html` | [`@alwkala/tidyfactor-html`](https://www.npmjs.com/package/@alwkala/tidyfactor-html) |
-| **HTMX** | Development | [`TidyFactor/HTMX`](https://github.com/TidyFactor/HTMX) | `tidyfactor-htmx` | [`@alwkala/tidyfactor-htmx`](https://www.npmjs.com/package/@alwkala/tidyfactor-htmx) |
-| **JS** | Development | [`TidyFactor/JS`](https://github.com/TidyFactor/JS) | `tidyfactor-js` | [`@alwkala/tidyfactor-js`](https://www.npmjs.com/package/@alwkala/tidyfactor-js) |
-| **PHP** | Development | [`TidyFactor/PHP`](https://github.com/TidyFactor/PHP) | `tidyfactor-php` | [`@alwkala/tidyfactor-php`](https://www.npmjs.com/package/@alwkala/tidyfactor-php) |
-| **Marketing** | Growth | [`TidyFactor/Marketing`](https://github.com/TidyFactor/Marketing) | `tidyfactor-marketing` | [`@alwkala/tidyfactor-marketing`](https://www.npmjs.com/package/@alwkala/tidyfactor-marketing) |
+| **Skill-Architect** | Governance | [`TidyFactor/Skill-Architect`](https://github.com/TidyFactor/Skill-Architect) | `tidyfactor-skill-architect` | [`@tidyfactor/skill-architect`](https://www.npmjs.com/package/@tidyfactor/skill-architect) |
+| **GitHub** | Platform Operations | [`TidyFactor/GitHub`](https://github.com/TidyFactor/GitHub) | `tidyfactor-github` | [`@tidyfactor/github`](https://www.npmjs.com/package/@tidyfactor/github) |
+| **Cinematic** | Design | [`TidyFactor/Cinematic`](https://github.com/TidyFactor/Cinematic) | `tidyfactor-cinematic` | [`@tidyfactor/cinematic`](https://www.npmjs.com/package/@tidyfactor/cinematic) |
+| **Design** | Design | [`TidyFactor/Design`](https://github.com/TidyFactor/Design) | `tidyfactor-design` | [`@tidyfactor/design`](https://www.npmjs.com/package/@tidyfactor/design) |
+| **Styler** | Design | [`TidyFactor/Styler`](https://github.com/TidyFactor/Styler) | `tidyfactor-styler` | [`@tidyfactor/styler`](https://www.npmjs.com/package/@tidyfactor/styler) |
+| **Doc** | Documentation | [`TidyFactor/Doc`](https://github.com/TidyFactor/Doc) | `tidyfactor-doc` | [`@tidyfactor/doc`](https://www.npmjs.com/package/@tidyfactor/doc) |
+| **Next** | Development | [`TidyFactor/Next`](https://github.com/TidyFactor/Next) | `tidyfactor-next` | [`@tidyfactor/next`](https://www.npmjs.com/package/@tidyfactor/next) |
+| **HTML** | Development | [`TidyFactor/HTML`](https://github.com/TidyFactor/HTML) | `tidyfactor-html` | [`@tidyfactor/html`](https://www.npmjs.com/package/@tidyfactor/html) |
+| **HTMX** | Development | [`TidyFactor/HTMX`](https://github.com/TidyFactor/HTMX) | `tidyfactor-htmx` | [`@tidyfactor/htmx`](https://www.npmjs.com/package/@tidyfactor/htmx) |
+| **JS** | Development | [`TidyFactor/JS`](https://github.com/TidyFactor/JS) | `tidyfactor-js` | [`@tidyfactor/js`](https://www.npmjs.com/package/@tidyfactor/js) |
+| **PHP** | Development | [`TidyFactor/PHP`](https://github.com/TidyFactor/PHP) | `tidyfactor-php` | [`@tidyfactor/php`](https://www.npmjs.com/package/@tidyfactor/php) |
+| **Marketing** | Growth | [`TidyFactor/Marketing`](https://github.com/TidyFactor/Marketing) | `tidyfactor-marketing` | [`@tidyfactor/marketing`](https://www.npmjs.com/package/@tidyfactor/marketing) |
 
 ---
 

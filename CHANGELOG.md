@@ -1,6 +1,6 @@
 # Changelog - Cinematic Landing Kit
 
-All notable changes to the **[@alwkala/create-cinematic-kit](https://www.npmjs.com/package/@alwkala/create-cinematic-kit)** package will be documented in this file.
+All notable changes to the **[@tidyfactor/cinematic](https://www.npmjs.com/package/@tidyfactor/cinematic)** package will be documented in this file.
 
 ## [3.6.0] - 2026-08-29
 
@@ -28,7 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### 📜 License & Ecosystem Parity Synchronization
 - **Apache-2.0 License Standardization**: Synchronized license badge in `README.md` and `README.ar.md` to `Apache-2.0`, aligning with `package.json`, `.tidyfactor`, and `LICENSE`.
-- **Ecosystem Package Parity**: Standardized canonical NPM package name as `@alwkala/tidyfactor-cinematic` (with `@alwkala/create-cinematic-kit` compatibility).
+- **Ecosystem Package Parity**: Standardized canonical NPM package name as `@tidyfactor/cinematic` (with `@tidyfactor/cinematic` compatibility).
 
 ### Added & Enhanced from Test Learnings (`arome-royal-landing`)
 - **AI Background Removal & Cutout Refinement Tool (`scripts/refine_assets.py`)**:
@@ -69,13 +69,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed & Enhanced
 - **Subcommand Delegation & `npx` Resolution (`bin/create-kit.js`)**:
-  - Added automatic CLI subcommand delegation so running `npx @alwkala/create-cinematic-kit add-skill` (or `add-cinematic-skill`, `skill`) directly invokes `bin/add-skill.js`.
+  - Added automatic CLI subcommand delegation so running `npx @tidyfactor/cinematic add-skill` (or `add-cinematic-skill`, `skill`) directly invokes `bin/add-skill.js`.
   - Solved `404` npm registry lookup errors caused by executing un-scoped `npx add-cinematic-skill`.
 - **Installer Consistency & In-Place Upgrades (`bin/add-skill.js`)**:
   - Added `--force` (`-f`), `--yes` (`-y`), `--version` (`-v`), and `--help` (`-h`) CLI flags.
   - Automatically updates existing workspace `AGENTS.md` rules and `.claude-skill` wrappers to version `3.3.1` definitions.
 - **Documentation Alignment**:
-  - Updated `README.md`, `README.ar.md`, `AGENTS.md`, and `SKILL.md` to reflect the correct `npx @alwkala/create-cinematic-kit add-skill` execution command.
+  - Updated `README.md`, `README.ar.md`, `AGENTS.md`, and `SKILL.md` to reflect the correct `npx @tidyfactor/cinematic add-skill` execution command.
 
 ## [3.3.0] - 2026-07-28
 
@@ -125,7 +125,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - **Enhanced Bilingual Documentation (`README.md` & `README.ar.md`)**:
-  - Overhauled Getting Started & Quick Start sections with clear step-by-step installation options (`npx @alwkala/create-cinematic-kit`, `npm install -g`, interactive mode).
+  - Overhauled Getting Started & Quick Start sections with clear step-by-step installation options (`npx @tidyfactor/cinematic`, `npm install -g`, interactive mode).
   - Detailed Agent Skill Injection guide (`npx add-cinematic-skill`) covering all production lifecycle use cases (Init, Convert, Audit/Improve, Variant).
   - Complete 16-Command Reference Table in both Arabic and English documenting purpose, function, and reference specs (`references/commands/*.md`).
 - **Fixes**:
@@ -135,7 +135,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - **Dynamic Versioning in CLI Tools**:
-  - `bin/create-kit.js` (`npx @alwkala/create-cinematic-kit`) and `bin/add-skill.js` (`npx add-cinematic-skill`) now dynamically load version from `package.json` instead of hardcoded version strings.
+  - `bin/create-kit.js` (`npx @tidyfactor/cinematic`) and `bin/add-skill.js` (`npx add-cinematic-skill`) now dynamically load version from `package.json` instead of hardcoded version strings.
 - **Universal 16-Command Modular Skill Architecture**:
   - Upgraded `.agents/skills/cinematic-landing-kit/SKILL.md` with complete 16-command trigger system (`init`, `brand`, `clone-brand`, `media`, `film`, `hero`, `theme`, `typeface`, `transitions`, `i18n`, `perf`, `a11y`, `convert`, `audit`, `variant`, `deploy`).
   - Added `.agents/skills/cinematic-landing-kit/references/commands/` containing all 18 reference specification files.
@@ -144,7 +144,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Created `tools/validate-skill.js` to verify YAML frontmatter, command completeness, broken file references, and directory structure.
   - Pre-build validation integrated into `tools/build-skill.js` and `tools/build-antigravity.js`.
 - **Automated Skill Scaffolding**:
-  - `npx @alwkala/create-cinematic-kit` now automatically embeds `.agents/skills/cinematic-landing-kit/` and `.claude-skill/` into scaffolded projects.
+  - `npx @tidyfactor/cinematic` now automatically embeds `.agents/skills/cinematic-landing-kit/` and `.claude-skill/` into scaffolded projects.
 - **GitHub Release & CI/CD Workflows**:
   - Added `.github/workflows/skill-ci.yml` for automated PR/branch validation.
   - Added `.github/workflows/release.yml` for automated package builds and publishing on GitHub release/tag creation.
@@ -180,8 +180,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.0] - 2026-07-26
 
 ### Added
-- **NPM Package Release**: Published package to NPM registry as [`@alwkala/create-cinematic-kit`](https://www.npmjs.com/package/@alwkala/create-cinematic-kit).
-- **Project Scaffold CLI (`npx @alwkala/create-cinematic-kit`)**:
+- **NPM Package Release**: Published package to NPM registry as [`@tidyfactor/cinematic`](https://www.npmjs.com/package/@tidyfactor/cinematic).
+- **Project Scaffold CLI (`npx @tidyfactor/cinematic`)**:
   - Interactive project generator supporting 5 cinematic layout templates (`fullbleed`, `editorial`, `spatial`, `interface`, `minimal`).
   - Supports non-interactive flags (`--layout=editorial`).
   - Scaffolds complete landing page workspace with `index.html`, `brand.json`, `AGENTS.md`, `memory/`, `scripts/`, and python asset processing pipeline.
