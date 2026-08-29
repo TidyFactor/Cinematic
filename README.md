@@ -24,7 +24,9 @@
 [![RTL Ready](https://img.shields.io/badge/RTL-Native%20Arabic-emerald.svg?style=for-the-badge)](README.ar.md)
 [![Zero Build](https://img.shields.io/badge/Build-Zero%20Step-purple.svg?style=for-the-badge)](#-stack--zero-build-architecture)
 
-[✨ Live Demo](https://alwkala.com/design-system-kit/) • [🚀 Quick Start](#-quick-start--usage-guide) • [⚡ Slash Commands](#-universal-17-slash-commands) • [🏛️ Ecosystem Matrix](#-tidyfactor-ecosystem-architecture) • [📖 Read in Arabic (بالعربية)](README.ar.md)
+[ English ](README.md) • [ العربية ](README.ar.md) • [ فارسی ](README.fa.md) • [ Español ](README.es.md) • [ Português ](README.pt.md) • [ 简体中文 ](README.zh.md) • [ Deutsch ](README.de.md) • [ Français ](README.fr.md)
+
+[✨ Live Demo](https://alwkala.com/design-system-kit/) • [🚀 Quick Start](#-quick-start--usage-guide) • [⚡ Slash Commands](#-universal-17-slash-commands) • [🏛️ Ecosystem Matrix](#-tidyfactor-ecosystem-architecture)
 
 <br/><br/>
 
