@@ -84,51 +84,42 @@ AI Agent reads AGENTS.md  →  Loads memory/ & SKILL.md  →  Generates index.ht
 
 ---
 
-## 🚀 Quick Start & Usage Guide
+## 🚀 Installation & Quick Start
 
-Published on NPM as [**`@tidyfactor/cinematic`**](https://www.npmjs.com/package/@tidyfactor/cinematic).
+Choose your preferred installation method:
 
-### Option 1: Create a Brand New Project (Scaffold)
-Scaffold a complete, ready-to-build luxury landing page project with all layout templates:
-
+### Option A: Via TidyFactor CLI (Recommended)
+Install directly using the official ecosystem package runner into your active workspace:
 ```bash
-# Interactive execution (Real terminal TTY with menu picker)
-npx @tidyfactor/cinematic
-
-# Single product high-conversion e-commerce + WhatsApp layout
-npx @tidyfactor/cinematic my-watch-shop --layout=product
-
-# Multi-product WhatsApp catalog store layout
-npx @tidyfactor/cinematic my-boutique-store --layout=store
-
-# Automotive & Performance magazine layout (Cars, Racing, Community)
-npx @tidyfactor/cinematic my-car-hub --layout=auto
-
-# Luxury film scroll layout (Perfume, Watches, Automotive)
-npx @tidyfactor/cinematic my-perfume-brand --layout=film
-
-# SaaS App / Platform device mockup layout
-npx @tidyfactor/cinematic my-saas-app --layout=app
-
-# Non-interactive / AI Agent / CI mode (automated defaults, zero prompts)
-npx @tidyfactor/cinematic my-luxury-landing --yes
-
-# Or install globally and run anytime
-npm install -g @tidyfactor/cinematic
-create-cinematic-kit my-luxury-landing --layout=store
+npx @tidyfactor/cli add cinematic
+```
+*Or if you have the CLI installed globally (`npm i -g @tidyfactor/cli`):*
+```bash
+tidyfactor add cinematic
 ```
 
-### Option 2: Inject Agent Skill into an Existing Project
-Inject the Agent Skill, rules, memory, and references into an existing workspace:
-
+### Option B: Via Open Agent Skills Ecosystem (skills.sh / Vercel Labs)
+Install using the universal multi-agent standard across all supported IDEs (Cursor, Antigravity, Claude Code, Windsurf, Trae, Codex):
 ```bash
-npx @tidyfactor/cinematic add-skill
-
-# Force update existing workspace rules to latest version
-npx @tidyfactor/cinematic add-skill --force
+npx skills add tidyfactor/cinematic
 ```
 
-This installs `.agents/skills/cinematic-landing-kit/` and `AGENTS.md`, enabling your AI coding agent to construct and maintain the page using `brand.json` as the single source of truth for design tokens.
+### Option C: Standalone Zero-Dependency Runner (NPM Direct)
+Run the dedicated skill installer directly with automatic cache invalidation:
+```bash
+npx @tidyfactor/cinematic@latest
+```
+
+### 🎬 Standalone Project Scaffolding (Templates)
+Scaffold a complete luxury landing page project with all layout templates:
+
+```bash
+# Interactive execution (picker for film, story, space, app, creator, product, store)
+npx @tidyfactor/cinematic@latest my-watch-shop --layout=product
+
+# Non-interactive / CI mode (automated defaults)
+npx @tidyfactor/cinematic@latest my-luxury-landing --yes
+```
 
 ---
 

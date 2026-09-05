@@ -73,51 +73,42 @@
 
 ---
 
-## 🚀 طريقة الاستخدام والبداية السريعة
+## 🚀 التثبيت والبدء السريع
 
-متاحة رسمياً على منصة NPM باسم [**`@tidyfactor/cinematic`**](https://www.npmjs.com/package/@tidyfactor/cinematic).
+اختر طريقة التثبيت المناسبة لمشروعك:
 
-### 1. إنشاء مشروع جديد جاهز (Scaffold)
-يولّد مجلد مشروع كامل يحتوي على قوالب HTML جاهزة (7 تصاميم فاخرة: `film`, `story`, `space`, `app`, `creator`, `product`, `store`):
-
+### الخيار (أ): عبر TidyFactor CLI الرسمي (الموصى به)
+التثبيت الفوري دون الحاجة لتثبيت الأداة عالمياً في بيئة عملك النشطة:
 ```bash
-# التشغيل التفاعلي (قائمة لاختيار التصاميم والألوان)
-npx @tidyfactor/cinematic
-
-# إنشاء صفحة هبوط لمنتج واحد عالية التحويل مع تحويل واتساب مباشرة
-npx @tidyfactor/cinematic my-watch-shop --layout=product
-
-# إنشاء متجر كالوج المنتجات المتعددة مع تحويل الواتساب
-npx @tidyfactor/cinematic my-boutique-store --layout=store
-
-# قالب مجلة السيارات والأداء العالي والتجمعات
-npx @tidyfactor/cinematic my-car-hub --layout=auto
-
-# العرض السينمائي الكامل (عطور، ساعات، سيارات)
-npx @tidyfactor/cinematic my-perfume-brand --layout=film
-
-# إنشاء صفحة تطبيق أو منصة SaaS مع محاكاة جهاز متجاوب
-npx @tidyfactor/cinematic my-saas-app --layout=app
-
-# التشغيل التلقائي/لأدوات الذكاء الاصطناعي (بدون أسئلة أو توقف)
-npx @tidyfactor/cinematic my-luxury-landing --yes
-
-# أو التثبيت العام على جهازك وتشغيله في أي وقت
-npm install -g @tidyfactor/cinematic
-create-cinematic-kit my-luxury-landing --layout=store
+npx @tidyfactor/cli add cinematic
+```
+*أو في حال كانت الأداة مثبتة لديك عالمياً (`npm i -g @tidyfactor/cli`):*
+```bash
+tidyfactor add cinematic
 ```
 
-### 2. حقن "مهارة" (Agent Skill) داخل مشروع قائم
-قم بحقن ذاكرة وقواعد المهارة في بيئة عملك الحالية ليتمكن وكيل الذكاء الاصطناعي من بنائها وتطويرها:
-
+### الخيار (ب): عبر معيار مهارات الوكلاء المفتوح (skills.sh)
+التثبيت العالمي المتوافق مع كافة بيئات الوكلاء ومحررات الذكاء الاصطناعي (Antigravity, Cursor, Claude Code, Windsurf, Codex):
 ```bash
-npx @tidyfactor/cinematic add-skill
-
-# تحديث وتحديث الملفات القائمة إلى أحدث إصدار
-npx @tidyfactor/cinematic add-skill --force
+npx skills add tidyfactor/cinematic
 ```
 
-يضيف ملف `AGENTS.md` والمهارات والملفات المرجعية (`memory/`) والتوكنز المعتمدة في `brand.json` كمصدر وحيد للهوية.
+### الخيار (ج): التثبيت المباشر الفردي عبر NPM
+تشغيل مثبت المهارة المستقل مباشرة مع تجاوز الذاكرة المخبأة وضمان أحدث إصدار:
+```bash
+npx @tidyfactor/cinematic@latest
+```
+
+### 🎬 توليد المشاريع المستقلة والقوالب (Scaffold)
+توليد مشروع صفحة هبوط فاخرة متكاملة بالقوالب الجاهزة:
+
+```bash
+# التشغيل التفاعلي لاختيار القالب والنمط
+npx @tidyfactor/cinematic@latest my-watch-shop --layout=product
+
+# التشغيل المؤتمت بدون توقف
+npx @tidyfactor/cinematic@latest my-luxury-landing --yes
+```
 
 الناتج النهائي هو **ملف `index.html` واحد بدون خطوة بناء (Zero-Build)** يعمل مباشرة عبر روابط CDN.
 
